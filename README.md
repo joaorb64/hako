@@ -1,4 +1,4 @@
-# Hako-Engine
+# hako
 
 Hako Game Engine
 
