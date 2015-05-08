@@ -2,6 +2,9 @@
 #define HAKO_BASE_APP_H
 
 
+#include "../common/options.h"
+
+
 namespace HakoInternal
 {
 	namespace Base
@@ -9,8 +12,8 @@ namespace HakoInternal
 		class App
 		{
 		public:
-			virtual int Init() = 0;
-			virtual int MainLoop() = 0;
+			virtual int init      (Hako::Options* options) = 0;
+			virtual int main_loop (Hako::Options* options) = 0;
 		};
 	}
 }

@@ -15,8 +15,8 @@ namespace HakoInternal
 		class App : public Base::App
 		{
 		public:
-			int Init() override { /* stub */ return 0; };
-			int MainLoop() override { /* stub */ return 0; };
+			int init      (Hako::Options* options) override { /* stub */ return 0; };
+			int main_loop (Hako::Options* options) override { /* stub */ return 0; };
 		};
 	}
 }

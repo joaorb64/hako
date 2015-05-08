@@ -2,6 +2,9 @@
 #define HAKO_H
 
 
+#include "common/options.h"
+
+
 #ifdef HAKO_BUILD_WIN32
 
 

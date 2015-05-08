@@ -10,9 +10,9 @@ int main()
 	/* trying the API */
 	Hako::App myApp;
 
-	myApp.Init();
+	myApp.init(nullptr);
 
-	myApp.MainLoop();
+	myApp.main_loop(nullptr);
 
 
 	return 0;

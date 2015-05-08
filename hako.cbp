@@ -12,9 +12,18 @@
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
+					<Add option="-march=core2" />
+					<Add option="-pedantic" />
+					<Add option="-std=c++11" />
+					<Add option="-Wextra" />
+					<Add option="-Wall" />
 					<Add option="-g" />
 					<Add option="-DHAKO_BUILD_WIN32" />
 				</Compiler>
+				<Linker>
+					<Add option="-static-libgcc" />
+					<Add option="-static-libstdc++" />
+				</Linker>
 			</Target>
 			<Target title="Win32 Release">
 				<Option output="bin/win32_release/hako" prefix_auto="1" extension_auto="1" />
@@ -22,11 +31,19 @@
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
+					<Add option="-march=core2" />
+					<Add option="-fexpensive-optimizations" />
 					<Add option="-O3" />
+					<Add option="-pedantic" />
+					<Add option="-std=c++11" />
+					<Add option="-Wextra" />
+					<Add option="-Wall" />
 					<Add option="-DHAKO_BUILD_WIN32" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
+					<Add option="-static-libgcc" />
+					<Add option="-static-libstdc++" />
 				</Linker>
 			</Target>
 			<Target title="Linux Debug">
@@ -35,6 +52,11 @@
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
+					<Add option="-march=core2" />
+					<Add option="-pedantic" />
+					<Add option="-std=c++11" />
+					<Add option="-Wextra" />
+					<Add option="-Wall" />
 					<Add option="-g" />
 					<Add option="-DHAKO_BUILD_LINUX" />
 				</Compiler>
@@ -45,7 +67,13 @@
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
+					<Add option="-march=core2" />
+					<Add option="-fexpensive-optimizations" />
 					<Add option="-O3" />
+					<Add option="-pedantic" />
+					<Add option="-std=c++11" />
+					<Add option="-Wextra" />
+					<Add option="-Wall" />
 					<Add option="-DHAKO_BUILD_LINUX" />
 				</Compiler>
 				<Linker>
@@ -57,6 +85,7 @@
 			<Add option="-Wall" />
 		</Compiler>
 		<Unit filename="src/base/app.h" />
+		<Unit filename="src/common/options.h" />
 		<Unit filename="src/hako.h" />
 		<Unit filename="src/main.cpp" />
 		<Unit filename="src/win32/app.h" />
