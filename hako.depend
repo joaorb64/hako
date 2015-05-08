@@ -2,3 +2,15 @@
 1431045027 source:/home/joao/hako/src/main.cpp
 	<stdio.h>
 
+1431052609 source:c:\users\henrique\downloads\hako\src\main.cpp
+	<stdio.h>
+	"hako.h"
+
+1431052559 c:\users\henrique\downloads\hako\src\hako.h
+	"win32/app.h"
+
+1431052638 c:\users\henrique\downloads\hako\src\win32\app.h
+	"../base/app.h"
+
+1431052445 c:\users\henrique\downloads\hako\src\base\app.h
+

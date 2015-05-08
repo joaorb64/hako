@@ -13,6 +13,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
+					<Add option="-DHAKO_BUILD_WIN32" />
 				</Compiler>
 			</Target>
 			<Target title="Win32 Release">
@@ -22,6 +23,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O3" />
+					<Add option="-DHAKO_BUILD_WIN32" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -34,6 +36,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
+					<Add option="-DHAKO_BUILD_LINUX" />
 				</Compiler>
 			</Target>
 			<Target title="Linux Release">
@@ -43,6 +46,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O3" />
+					<Add option="-DHAKO_BUILD_LINUX" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -52,8 +56,10 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="src/base/app.h" />
+		<Unit filename="src/hako.h" />
 		<Unit filename="src/main.cpp" />
-		<Unit filename="src/win32/win32_init.h" />
+		<Unit filename="src/win32/app.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />
