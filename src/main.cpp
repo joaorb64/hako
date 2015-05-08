@@ -4,14 +4,12 @@
 
 int main()
 {
-	printf("Hello, HAKO!\n");
+	printf("Hello, Hako!\n");
 
 
-	/* trying the API */
+	/* Trying out the API. */
 	Hako::App myApp;
-
 	myApp.init(nullptr);
-
 	myApp.main_loop(nullptr);
 
 

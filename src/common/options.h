@@ -4,9 +4,10 @@
 
 namespace Hako
 {
+	/* Holds variable information used by multiple functions. */
 	class Options
 	{
-
+		/* To be written. */
 	};
 }
 

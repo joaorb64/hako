@@ -6,6 +6,7 @@
 
 
 #include "../base/app.h"
+#include <windows.h>
 
 
 namespace HakoInternal
@@ -15,8 +16,12 @@ namespace HakoInternal
 		class App : public Base::App
 		{
 		public:
-			int init      (Hako::Options* options) override { /* stub */ return 0; };
-			int main_loop (Hako::Options* options) override { /* stub */ return 0; };
+			int init      (Hako::Options* options) override;
+			int main_loop (Hako::Options* options) override;
+
+		protected:
+			/* A Win32 handle to the main window. */
+			HWND m_hwnd_main;
 		};
 	}
 }
