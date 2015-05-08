@@ -1,6 +1,7 @@
 # depslib dependency file v1.0
-1431045027 source:/home/joao/hako/src/main.cpp
+1431057209 source:/home/joao/hako/src/main.cpp
 	<stdio.h>
+	"hako.h"
 
 1431054377 source:c:\users\henrique\downloads\hako\src\main.cpp
 	<stdio.h>
@@ -17,4 +18,16 @@
 	"../common/options.h"
 
 1431054221 c:\users\henrique\downloads\hako\src\common\options.h
+
+1431057209 /home/joao/hako/src/hako.h
+	"common/options.h"
+	"win32/app.h"
+
+1431057209 /home/joao/hako/src/common/options.h
+
+1431057209 /home/joao/hako/src/win32/app.h
+	"../base/app.h"
+
+1431057209 /home/joao/hako/src/base/app.h
+	"../common/options.h"
 

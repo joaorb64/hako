@@ -4,7 +4,7 @@
 
 int main()
 {
-	printf("Hello, world!\n");
+	printf("Hello, HAKO!\n");
 
 
 	/* trying the API */

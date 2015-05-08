@@ -17,6 +17,15 @@
 	}
 
 
+#elif HAKO_BUILD_LINUX
+
+    #include "linux/app.h"
+
+	namespace Hako
+	{
+		typedef HakoInternal::Linux::App App;
+	}
+
 #endif
 
 

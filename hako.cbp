@@ -87,6 +87,7 @@
 		<Unit filename="src/base/app.h" />
 		<Unit filename="src/common/options.h" />
 		<Unit filename="src/hako.h" />
+		<Unit filename="src/linux/app.h" />
 		<Unit filename="src/main.cpp" />
 		<Unit filename="src/win32/app.h" />
 		<Extensions>
