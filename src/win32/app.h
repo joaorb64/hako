@@ -20,7 +20,7 @@ namespace HakoInternal
 			int main_loop (Hako::Options* options) override;
 
 		protected:
-			/* A Win32 handle to the main window. */
+			// A Win32 handle to the main window.
 			HWND m_hwnd_main;
 		};
 	}

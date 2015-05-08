@@ -18,7 +18,7 @@ namespace HakoInternal
 		{
 			HINSTANCE module_handle = GetModuleHandle(NULL);
 
-			/* Create a window descriptor. */
+			// Create a window descriptor.
 			WNDCLASSEX window_descriptor;
 			window_descriptor.cbSize        = sizeof(WNDCLASSEX);
 			window_descriptor.style         = CS_OWNDC;
@@ -37,7 +37,7 @@ namespace HakoInternal
 				return -1;
 
 
-			/* Instantiate and show window to user. */
+			// Instantiate and show window to user.
 			m_hwnd_main = CreateWindowEx(0,
 				"Hako Game Engine", "Hako Game Engine",
 				WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT,
@@ -52,10 +52,10 @@ namespace HakoInternal
 
 		int App::main_loop(Hako::Options* options)
 		{
-			/* Infinite loop. Can only break when user quits the application. */
+			// Infinite loop. Can only break when user quits the application.
 			for (;;)
 			{
-				/* Process Win32 window messages. */
+				// Process Win32 window messages.
 				MSG window_msg;
 				while (PeekMessage(&window_msg, NULL, 0, 0, PM_REMOVE))
 				{
