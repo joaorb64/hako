@@ -6,6 +6,9 @@
 
 
 #include "../base/app.h"
+#include <stdio.h>
+#include <X11/Xlib.h>
+#include <string.h>
 
 
 namespace HakoInternal
@@ -15,8 +18,11 @@ namespace HakoInternal
 		class App : public Base::App
 		{
 		public:
-			int init      (Hako::Options* options) override { /* stub */ return 0; };
-			int main_loop (Hako::Options* options) override { /* stub */ return 0; };
+			int init      (Hako::Options* options) override;
+			int main_loop (Hako::Options* options) override;
+
+        protected:
+            Display *display;
 		};
 	}
 }

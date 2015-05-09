@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1431057209 source:/home/joao/hako/src/main.cpp
+1431129890 source:/home/joao/hako/src/main.cpp
 	<stdio.h>
 	"hako.h"
 
@@ -21,16 +21,18 @@
 
 1431082661 c:\users\henrique\downloads\hako\src\common\options.h
 
-1431057209 /home/joao/hako/src/hako.h
+1431129890 /home/joao/hako/src/hako.h
 	"common/options.h"
 	"win32/app.h"
+	"linux/app.h"
 
-1431057209 /home/joao/hako/src/common/options.h
+1431129890 /home/joao/hako/src/common/options.h
 
-1431057209 /home/joao/hako/src/win32/app.h
+1431129890 /home/joao/hako/src/win32/app.h
 	"../base/app.h"
+	<windows.h>
 
-1431057209 /home/joao/hako/src/base/app.h
+1431129890 /home/joao/hako/src/base/app.h
 	"../common/options.h"
 
 1431082265 c:\users\henrique\downloads\hako\src\linux\app.h
@@ -40,4 +42,22 @@
 	"app.h"
 	<windows.h>
 	<stdio.h>
+
+1431147645 /home/joao/hako/src/linux/app.h
+	"../base/app.h"
+	<stdio.h>
+	<X11/Xlib.h>
+	<string.h>
+
+1431139996 source:/home/joao/hako/src/win32/app.cpp
+	"app.h"
+	<windows.h>
+	<stdio.h>
+
+1431149998 source:/home/joao/hako/src/linux/app.cpp
+	"app.h"
+	<stdio.h>
+	<X11/X.h>
+	<X11/Xlib.h>
+	<X11/Xutil.h>
 

@@ -60,6 +60,9 @@
 					<Add option="-g" />
 					<Add option="-DHAKO_BUILD_LINUX" />
 				</Compiler>
+				<Linker>
+					<Add option="-lX11" />
+				</Linker>
 			</Target>
 			<Target title="Linux Release">
 				<Option output="bin/linux_release/hako" prefix_auto="1" extension_auto="1" />
@@ -78,6 +81,7 @@
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
+					<Add option="-lX11" />
 				</Linker>
 			</Target>
 		</Build>
@@ -87,6 +91,7 @@
 		<Unit filename="src/base/app.h" />
 		<Unit filename="src/common/options.h" />
 		<Unit filename="src/hako.h" />
+		<Unit filename="src/linux/app.cpp" />
 		<Unit filename="src/linux/app.h" />
 		<Unit filename="src/main.cpp" />
 		<Unit filename="src/win32/app.cpp" />
