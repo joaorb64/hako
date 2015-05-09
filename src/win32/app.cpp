@@ -6,7 +6,7 @@
 #include <stdio.h>
 
 
-/* Window callback function used by Win32. */
+// Window callback function used by Win32.
 LRESULT CALLBACK win32_window_callback(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
 

@@ -7,8 +7,8 @@
 
 #include "../base/app.h"
 #include <stdio.h>
-#include <X11/Xlib.h>
 #include <string.h>
+#include <X11/Xlib.h>
 
 
 namespace HakoInternal
@@ -21,8 +21,8 @@ namespace HakoInternal
 			int init      (Hako::Options* options) override;
 			int main_loop (Hako::Options* options) override;
 
-        protected:
-            Display *display;
+		protected:
+			Display *display;
 		};
 	}
 }
