@@ -7,21 +7,21 @@
 
 #ifdef HAKO_BUILD_WIN32
 
-	#include "win32/app.h"
+	#include "app_win32/app.h"
 
 	namespace Hako
 	{
-		typedef HakoInternal::Win32::App App;
+		typedef HakoInternal::Win32App App;
 	}
 
 
 #elif HAKO_BUILD_LINUX
 
-    #include "linux/app.h"
+    #include "app_linux/app.h"
 
 	namespace Hako
 	{
-		typedef HakoInternal::Linux::App App;
+		typedef HakoInternal::LinuxApp App;
 	}
 
 #endif

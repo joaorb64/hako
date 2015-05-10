@@ -19,10 +19,13 @@
 					<Add option="-Wall" />
 					<Add option="-g" />
 					<Add option="-DHAKO_BUILD_WIN32" />
+					<Add option="-DHAKO_BUILD_GFXOPENGL" />
 				</Compiler>
 				<Linker>
 					<Add option="-static-libgcc" />
 					<Add option="-static-libstdc++" />
+					<Add option="-lopengl32" />
+					<Add option="-lgdi32" />
 				</Linker>
 			</Target>
 			<Target title="Win32 Release">
@@ -39,11 +42,14 @@
 					<Add option="-Wextra" />
 					<Add option="-Wall" />
 					<Add option="-DHAKO_BUILD_WIN32" />
+					<Add option="-DHAKO_BUILD_GFXOPENGL" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
 					<Add option="-static-libgcc" />
 					<Add option="-static-libstdc++" />
+					<Add option="-lopengl32" />
+					<Add option="-lgdi32" />
 				</Linker>
 			</Target>
 			<Target title="Linux Debug">
@@ -59,6 +65,7 @@
 					<Add option="-Wall" />
 					<Add option="-g" />
 					<Add option="-DHAKO_BUILD_LINUX" />
+					<Add option="-DHAKO_BUILD_GFXOPENGL" />
 				</Compiler>
 				<Linker>
 					<Add option="-lX11" />
@@ -79,6 +86,7 @@
 					<Add option="-Wextra" />
 					<Add option="-Wall" />
 					<Add option="-DHAKO_BUILD_LINUX" />
+					<Add option="-DHAKO_BUILD_GFXOPENGL" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -90,14 +98,19 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="src/app_linux/app.cpp" />
+		<Unit filename="src/app_linux/app.h" />
+		<Unit filename="src/app_win32/app.cpp" />
+		<Unit filename="src/app_win32/app.h" />
 		<Unit filename="src/base/app.h" />
 		<Unit filename="src/common/options.h" />
+		<Unit filename="src/gfx_opengl/init.h" />
+		<Unit filename="src/gfx_opengl/init_linux.cpp" />
+		<Unit filename="src/gfx_opengl/init_win32.cpp" />
+		<Unit filename="src/gfx_opengl/render.cpp" />
+		<Unit filename="src/gfx_opengl/render.h" />
 		<Unit filename="src/hako.h" />
-		<Unit filename="src/linux/app.cpp" />
-		<Unit filename="src/linux/app.h" />
 		<Unit filename="src/main.cpp" />
-		<Unit filename="src/win32/app.cpp" />
-		<Unit filename="src/win32/app.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />
