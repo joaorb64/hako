@@ -58,7 +58,7 @@ namespace HakoInternal
 		XFlush(m_display);
 
 	#ifdef HAKO_BUILD_GFXOPENGL
-		linux_opengl_enable(m_display, &m_window);
+		OpenGL::linux_enable(m_display, &m_window);
 	#endif
 
 		return 0;
