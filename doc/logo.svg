@@ -17,8 +17,8 @@
    version="1.1"
    inkscape:version="0.91 r13725"
    viewBox="0 0 64 64"
-   sodipodi:docname="HakoLogo.svg"
-   inkscape:export-filename="/home/joao/Desktop/HakoLogo.png"
+   sodipodi:docname="logo.svg"
+   inkscape:export-filename="/home/joao/hako/doc/logo.png"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90">
   <defs
@@ -48,9 +48,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="5.5"
-     inkscape:cx="39.243668"
-     inkscape:cy="24.54504"
+     inkscape:zoom="2.75"
+     inkscape:cx="-5.5271418"
+     inkscape:cy="27.695932"
      inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:document-units="px"
@@ -69,7 +69,7 @@
      inkscape:snap-center="true"
      inkscape:snap-text-baseline="true"
      inkscape:snap-page="true"
-     inkscape:snap-global="true"
+     inkscape:snap-global="false"
      inkscape:window-width="1366"
      inkscape:window-height="720"
      inkscape:window-x="0"
@@ -90,55 +90,54 @@
   <g
      id="layer1"
      inkscape:label="Layer 1"
-     inkscape:groupmode="layer">
+     inkscape:groupmode="layer"
+     style="display:inline">
     <rect
-       style="fill:#875c1a;fill-opacity:1"
+       style="fill:#92612d;fill-opacity:1"
        id="rect3376-9"
        width="47.090908"
        height="47.090908"
        x="8.454545"
-       y="3.1818182"
-       rx="3.7672727" />
+       y="3.1818182" />
     <rect
-       style="fill:#a76f1e;fill-opacity:1"
+       style="fill:#bd8449;fill-opacity:1"
        id="rect3376"
        width="47.090908"
        height="34.43343"
        x="8.454545"
-       y="15.839295"
-       rx="3.7672727" />
+       y="15.839295" />
     <circle
-       style="fill:#2b1100;fill-opacity:1"
+       style="fill:#351c00;fill-opacity:1"
        id="path3393"
        cx="43.241146"
        cy="30.727272"
        r="3.9957964" />
     <circle
-       style="fill:#2b1100"
+       style="fill:#351c00;fill-opacity:1"
        id="path3393-3"
        cx="20.758852"
        cy="30.727272"
        r="3.9957964" />
     <path
-       style="fill:none;fill-rule:evenodd;stroke:#2b1100;stroke-width:2.48922539;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:none;fill-rule:evenodd;stroke:#351c00;stroke-width:2.48922539;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 25.911429,40.052346 c 0,0 1.522142,3.685331 6.088571,3.685331"
        id="path3419"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc" />
     <path
-       style="fill:none;fill-rule:evenodd;stroke:#2b1100;stroke-width:2.48922539;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:none;fill-rule:evenodd;stroke:#351c00;stroke-width:2.48922539;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 38.088571,40.052346 c 0,0 -1.522142,3.685331 -6.088571,3.685331"
        id="path3419-8"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc" />
     <path
-       style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#2b1100;stroke-width:1.129;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:2.258,1.129;stroke-dashoffset:0;stroke-opacity:0.39285715"
-       d="M 32,3.1818182 32,15.839295"
+       style="opacity:0.52899996;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#ffffff;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.39285715"
+       d="m 31.999999,3.1818181 0,16.9001179"
        id="path4301"
        inkscape:connector-curvature="0" />
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:63.14762115px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.20000005;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="font-style:normal;font-weight:normal;font-size:63.14762115px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#351c00;fill-opacity:1;stroke:#351c00;stroke-width:1.20000005;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        x="10.002921"
        y="62.907017"
        id="text4319"
@@ -147,6 +146,6 @@
          id="tspan4321"
          x="10.002921"
          y="62.907017"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15.78690529px;font-family:Sarpanch;-inkscape-font-specification:Sarpanch;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.20000005;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">HAKO</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15.78690529px;font-family:Sarpanch;-inkscape-font-specification:Sarpanch;fill:#351c00;fill-opacity:1;stroke:#351c00;stroke-width:1.20000005;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">HAKO</tspan></text>
   </g>
 </svg>
