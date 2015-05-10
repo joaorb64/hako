@@ -9,6 +9,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <X11/Xlib.h>
+#include <GL/glx.h>
+#include <GL/gl.h>
 
 
 namespace HakoInternal
@@ -18,11 +20,15 @@ namespace HakoInternal
 		class App : public Base::App
 		{
 		public:
-			int init      (Hako::Options* options) override;
-			int main_loop (Hako::Options* options) override;
+			int init		(Hako::Options* options) override;
+			int main_loop	(Hako::Options* options) override;
+
+			void init_gl();
+			void render_gl();
 
 		protected:
 			Display *display;
+			Window window;
 		};
 	}
 }
