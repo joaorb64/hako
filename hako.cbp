@@ -96,21 +96,20 @@
 			</Target>
 		</Build>
 		<Compiler>
-			<Add option="-Wall" />
+			<Add directory="src/" />
 		</Compiler>
-		<Unit filename="src/app_linux/app.cpp" />
-		<Unit filename="src/app_linux/app.h" />
-		<Unit filename="src/app_win32/app.cpp" />
-		<Unit filename="src/app_win32/app.h" />
-		<Unit filename="src/base/app.h" />
-		<Unit filename="src/common/options.h" />
-		<Unit filename="src/gfx_opengl/init.h" />
-		<Unit filename="src/gfx_opengl/init_linux.cpp" />
-		<Unit filename="src/gfx_opengl/init_win32.cpp" />
-		<Unit filename="src/gfx_opengl/render.cpp" />
-		<Unit filename="src/gfx_opengl/render.h" />
-		<Unit filename="src/hako.h" />
-		<Unit filename="src/main.cpp" />
+		<Unit filename="src/hako/application.cpp" />
+		<Unit filename="src/hako/application.h" />
+		<Unit filename="src/hako/common/debug.h" />
+		<Unit filename="src/hako/common/engine.h" />
+		<Unit filename="src/hako/common/options.h" />
+		<Unit filename="src/hako/common_gl/init.h" />
+		<Unit filename="src/hako/common_gl/init_linux.cpp" />
+		<Unit filename="src/hako/common_gl/render.cpp" />
+		<Unit filename="src/hako/common_gl/render.h" />
+		<Unit filename="src/hako/main_linux/main.cpp" />
+		<Unit filename="src/hako/main_linux/main.h" />
+		<Unit filename="src/hako/main_win32/main.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />
