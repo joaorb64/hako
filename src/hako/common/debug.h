@@ -24,9 +24,15 @@
 		do { if (!cond) { printf("ASSERT FAILED: " msg "\nFILE: " __FILE__ "\nLINE: %u\n", __LINE__); abort(); } } while (0)
 
 
+	// Runtime error.
+	#define HAKO_ERROR(msg) \
+		HAKO_ASSERT(false, msg)
+
+
 #else
 	#define HAKO_ONLYINDEBUG(stat)
 	#define HAKO_ASSERT(cond, msg)
+	#define HAKO_ERROR(msg)
 #endif
 
 #endif

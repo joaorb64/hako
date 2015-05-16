@@ -18,18 +18,8 @@ namespace Hako
 	public:
 		typedef void(*EntryFunctionPtr)(Hako::Engine* engine);
 
-		enum class Kind
-		{
-			IndependentOnce,
-			IndependentOnceNoReturn,
-			AlwaysSynchronizedWithFixedRate,
-			AlwaysSynchronizedWithFrameRate
-		};
-
-
 	protected:
 		EntryFunctionPtr m_entry_function;
-		Kind             m_kind;
 	};
 
 
@@ -37,12 +27,18 @@ namespace Hako
 	class TaskManager
 	{
 	public:
-		void init(Hako::Engine* engine);
+		void init                 (Hako::Engine* engine);
+		void add_independent      (Task task);
+		void add_noreturn         (Task task);
+		void add_fixed_syncronized(Task task);
+		void add_frame_syncronized(Task task);
 
 
 	protected:
 		Hako::DS::Vector<Task> m_fixed_tasks;
 		Hako::DS::Vector<Task> m_frame_tasks;
+		Hako::DS::Vector<Task> m_independent_tasks;
+		Hako::DS::Vector<Task> m_noreturn_tasks;
 	};
 }
 
