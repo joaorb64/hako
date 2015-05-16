@@ -14,8 +14,17 @@ Display* linux_display;
 Window   linux_window;
 
 
-int main()
+int main(int argc, char** argv)
 {
+	HAKO_UNUSED(argc);
+	HAKO_UNUSED(argv);
+
+	Hako::Engine engine;
+	engine.init();
+
+	Hako::Application::init_start(&engine);
+
+
 	int screen;
 	int depth;
 
@@ -62,6 +71,9 @@ int main()
 #ifdef HAKO_BUILD_GFXOPENGL
 	linux_opengl_enable(linux_display, &linux_window);
 #endif
+
+
+	Hako::Application::init_end(&engine);
 
 
 	XEvent  event;

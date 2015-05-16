@@ -32,6 +32,8 @@ int main(int argc, char** argv)
 	HAKO_UNUSED(argv);
 
 	Hako::Engine engine;
+	engine.init();
+
 	Hako::Application::init_start(&engine);
 
 

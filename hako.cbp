@@ -20,6 +20,7 @@
 					<Add option="-g" />
 					<Add option="-DHAKO_BUILD_WIN32" />
 					<Add option="-DHAKO_BUILD_GFXOPENGL" />
+					<Add option="-DHAKO_BUILD_DEBUG" />
 				</Compiler>
 				<Linker>
 					<Add option="-static-libgcc" />
@@ -66,6 +67,7 @@
 					<Add option="-g" />
 					<Add option="-DHAKO_BUILD_LINUX" />
 					<Add option="-DHAKO_BUILD_GFXOPENGL" />
+					<Add option="-DHAKO_BUILD_DEBUG" />
 				</Compiler>
 				<Linker>
 					<Add option="-lX11" />
@@ -100,15 +102,18 @@
 		</Compiler>
 		<Unit filename="src/hako/application.cpp" />
 		<Unit filename="src/hako/application.h" />
+		<Unit filename="src/hako/common/callback.h" />
 		<Unit filename="src/hako/common/debug.h" />
+		<Unit filename="src/hako/common/ds/vector.h" />
+		<Unit filename="src/hako/common/engine.cpp" />
 		<Unit filename="src/hako/common/engine.h" />
+		<Unit filename="src/hako/common/mem.h" />
 		<Unit filename="src/hako/common/options.h" />
-		<Unit filename="src/hako/common_gl/init.h" />
-		<Unit filename="src/hako/common_gl/init_linux.cpp" />
+		<Unit filename="src/hako/common/task.cpp" />
+		<Unit filename="src/hako/common/task.h" />
 		<Unit filename="src/hako/common_gl/render.cpp" />
 		<Unit filename="src/hako/common_gl/render.h" />
 		<Unit filename="src/hako/main_linux/main.cpp" />
-		<Unit filename="src/hako/main_linux/main.h" />
 		<Unit filename="src/hako/main_win32/main.cpp" />
 		<Extensions>
 			<code_completion />
