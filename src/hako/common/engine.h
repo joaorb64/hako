@@ -11,6 +11,9 @@ namespace Hako
 	// Holds general engine information.
 	class Engine
 	{
+		friend int main(int, char**);
+
+
 	public:
 		Hako::MemberCallback<Engine, void*, unsigned int, unsigned int>
 			m_mem_alloc_callback;
@@ -39,8 +42,10 @@ namespace Hako
 			void* ptr);
 
 
-	protected:
-		TaskManager m_task_manager;
+		TaskManager m_independent_tasks;
+		TaskManager m_noreturn_tasks;
+		TaskManager m_fixedsync_tasks;
+		TaskManager m_framesync_tasks;
 	};
 }
 

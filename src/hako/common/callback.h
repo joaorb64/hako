@@ -12,6 +12,27 @@ namespace Hako
 	};
 
 
+	template <typename TReturn, typename... TCallbackArgs>
+	class FunctionCallback : public Hako::Callback<TReturn, TCallbackArgs...>
+	{
+	public:
+		void init(TReturn(*function)(TCallbackArgs...))
+		{
+			m_function = function;
+		}
+
+
+		TReturn call(TCallbackArgs... args) override
+		{
+			return m_function(args...);
+		}
+
+
+	protected:
+		TReturn(*m_function)(TCallbackArgs...);
+	};
+
+
 	template <class T, typename TReturn, typename... TCallbackArgs>
 	class MemberCallback : public Hako::Callback<TReturn, TCallbackArgs...>
 	{

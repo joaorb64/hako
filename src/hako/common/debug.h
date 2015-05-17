@@ -31,8 +31,8 @@
 
 #else
 	#define HAKO_ONLYINDEBUG(stat)
-	#define HAKO_ASSERT(cond, msg)
-	#define HAKO_ERROR(msg)
+	#define HAKO_ASSERT(cond, msg) do { } while (0)
+	#define HAKO_ERROR(msg) do { } while (0)
 #endif
 
 #endif

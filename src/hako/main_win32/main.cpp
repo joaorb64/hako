@@ -83,33 +83,97 @@ int main(int argc, char** argv)
 
 
 	//
-	// Main infinite loop. Can only break when user quits the application.
+	// Main loop. Can only break when user quits the application.
 	//
-	for (;;)
+	int fixed_timer = 0;
+	int fixed_cycles_per_second = 30;
+	while (true)
 	{
 		//
-		// Process Win32 window messages.
+		// Get current timestamp using Windows functions.
 		//
-		MSG window_msg;
-		while (PeekMessage(&window_msg, NULL, 0, 0, PM_REMOVE))
+		LARGE_INTEGER timer_frequency;
+		LARGE_INTEGER timer_starttime;
+		LARGE_INTEGER timer_endtime;
+		QueryPerformanceFrequency(&timer_frequency);
+		QueryPerformanceCounter(&timer_starttime);
+
+		//
+		// Process all queued Win32 event messages.
+		//
+		MSG window_message;
+		while (PeekMessage(&window_message, NULL, 0, 0, PM_REMOVE))
 		{
-			if (window_msg.message == WM_QUIT)
+			if (window_message.message == WM_QUIT)
 			{
 				goto quit;
 			}
 			else
 			{
-				TranslateMessage(&window_msg);
-				DispatchMessage(&window_msg);
+				TranslateMessage(&window_message);
+				DispatchMessage(&window_message);
 			}
 		}
+
+		//
+		// Process frame-syncronized tasks.
+		//
+
+		// interpolation factor: (fixed_timer / float(1000000 / fixed_cycles_per_second))
+		for (unsigned int i = 0; i < engine.m_framesync_tasks.m_tasks.get_length(); i++)
+			engine.m_framesync_tasks.m_tasks.get_element(i).m_entry_point->call(&engine);
 
 	#ifdef HAKO_BUILD_GFXOPENGL
 		Hako::common_opengl_render();
 		SwapBuffers(win32_hdc);
 	#endif
-	}
 
+		//
+		// Sleep for the remaining of frame.
+		//
+		LARGE_INTEGER timer_elapsed_microseconds;
+		QueryPerformanceCounter(&timer_endtime);
+		timer_elapsed_microseconds.QuadPart  = timer_endtime.QuadPart - timer_starttime.QuadPart;
+		timer_elapsed_microseconds.QuadPart *= 1000;
+		timer_elapsed_microseconds.QuadPart /= timer_frequency.QuadPart;
+		int elapsedMilliseconds = int(timer_elapsed_microseconds.QuadPart);
+		if (elapsedMilliseconds < 1000 / 60) Sleep((1000 / 60) - int(elapsedMilliseconds));
+
+		//
+		// Advance fixed timer, and execute fixed-syncronized tasks.
+		//
+		QueryPerformanceCounter(&timer_endtime);
+		timer_elapsed_microseconds.QuadPart  = timer_endtime.QuadPart - timer_starttime.QuadPart;
+		timer_elapsed_microseconds.QuadPart *= 1000000;
+		timer_elapsed_microseconds.QuadPart /= timer_frequency.QuadPart;
+
+		fixed_timer += int(timer_elapsed_microseconds.QuadPart);
+		while (fixed_timer >= 1000000 / fixed_cycles_per_second)
+		{
+			fixed_timer -= 1000000 / fixed_cycles_per_second;
+			for (unsigned int i = 0; i < engine.m_fixedsync_tasks.m_tasks.get_length(); i++)
+				engine.m_fixedsync_tasks.m_tasks.get_element(i).m_entry_point->call(&engine);
+		}
+
+		//
+		// Count frames-per-second rate.
+		//
+		/*QueryPerformanceCounter(&nEndTime);
+		elapsedMicroseconds.QuadPart = nEndTime.QuadPart - nBeginTime.QuadPart;
+		elapsedMicroseconds.QuadPart *= 1000000;
+		elapsedMicroseconds.QuadPart /= nFreq.QuadPart;
+
+		highFreqFramesPerSecond = 1000000.0f / (elapsedMicroseconds.QuadPart);
+
+		frameCounter++;
+		frameTimer += int(elapsedMicroseconds.QuadPart);
+		if (frameTimer >= 1000000)
+		{
+			framesPerSecond = frameCounter;
+			frameCounter = 0;
+			frameTimer -= 1000000;
+		}*/
+	}
 
 quit:
 #ifdef HAKO_BUILD_GFXOPENGL
