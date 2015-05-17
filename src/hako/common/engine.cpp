@@ -15,7 +15,7 @@ void Hako::Engine::init()
 
 
 void* Hako::Engine::mem_alloc(
-	Hako::Engine* engine,
+	void* engine,
 	unsigned int size_in_bytes,
 	unsigned int alignment_in_bytes)
 {
@@ -26,7 +26,7 @@ void* Hako::Engine::mem_alloc(
 
 
 void* Hako::Engine::mem_realloc(
-	Hako::Engine* engine,
+	void* engine,
 	void* old_ptr,
 	unsigned int old_size_in_bytes,
 	unsigned int old_alignment_in_bytes,
@@ -42,7 +42,7 @@ void* Hako::Engine::mem_realloc(
 
 
 void Hako::Engine::mem_free(
-	Hako::Engine* engine,
+	void* engine,
 	void* ptr)
 {
 	HAKO_UNUSED(engine);

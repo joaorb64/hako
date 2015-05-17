@@ -8,18 +8,10 @@ namespace Hako
 	class Callback
 	{
 	public:
-		template <typename TInstance>
-		void init(TInstance* user_data, TReturn(*function)(TInstance*, TCallbackArgs...))
-		{
-			m_user_data = (void*)user_data;
-			m_function = (TReturn(*)(void*, TCallbackArgs...))function;
-		}
-
-
 		void init(void* user_data, TReturn(*function)(void*, TCallbackArgs...))
 		{
-			m_user_data = (void*)user_data;
-			m_function = (TReturn(*)(void*, TCallbackArgs...))function;
+			m_user_data = user_data;
+			m_function  = function;
 		}
 
 

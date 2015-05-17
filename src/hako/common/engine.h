@@ -26,12 +26,12 @@ namespace Hako
 		void init();
 
 		static void* mem_alloc(
-			Hako::Engine* engine,
+			void* engine,
 			unsigned int size_in_bytes,
 			unsigned int alignment_in_bytes);
 
 		static void* mem_realloc(
-			Hako::Engine* engine,
+			void* engine,
 			void* old_ptr,
 			unsigned int old_size_in_bytes,
 			unsigned int old_alignment_in_bytes,
@@ -39,7 +39,7 @@ namespace Hako
 			unsigned int new_alignment_in_bytes);
 
 		static void mem_free(
-			Hako::Engine* engine,
+			void* engine,
 			void* ptr);
 	};
 }
