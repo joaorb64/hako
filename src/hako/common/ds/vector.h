@@ -18,15 +18,15 @@ namespace Hako
 			~Vector()
 			{
 				HAKO_ASSERT(m_initialized_elements, "init_elements must be called before");
-				m_free_function->call(m_data);
+				m_free_function.call(m_data);
 			}
 
 
 			// Initializes memory-management functions.
 			void init_mem(
-				Hako::MemAllocCallback* alloc_function,
-				Hako::MemReallocCallback* realloc_function,
-				Hako::MemFreeCallback* free_function)
+				Hako::MemAllocCallback alloc_function,
+				Hako::MemReallocCallback realloc_function,
+				Hako::MemFreeCallback free_function)
 			{
 				m_alloc_function   = alloc_function;
 				m_realloc_function = realloc_function;
@@ -86,9 +86,9 @@ namespace Hako
 			unsigned int m_element_num;
 			unsigned int m_element_capacity;
 
-			Hako::MemAllocCallback*   m_alloc_function;
-			Hako::MemReallocCallback* m_realloc_function;
-			Hako::MemFreeCallback*    m_free_function;
+			Hako::MemAllocCallback   m_alloc_function;
+			Hako::MemReallocCallback m_realloc_function;
+			Hako::MemFreeCallback    m_free_function;
 
 
 			void ensure_capacity(unsigned int capacity)
@@ -96,7 +96,7 @@ namespace Hako
 				HAKO_ASSERT(m_initialized_elements, "init_elements must be called before");
 				if (capacity > m_element_capacity)
 				{
-					m_data = (T*)m_realloc_function->call(
+					m_data = (T*)m_realloc_function.call(
 						m_data,
 						sizeof(T) * m_element_capacity,
 						32,

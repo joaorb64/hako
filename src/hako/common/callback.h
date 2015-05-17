@@ -8,51 +8,30 @@ namespace Hako
 	class Callback
 	{
 	public:
-		virtual TReturn call(TCallbackArgs... args) = 0;
-	};
-
-
-	template <typename TReturn, typename... TCallbackArgs>
-	class FunctionCallback : public Hako::Callback<TReturn, TCallbackArgs...>
-	{
-	public:
-		void init(TReturn(*function)(TCallbackArgs...))
+		template <typename TInstance>
+		void init(TInstance* user_data, TReturn(*function)(TInstance*, TCallbackArgs...))
 		{
-			m_function = function;
+			m_user_data = (void*)user_data;
+			m_function = (TReturn(*)(void*, TCallbackArgs...))function;
 		}
 
 
-		TReturn call(TCallbackArgs... args) override
+		void init(void* user_data, TReturn(*function)(void*, TCallbackArgs...))
 		{
-			return m_function(args...);
+			m_user_data = (void*)user_data;
+			m_function = (TReturn(*)(void*, TCallbackArgs...))function;
 		}
 
 
-	protected:
-		TReturn(*m_function)(TCallbackArgs...);
-	};
-
-
-	template <class T, typename TReturn, typename... TCallbackArgs>
-	class MemberCallback : public Hako::Callback<TReturn, TCallbackArgs...>
-	{
-	public:
-		void init(T* instance, TReturn(T::*member_function)(TCallbackArgs...))
+		TReturn call(TCallbackArgs... args)
 		{
-			m_instance = instance;
-			m_member_function = member_function;
-		}
-
-
-		TReturn call(TCallbackArgs... args) override
-		{
-			return (m_instance->*m_member_function)(args...);
+			return m_function(m_user_data, args...);
 		}
 
 
 	protected:
-		TReturn(T::*m_member_function)(TCallbackArgs...);
-		T* m_instance;
+		TReturn(*m_function)(void*, TCallbackArgs...);
+		void* m_user_data;
 	};
 }
 

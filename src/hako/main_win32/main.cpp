@@ -121,7 +121,7 @@ int main(int argc, char** argv)
 
 		// interpolation factor: (fixed_timer / float(1000000 / fixed_cycles_per_second))
 		for (unsigned int i = 0; i < engine.m_framesync_tasks.m_tasks.get_length(); i++)
-			engine.m_framesync_tasks.m_tasks.get_element(i).m_entry_point->call(&engine);
+			engine.m_framesync_tasks.m_tasks.get_element(i).m_entry_point.call(&engine);
 
 	#ifdef HAKO_BUILD_GFXOPENGL
 		Hako::common_opengl_render();
@@ -152,7 +152,7 @@ int main(int argc, char** argv)
 		{
 			fixed_timer -= 1000000 / fixed_cycles_per_second;
 			for (unsigned int i = 0; i < engine.m_fixedsync_tasks.m_tasks.get_length(); i++)
-				engine.m_fixedsync_tasks.m_tasks.get_element(i).m_entry_point->call(&engine);
+				engine.m_fixedsync_tasks.m_tasks.get_element(i).m_entry_point.call(&engine);
 		}
 
 		//

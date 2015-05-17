@@ -18,14 +18,14 @@ namespace Hako
 		class Task
 		{
 		public:
-			Hako::Callback<void, Hako::Engine*>* m_entry_point;
+			Hako::Callback<void, Hako::Engine*> m_entry_point;
 		};
 
 		Hako::DS::Vector<Task> m_tasks;
 
 
 		void init (Hako::Engine* engine);
-		void add  (Hako::Callback<void, Hako::Engine*>* callback);
+		void add  (Hako::Callback<void, Hako::Engine*> callback);
 	};
 }
 
