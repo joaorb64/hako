@@ -5,10 +5,17 @@
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 
+#include <hako/common/debug.h>
+#include <hako/common/engine.h>
+#include <hako/application.h>
+
+
 #ifdef HAKO_BUILD_GFXOPENGL
 	#include <hako/common_gl/render.h>
 #endif
 
+// Linux OpenGL setup.
+void linux_opengl_enable(Display* display, Window* window);
 
 Display* linux_display;
 Window   linux_window;
@@ -88,7 +95,7 @@ int main(int argc, char** argv)
 			{
 			#ifdef HAKO_BUILD_GFXOPENGL
 				Hako::common_opengl_render();
-				glXSwapBuffers(linux_display, *linux_window);
+				glXSwapBuffers(linux_display, linux_window);
 			#endif
 				break;
 			}

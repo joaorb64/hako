@@ -48,9 +48,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="2.75"
-     inkscape:cx="-5.5271418"
-     inkscape:cy="27.695932"
+     inkscape:zoom="5.5"
+     inkscape:cx="45.038035"
+     inkscape:cy="30.687005"
      inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:document-units="px"
@@ -98,12 +98,23 @@
        width="47.090908"
        height="47.090908"
        x="8.454545"
-       y="3.1818182" />
+       y="3.1818182"
+       rx="3"
+       ry="3" />
     <rect
        style="fill:#bd8449;fill-opacity:1"
        id="rect3376"
        width="47.090908"
        height="34.43343"
+       x="8.454545"
+       y="15.839295"
+       rx="3"
+       ry="3" />
+    <rect
+       style="display:inline;fill:#bd8449;fill-opacity:1"
+       id="rect3376-8"
+       width="47.090908"
+       height="10.520364"
        x="8.454545"
        y="15.839295" />
     <circle
