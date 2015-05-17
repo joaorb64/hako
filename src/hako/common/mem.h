@@ -32,6 +32,14 @@ namespace Hako
 
 	typedef Hako::Callback<void, void*>
 		MemFreeCallback;
+
+
+	struct MemCallbacks
+	{
+		MemAllocCallback   m_alloc;
+		MemReallocCallback m_realloc;
+		MemFreeCallback    m_free;
+	};
 }
 
 

@@ -4,9 +4,10 @@
 
 void Hako::Engine::init()
 {
-    m_mem_alloc_callback  .init(this, Engine::mem_alloc);
-    m_mem_realloc_callback.init(this, Engine::mem_realloc);
-    m_mem_free_callback   .init(this, Engine::mem_free);
+    m_mem_callbacks.m_alloc  .init(this, Engine::mem_alloc);
+    m_mem_callbacks.m_realloc.init(this, Engine::mem_realloc);
+    m_mem_callbacks.m_free   .init(this, Engine::mem_free);
+
 	m_independent_tasks   .init(this);
 	m_noreturn_tasks      .init(this);
 	m_fixedsync_tasks     .init(this);

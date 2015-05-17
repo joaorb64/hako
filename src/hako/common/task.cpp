@@ -4,12 +4,7 @@
 
 void Hako::TaskManager::init(Hako::Engine* engine)
 {
-	m_tasks.init_mem(
-		engine->m_mem_alloc_callback,
-		engine->m_mem_realloc_callback,
-		engine->m_mem_free_callback);
-
-	m_tasks.init_elements(0);
+	m_tasks.init(engine->m_mem_callbacks, 0);
 }
 
 

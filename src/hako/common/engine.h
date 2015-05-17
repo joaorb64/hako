@@ -12,10 +12,7 @@ namespace Hako
 	class Engine
 	{
 	public:
-		Hako::MemAllocCallback   m_mem_alloc_callback;
-		Hako::MemReallocCallback m_mem_realloc_callback;
-		Hako::MemFreeCallback    m_mem_free_callback;
-
+		Hako::MemCallbacks m_mem_callbacks;
 
 		TaskManager m_independent_tasks;
 		TaskManager m_noreturn_tasks;
