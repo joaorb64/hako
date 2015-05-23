@@ -12,7 +12,31 @@ void Hako::Engine::init()
 	m_noreturn_tasks      .init(this);
 	m_fixedsync_tasks     .init(this);
 	m_framesync_tasks     .init(this);
+
+	m_gfx = nullptr;
 }
+
+
+
+void Hako::Engine::task_add_fixedsync(Hako::Task task)
+{
+	m_fixedsync_tasks.add(task);
+}
+
+
+
+void Hako::Engine::task_add_framesync(Hako::Task task)
+{
+	m_framesync_tasks.add(task);
+}
+
+
+
+Hako::Gfx* Hako::Engine::gfx()
+{
+	return m_gfx;
+}
+
 
 
 void* Hako::Engine::mem_alloc(
@@ -24,6 +48,7 @@ void* Hako::Engine::mem_alloc(
 	HAKO_UNUSED(alignment_in_bytes);
 	return malloc(size_in_bytes);
 }
+
 
 
 void* Hako::Engine::mem_realloc(
@@ -40,6 +65,7 @@ void* Hako::Engine::mem_realloc(
 	HAKO_UNUSED(new_alignment_in_bytes);
 	return realloc(old_ptr, new_size_in_bytes);
 }
+
 
 
 void Hako::Engine::mem_free(

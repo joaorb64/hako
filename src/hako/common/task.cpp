@@ -8,9 +8,7 @@ void Hako::TaskManager::init(Hako::Engine* engine)
 }
 
 
-void Hako::TaskManager::add(Hako::Callback<void, Hako::Engine*> callback)
+void Hako::TaskManager::add(Task task)
 {
-	Task task;
-	task.m_entry_point = callback;
 	m_tasks.add(task);
 }

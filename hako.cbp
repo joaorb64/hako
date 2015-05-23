@@ -111,6 +111,7 @@
 		<Unit filename="src/hako/common/ds/vector.h" />
 		<Unit filename="src/hako/common/engine.cpp" />
 		<Unit filename="src/hako/common/engine.h" />
+		<Unit filename="src/hako/common/gfx.h" />
 		<Unit filename="src/hako/common/mem.h" />
 		<Unit filename="src/hako/common/options.h" />
 		<Unit filename="src/hako/common/task.cpp" />
@@ -118,6 +119,8 @@
 		<Unit filename="src/hako/common_gl/render.cpp" />
 		<Unit filename="src/hako/common_gl/render.h" />
 		<Unit filename="src/hako/main_linux/main.cpp" />
+		<Unit filename="src/hako/main_win32/gfx_opengl.cpp" />
+		<Unit filename="src/hako/main_win32/gfx_opengl.h" />
 		<Unit filename="src/hako/main_win32/main.cpp" />
 		<Extensions>
 			<code_completion />

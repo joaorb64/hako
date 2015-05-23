@@ -11,21 +11,31 @@ namespace Hako
 	class Engine;
 
 
+	class Task
+	{
+		friend class TaskManager;
+
+	public:
+		void init(Hako::Callback<void, Hako::Engine*> entry_point)
+			{ m_entry_point = entry_point; }
+
+		Hako::Callback<void, Hako::Engine*> get_entry_point()
+			{ return m_entry_point; }
+
+
+	protected:
+		Hako::Callback<void, Hako::Engine*> m_entry_point;
+	};
+
+
 	// Manages a collection of tasks.
 	class TaskManager
 	{
 	public:
-		class Task
-		{
-		public:
-			Hako::Callback<void, Hako::Engine*> m_entry_point;
-		};
-
 		Hako::DS::Vector<Task> m_tasks;
 
-
 		void init (Hako::Engine* engine);
-		void add  (Hako::Callback<void, Hako::Engine*> callback);
+		void add  (Task task);
 	};
 }
 
