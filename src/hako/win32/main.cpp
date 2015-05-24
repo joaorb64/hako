@@ -4,7 +4,7 @@
 #include <hako/application.h>
 #include <hako/common/debug.h>
 #include <hako/engine/engine.h>
-#include <hako/engine/filesys/filesys_stdio.h>
+#include <hako/engine/filesys/manager_stdio.h>
 #include "window_opengl.h"
 #include <windows.h>
 
@@ -21,7 +21,7 @@ int main(int argc, char** argv)
 	Hako::Engine engine;
 	engine.init();
 
-	Hako::FileSys_Stdio filesys;
+	Hako::FileSys::Manager_Stdio filesys;
 	filesys.init(&engine);
 	engine.set_filesys(&filesys);
 
@@ -80,12 +80,12 @@ int main(int argc, char** argv)
 		//
 		// Sleep for the remaining of frame.
 		//
-		QueryPerformanceCounter(&timer_endtime);
+		/*QueryPerformanceCounter(&timer_endtime);
 		timer_elapsed_microseconds.QuadPart  = timer_endtime.QuadPart - timer_starttime.QuadPart;
 		timer_elapsed_microseconds.QuadPart *= 1000;
 		timer_elapsed_microseconds.QuadPart /= timer_frequency.QuadPart;
 		int elapsedMilliseconds = int(timer_elapsed_microseconds.QuadPart);
-		if (elapsedMilliseconds < 1000 / 60) Sleep((1000 / 60) - int(elapsedMilliseconds));
+		if (elapsedMilliseconds < 1000 / 60) Sleep((1000 / 60) - int(elapsedMilliseconds));*/
 
 		//
 		// Advance fixed timer, and execute fixed-syncronized tasks.

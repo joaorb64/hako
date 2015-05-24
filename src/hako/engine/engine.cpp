@@ -34,28 +34,28 @@ void Hako::Engine::task_add_framesync(Hako::Task task)
 
 
 
-Hako::Gfx* Hako::Engine::get_gfx()
+Hako::Gfx::Manager* Hako::Engine::get_gfx()
 {
 	return this->gfx;
 }
 
 
 
-Hako::Sfx* Hako::Engine::get_sfx()
+Hako::Sfx::Manager* Hako::Engine::get_sfx()
 {
 	return this->sfx;
 }
 
 
 
-Hako::Input* Hako::Engine::get_input()
+Hako::Input::Manager* Hako::Engine::get_input()
 {
 	return this->input;
 }
 
 
 
-Hako::FileSys* Hako::Engine::get_filesys()
+Hako::FileSys::Manager* Hako::Engine::get_filesys()
 {
 	return this->filesys;
 }
@@ -69,14 +69,14 @@ Hako::MemCallbacks Hako::Engine::get_mem_callbacks()
 
 
 
-void Hako::Engine::set_gfx(Hako::Gfx* gfx)
+void Hako::Engine::set_gfx(Hako::Gfx::Manager* gfx)
 {
 	this->gfx = gfx;
 }
 
 
 
-void Hako::Engine::set_sfx(Hako::Sfx* sfx)
+void Hako::Engine::set_sfx(Hako::Sfx::Manager* sfx)
 {
 	this->sfx = sfx;
 }
@@ -84,14 +84,14 @@ void Hako::Engine::set_sfx(Hako::Sfx* sfx)
 
 
 
-void Hako::Engine::set_input(Hako::Input* input)
+void Hako::Engine::set_input(Hako::Input::Manager* input)
 {
 	this->input = input;
 }
 
 
 
-void Hako::Engine::set_filesys(Hako::FileSys* filesys)
+void Hako::Engine::set_filesys(Hako::FileSys::Manager* filesys)
 {
 	this->filesys = filesys;
 }

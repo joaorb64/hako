@@ -3,6 +3,7 @@
 
 #include "window_opengl.h"
 #include <hako/engine/engine.h>
+#include <hako/opengl/gl_includes.h>
 #include <hako/opengl/render.h>
 
 
@@ -45,6 +46,7 @@ void Hako::Win32::WindowOpenGL::init(Hako::Engine* engine)
 	ShowWindow(this->hwnd, true);
 
 	this->opengl_enable(this->hwnd, &this->hdc, &this->hrc);
+	Hako::OpenGL::win32_load_extensions();
 
 
 	//

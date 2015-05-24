@@ -2,21 +2,9 @@
 
 
 #include "render.h"
+#include "gl_includes.h"
 #include <hako/common/debug.h>
 #include <math.h>
-
-#ifdef HAKO_BUILD_WIN32
-	#include <windows.h>
-	#include <gl/gl.h>
-#endif
-
-#ifdef HAKO_BUILD_LINUX
-	#include <GL/glx.h>
-	#include <GL/gl.h>
-	#include <X11/X.h>
-	#include <X11/Xlib.h>
-	#include <X11/Xutil.h>
-#endif
 
 
 void Hako::common_opengl_render(Hako::Engine* engine)

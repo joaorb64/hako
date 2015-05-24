@@ -117,6 +117,7 @@
 		<Unit filename="src/hako/engine/filesys/filesys.h" />
 		<Unit filename="src/hako/engine/filesys/filesys_stdio.cpp" />
 		<Unit filename="src/hako/engine/filesys/filesys_stdio.h" />
+		<Unit filename="src/hako/engine/gfx/gfx.cpp" />
 		<Unit filename="src/hako/engine/gfx/gfx.h" />
 		<Unit filename="src/hako/engine/input/input.h" />
 		<Unit filename="src/hako/engine/sfx/sfx.h" />
