@@ -1,11 +1,11 @@
 #ifdef HAKO_BUILD_LINUX
 
 
-#ifndef HAKO_LINUX_GFX_OPENGL_H
-#define HAKO_LINUX_GFX_OPENGL_H
+#ifndef HAKO_LINUX_WINDOW_OPENGL_H
+#define HAKO_LINUX_WINDOW_OPENGL_H
 
 
-#include "gfx.h"
+#include "window.h"
 
 #include <X11/X.h>
 #include <X11/Xlib.h>
@@ -16,7 +16,7 @@ namespace Hako
 {
 	namespace Linux
 	{
-		class WindowGfxOpenGL : public Hako::Linux::WindowGfx
+		class WindowOpenGL : public Hako::Linux::Window
 		{
 		public:
 			void init           (Hako::Engine* engine) override;
@@ -28,16 +28,16 @@ namespace Hako
 
 		protected:
 			// Reference to the engine instance.
-			Hako::Engine* m_engine;
+			Hako::Engine* engine;
 
 			// Handle to the main window.
-			Window   m_window;
+			Window   window;
 
 			//Handle to the display.
-			Display* m_display;
+			Display* display;
 
 			// Flag for whether the user closed the window.
-			bool   m_user_quit;
+			bool     user_quit;
 
 
 			// Linux OpenGL setup.

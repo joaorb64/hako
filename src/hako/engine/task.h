@@ -17,14 +17,14 @@ namespace Hako
 
 	public:
 		void init(Hako::Callback<void, Hako::Engine*> entry_point)
-			{ m_entry_point = entry_point; }
+			{ this->entry_point = entry_point; }
 
 		Hako::Callback<void, Hako::Engine*> get_entry_point()
-			{ return m_entry_point; }
+			{ return this->entry_point; }
 
 
 	protected:
-		Hako::Callback<void, Hako::Engine*> m_entry_point;
+		Hako::Callback<void, Hako::Engine*> entry_point;
 	};
 
 
@@ -32,7 +32,7 @@ namespace Hako
 	class TaskManager
 	{
 	public:
-		Hako::DS::Vector<Task> m_tasks;
+		Hako::DS::Vector<Task> tasks;
 
 		void init (Hako::Engine* engine);
 		void add  (Task task);

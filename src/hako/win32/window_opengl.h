@@ -1,11 +1,11 @@
 #ifdef HAKO_BUILD_WIN32
 
 
-#ifndef HAKO_WIN32_GFX_OPENGL_H
-#define HAKO_WIN32_GFX_OPENGL_H
+#ifndef HAKO_WIN32_WINDOW_OPENGL_H
+#define HAKO_WIN32_WINDOW_OPENGL_H
 
 
-#include "gfx.h"
+#include "window.h"
 #include <windows.h>
 
 
@@ -13,7 +13,7 @@ namespace Hako
 {
 	namespace Win32
 	{
-		class WindowGfxOpenGL : public Hako::Win32::WindowGfx
+		class WindowOpenGL : public Hako::Win32::Window
 		{
 		public:
 			void init           (Hako::Engine* engine) override;
@@ -25,12 +25,12 @@ namespace Hako
 
 		protected:
 			// Win32 handle to the main window.
-			HWND   m_hwnd;
+			HWND   hwnd;
 			// Win32 handles to the renderer context.
-			HDC    m_hdc;
-			HGLRC  m_hrc;
+			HDC    hdc;
+			HGLRC  hrc;
 			// Flag for whether the user closed the window.
-			bool   m_user_quit;
+			bool   user_quit;
 
 
 			// Window callback function used by Win32.

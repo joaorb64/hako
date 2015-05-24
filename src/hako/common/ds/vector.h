@@ -17,45 +17,45 @@ namespace Hako
 		public:
 			~Vector()
 			{
-				HAKO_ASSERT(m_initialized, "init() must be called before");
-				m_mem_callbacks.m_free.call(m_data);
+				HAKO_ASSERT(this->initialized, "init() must be called before");
+				this->mem_callbacks.free_callback.call(this->data);
 			}
 
 
 			// Initializes the vector storage.
 			void init(Hako::MemCallbacks mem_callbacks, unsigned int capacity)
 			{
-				m_mem_callbacks    = mem_callbacks;
-				m_data             = nullptr;
-				m_element_capacity = 0;
-				m_element_num      = 0;
-				HAKO_ONLYINDEBUG( m_initialized = true; )
-				ensure_capacity(capacity);
+				this->mem_callbacks    = mem_callbacks;
+				this->data             = nullptr;
+				this->element_capacity = 0;
+				this->element_num      = 0;
+				HAKO_ONLYINDEBUG( this->initialized = true; )
+				this->ensure_capacity(capacity);
 			}
 
 
 			// Retrieves the raw pointer to storage.
 			T* get_data_ptr()
 			{
-				HAKO_ASSERT(m_initialized, "init() must be called before");
-				return m_data;
+				HAKO_ASSERT(this->initialized, "init() must be called before");
+				return this->data;
 			}
 
 
 			// Retrieves the number of elements stored.
 			unsigned int get_length()
 			{
-				HAKO_ASSERT(m_initialized, "init() must be called before");
-				return m_element_num;
+				HAKO_ASSERT(this->initialized, "init() must be called before");
+				return this->element_num;
 			}
 
 
 			// Retrieves a reference to an element at the given position.
 			T& get_element(unsigned int index)
 			{
-				HAKO_ASSERT(m_initialized, "init() must be called before");
-				HAKO_ASSERT(index < m_element_num, "index out of range");
-				return m_data[index];
+				HAKO_ASSERT(this->initialized, "init() must be called before");
+				HAKO_ASSERT(index < this->element_num, "index out of range");
+				return this->data[index];
 			}
 
 
@@ -63,32 +63,32 @@ namespace Hako
 			// if necessary.
 			unsigned int add(T element)
 			{
-				HAKO_ASSERT(m_initialized, "init() must be called before");
-				ensure_capacity(m_element_num + 1);
-				m_data[m_element_num] = element;
-				m_element_num += 1;
-				return m_element_num - 1;
+				HAKO_ASSERT(this->initialized, "init() must be called before");
+				ensure_capacity(this->element_num + 1);
+				this->data[this->element_num] = element;
+				this->element_num += 1;
+				return this->element_num - 1;
 			}
 
 
 		protected:
-			HAKO_ONLYINDEBUG( bool m_initialized = false; )
+			HAKO_ONLYINDEBUG( bool initialized = false; )
 
-			T*           m_data;
-			unsigned int m_element_num;
-			unsigned int m_element_capacity;
+			T*           data;
+			unsigned int element_num;
+			unsigned int element_capacity;
 
-			Hako::MemCallbacks m_mem_callbacks;
+			Hako::MemCallbacks mem_callbacks;
 
 
 			void ensure_capacity(unsigned int capacity)
 			{
-				HAKO_ASSERT(m_initialized, "init() must be called before");
-				if (capacity > m_element_capacity)
+				HAKO_ASSERT(this->initialized, "init() must be called before");
+				if (capacity > this->element_capacity)
 				{
-					m_data = (T*)m_mem_callbacks.m_realloc.call(
-						m_data,
-						sizeof(T) * m_element_capacity,
+					this->data = (T*)this->mem_callbacks.realloc_callback.call(
+						this->data,
+						sizeof(T) * this->element_capacity,
 						32,
 						sizeof(T) * capacity,
 						32);

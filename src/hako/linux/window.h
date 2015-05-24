@@ -1,18 +1,15 @@
-#ifdef HAKO_BUILD_WIN32
+#ifdef HAKO_BUILD_LINUX
 
 
-#ifndef HAKO_WIN32_GFX_H
-#define HAKO_WIN32_GFX_H
+#ifndef HAKO_LINUX_WINDOW_H
+#define HAKO_LINUX_WINDOW_H
 
 
 namespace Hako
 {
-	class Engine;
-
-
-	namespace Win32
+	namespace Linux
 	{
-		class WindowGfx
+		class Window
 		{
 		public:
 			virtual void init           (Hako::Engine* engine) = 0;

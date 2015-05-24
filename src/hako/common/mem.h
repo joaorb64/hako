@@ -19,9 +19,9 @@ namespace Hako
 
 	struct MemCallbacks
 	{
-		MemAllocCallback   m_alloc;
-		MemReallocCallback m_realloc;
-		MemFreeCallback    m_free;
+		MemAllocCallback   alloc_callback;
+		MemReallocCallback realloc_callback;
+		MemFreeCallback    free_callback;
 	};
 }
 

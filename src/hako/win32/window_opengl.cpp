@@ -1,15 +1,15 @@
 #ifdef HAKO_BUILD_WIN32
 
 
-#include "gfx_opengl.h"
-#include <hako/common/engine.h>
-#include <hako/common_gl/render.h>
+#include "window_opengl.h"
+#include <hako/engine/engine.h>
+#include <hako/opengl/render.h>
 
 
 
-void Hako::Win32::WindowGfxOpenGL::init(Hako::Engine* engine)
+void Hako::Win32::WindowOpenGL::init(Hako::Engine* engine)
 {
-	m_user_quit = false;
+	this->user_quit = false;
 
 	//
 	// Create a window descriptor.
@@ -37,21 +37,21 @@ void Hako::Win32::WindowGfxOpenGL::init(Hako::Engine* engine)
 	//
 	// Instantiate and show window to user.
 	//
-	m_hwnd = CreateWindowEx(0,
+	this->hwnd = CreateWindowEx(0,
 		"Hako Game Engine", "Hako Game Engine",
 		WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT,
 		960, 544, NULL, NULL, module_handle, NULL);
 
-	ShowWindow(m_hwnd, true);
+	ShowWindow(this->hwnd, true);
 
-	opengl_enable(m_hwnd, &m_hdc, &m_hrc);
+	this->opengl_enable(this->hwnd, &this->hdc, &this->hrc);
 
 
 	//
 	// Register render task.
 	//
 	Hako::Callback<void, Hako::Engine*> render_callback;
-	render_callback.init(this, render);
+	render_callback.init(this, this->render);
 
 	Hako::Task render_task;
 	render_task.init(render_callback);
@@ -61,14 +61,14 @@ void Hako::Win32::WindowGfxOpenGL::init(Hako::Engine* engine)
 
 
 
-void Hako::Win32::WindowGfxOpenGL::shutdown()
+void Hako::Win32::WindowOpenGL::shutdown()
 {
-	opengl_disable(m_hwnd, m_hdc, m_hrc);
+	this->opengl_disable(this->hwnd, this->hdc, this->hrc);
 }
 
 
 
-void Hako::Win32::WindowGfxOpenGL::process_events()
+void Hako::Win32::WindowOpenGL::process_events()
 {
 	//
 	// Process all queued Win32 event messages.
@@ -78,7 +78,7 @@ void Hako::Win32::WindowGfxOpenGL::process_events()
 	{
 		if (window_message.message == WM_QUIT)
 		{
-			m_user_quit = true;
+			this->user_quit = true;
 		}
 		else
 		{
@@ -90,14 +90,14 @@ void Hako::Win32::WindowGfxOpenGL::process_events()
 
 
 
-bool Hako::Win32::WindowGfxOpenGL::did_user_quit()
+bool Hako::Win32::WindowOpenGL::did_user_quit()
 {
-	return m_user_quit;
+	return this->user_quit;
 }
 
 
 
-LRESULT CALLBACK Hako::Win32::WindowGfxOpenGL::window_callback(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK Hako::Win32::WindowOpenGL::window_callback(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	//
 	// Switch on the message kind.
@@ -131,7 +131,7 @@ LRESULT CALLBACK Hako::Win32::WindowGfxOpenGL::window_callback(HWND hwnd, UINT u
 
 
 
-void Hako::Win32::WindowGfxOpenGL::opengl_enable(HWND hwnd, HDC* hdc, HGLRC* hrc)
+void Hako::Win32::WindowOpenGL::opengl_enable(HWND hwnd, HDC* hdc, HGLRC* hrc)
 {
 	PIXELFORMATDESCRIPTOR pfd;
 	int iFormat;
@@ -155,7 +155,7 @@ void Hako::Win32::WindowGfxOpenGL::opengl_enable(HWND hwnd, HDC* hdc, HGLRC* hrc
 
 
 
-void Hako::Win32::WindowGfxOpenGL::opengl_disable(HWND hwnd, HDC hdc, HGLRC hrc)
+void Hako::Win32::WindowOpenGL::opengl_disable(HWND hwnd, HDC hdc, HGLRC hrc)
 {
 	wglMakeCurrent(NULL, NULL);
 	wglDeleteContext(hrc);
@@ -164,12 +164,12 @@ void Hako::Win32::WindowGfxOpenGL::opengl_disable(HWND hwnd, HDC hdc, HGLRC hrc)
 
 
 
-void Hako::Win32::WindowGfxOpenGL::render(void* userdata, Hako::Engine* engine)
+void Hako::Win32::WindowOpenGL::render(void* userdata, Hako::Engine* engine)
 {
-    Hako::Win32::WindowGfxOpenGL* gfx = (Hako::Win32::WindowGfxOpenGL*)userdata;
+    Hako::Win32::WindowOpenGL* this_window = (Hako::Win32::WindowOpenGL*)userdata;
 
     Hako::common_opengl_render(engine);
-    SwapBuffers(gfx->m_hdc);
+    SwapBuffers(this_window->hdc);
 }
 
 

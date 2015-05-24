@@ -1,9 +1,9 @@
-#ifndef HAKO_COMMON_APPLICATION_H
-#define HAKO_COMMON_APPLICATION_H
+#ifndef HAKO_APPLICATION_H
+#define HAKO_APPLICATION_H
 
 
 #include <hako/common/options.h>
-#include <hako/common/engine.h>
+#include <hako/engine/engine.h>
 
 
 namespace Hako

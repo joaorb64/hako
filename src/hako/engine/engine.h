@@ -3,8 +3,8 @@
 
 
 #include <hako/common/mem.h>
-#include <hako/common/task.h>
-#include <hako/common/gfx.h>
+#include <hako/engine/task.h>
+#include <hako/engine/gfx.h>
 
 
 namespace Hako
@@ -12,22 +12,19 @@ namespace Hako
 	// Holds general engine information.
 	class Engine
 	{
-		friend int main(int argc, char** argv);
-
 	public:
-		Hako::MemCallbacks m_mem_callbacks;
-
-		TaskManager m_independent_tasks;
-		TaskManager m_noreturn_tasks;
-		TaskManager m_fixedsync_tasks;
-		TaskManager m_framesync_tasks;
+		TaskManager independent_tasks;
+		TaskManager noreturn_tasks;
+		TaskManager fixedsync_tasks;
+		TaskManager framesync_tasks;
 
 
 		void init();
 		void task_add_fixedsync(Hako::Task task);
 		void task_add_framesync(Hako::Task task);
 
-		Hako::Gfx* gfx();
+		Hako::Gfx* get_gfx();
+		Hako::MemCallbacks get_mem_callbacks();
 
 		static void* mem_alloc(
 			void* engine,
@@ -48,7 +45,8 @@ namespace Hako
 
 
 	protected:
-		Hako::Gfx m_gfx;
+		Hako::MemCallbacks mem_callbacks;
+		Hako::Gfx          gfx;
 	};
 }
 

@@ -10,20 +10,20 @@ namespace Hako
 	public:
 		void init(void* user_data, TReturn(*function)(void*, TCallbackArgs...))
 		{
-			m_user_data = user_data;
-			m_function  = function;
+			this->user_data = user_data;
+			this->function  = function;
 		}
 
 
 		TReturn call(TCallbackArgs... args)
 		{
-			return m_function(m_user_data, args...);
+			return this->function(this->user_data, args...);
 		}
 
 
 	protected:
-		TReturn(*m_function)(void*, TCallbackArgs...);
-		void* m_user_data;
+		TReturn(*function)(void*, TCallbackArgs...);
+		void* user_data;
 	};
 }
 

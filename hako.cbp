@@ -109,23 +109,23 @@
 		<Unit filename="src/hako/common/callback.h" />
 		<Unit filename="src/hako/common/debug.h" />
 		<Unit filename="src/hako/common/ds/vector.h" />
-		<Unit filename="src/hako/common/engine.cpp" />
-		<Unit filename="src/hako/common/engine.h" />
-		<Unit filename="src/hako/common/gfx.h" />
 		<Unit filename="src/hako/common/mem.h" />
 		<Unit filename="src/hako/common/options.h" />
-		<Unit filename="src/hako/common/task.cpp" />
-		<Unit filename="src/hako/common/task.h" />
-		<Unit filename="src/hako/common_gl/render.cpp" />
-		<Unit filename="src/hako/common_gl/render.h" />
-		<Unit filename="src/hako/main_linux/gfx.h" />
-		<Unit filename="src/hako/main_linux/gfx_opengl.cpp" />
-		<Unit filename="src/hako/main_linux/gfx_opengl.h" />
-		<Unit filename="src/hako/main_linux/main.cpp" />
-		<Unit filename="src/hako/main_win32/gfx.h" />
-		<Unit filename="src/hako/main_win32/gfx_opengl.cpp" />
-		<Unit filename="src/hako/main_win32/gfx_opengl.h" />
-		<Unit filename="src/hako/main_win32/main.cpp" />
+		<Unit filename="src/hako/engine/engine.cpp" />
+		<Unit filename="src/hako/engine/engine.h" />
+		<Unit filename="src/hako/engine/gfx.h" />
+		<Unit filename="src/hako/engine/task.cpp" />
+		<Unit filename="src/hako/engine/task.h" />
+		<Unit filename="src/hako/linux/main.cpp" />
+		<Unit filename="src/hako/linux/window.h" />
+		<Unit filename="src/hako/linux/window_opengl.cpp" />
+		<Unit filename="src/hako/linux/window_opengl.h" />
+		<Unit filename="src/hako/opengl/render.cpp" />
+		<Unit filename="src/hako/opengl/render.h" />
+		<Unit filename="src/hako/win32/main.cpp" />
+		<Unit filename="src/hako/win32/window.h" />
+		<Unit filename="src/hako/win32/window_opengl.cpp" />
+		<Unit filename="src/hako/win32/window_opengl.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />

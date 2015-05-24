@@ -1,11 +1,9 @@
-#ifdef HAKO_BUILD_WIN32
-
+#ifdef HAKO_BUILD_LINUX
 
 #include <hako/application.h>
 #include <hako/common/debug.h>
-#include "gfx_opengl.h"
-#include <windows.h>
-
+#include "window_opengl.h"
+#include <sys/time.h>
 
 
 int main(int argc, char** argv)
@@ -13,63 +11,48 @@ int main(int argc, char** argv)
 	HAKO_UNUSED(argc);
 	HAKO_UNUSED(argv);
 
-	//
-	// Create an instance of the engine.
-	//
 	Hako::Engine engine;
 	engine.init();
 
-	//
-	// Call the application's on_startup function.
-	//
 	Hako::Application::on_startup(&engine);
 
-	//
-	// Create a window and a render context.
-	//
-	Hako::Win32::WindowGfx* window_gfx;
+	Hako::Linux::Window* window;
 #ifdef HAKO_BUILD_GFXOPENGL
-	Hako::Win32::WindowGfxOpenGL window_gfx_opengl;
-	window_gfx = &window_gfx_opengl;
+	Hako::Linux::WindowOpenGL window_opengl;
+	window = &window_opengl;
 #endif
-	window_gfx->init(&engine);
+	window->init(&engine);
 
-	//
-	// Call the application's on_ready function.
-	//
 	Hako::Application::on_ready(&engine);
 
 	//
 	// Main loop. Can only break when user quits the application.
 	//
-	int fixed_timer = 0;
-	int fixed_cycles_per_second = 30;
+	//int fixed_timer = 0;
+	//int fixed_cycles_per_second = 30;
 	while (true)
 	{
 		//
-		// Get current timestamp using Windows functions.
+		// Get current timestamp using Linux functions.
 		//
-		LARGE_INTEGER timer_frequency;
-		LARGE_INTEGER timer_starttime;
-		LARGE_INTEGER timer_endtime;
-		LARGE_INTEGER timer_elapsed_microseconds;
-		QueryPerformanceFrequency(&timer_frequency);
-		QueryPerformanceCounter(&timer_starttime);
+		//unsigned long long timer_frequency;
+		//unsigned long long timer_starttime;
+		//unsigned long long timer_endtime;
+		//unsigned long long timer_elapsed_microseconds;
+		//QueryPerformanceFrequency(&timer_frequency);
+		//QueryPerformanceCounter(&timer_starttime);
+
+		window->process_events();
+		if (window->did_user_quit())
+			break;
 
 		//
 		// Process frame-syncronized tasks.
 		//
 
 		// interpolation factor: (fixed_timer / float(1000000 / fixed_cycles_per_second))
-		for (unsigned int i = 0; i < engine.m_framesync_tasks.m_tasks.get_length(); i++)
+		/*for (unsigned int i = 0; i < engine.m_framesync_tasks.m_tasks.get_length(); i++)
 			engine.m_framesync_tasks.m_tasks.get_element(i).get_entry_point().call(&engine);
-
-		//
-		// Render graphics.
-		//
-		window_gfx->process_events();
-		if (window_gfx->did_user_quit())
-			break;
 
 		//
 		// Sleep for the remaining of frame.
@@ -95,33 +78,13 @@ int main(int argc, char** argv)
 			fixed_timer -= 1000000 / fixed_cycles_per_second;
 			for (unsigned int i = 0; i < engine.m_fixedsync_tasks.m_tasks.get_length(); i++)
 				engine.m_fixedsync_tasks.m_tasks.get_element(i).get_entry_point().call(&engine);
-		}
-
-		//
-		// Count frames-per-second rate.
-		//
-		/*QueryPerformanceCounter(&nEndTime);
-		elapsedMicroseconds.QuadPart = nEndTime.QuadPart - nBeginTime.QuadPart;
-		elapsedMicroseconds.QuadPart *= 1000000;
-		elapsedMicroseconds.QuadPart /= nFreq.QuadPart;
-
-		highFreqFramesPerSecond = 1000000.0f / (elapsedMicroseconds.QuadPart);
-
-		frameCounter++;
-		frameTimer += int(elapsedMicroseconds.QuadPart);
-		if (frameTimer >= 1000000)
-		{
-			framesPerSecond = frameCounter;
-			frameCounter = 0;
-			frameTimer -= 1000000;
 		}*/
 	}
 
-	window_gfx->shutdown();
+	window->shutdown();
 
 	return 0;
 }
-
 
 
 #endif

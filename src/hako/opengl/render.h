@@ -1,8 +1,8 @@
 #ifdef HAKO_BUILD_GFXOPENGL
 
 
-#ifndef HAKO_GFXOPENGL_RENDER_H
-#define HAKO_GFXOPENGL_RENDER_H
+#ifndef HAKO_OPENGL_RENDER_H
+#define HAKO_OPENGL_RENDER_H
 
 
 namespace Hako
