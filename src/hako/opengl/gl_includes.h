@@ -14,6 +14,7 @@
 	#include <X11/X.h>
 	#include <X11/Xlib.h>
 	#include <X11/Xutil.h>
+	#include "gl_includes_linux.h"
 #endif
 
 
