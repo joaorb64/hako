@@ -1,24 +1,9 @@
 #ifdef HAKO_BUILD_LINUX
 
-
-#include <X11/X.h>
-#include <X11/Xlib.h>
-#include <X11/Xutil.h>
-
-#include <hako/common/debug.h>
-#include <hako/common/engine.h>
 #include <hako/application.h>
-
-
-#ifdef HAKO_BUILD_GFXOPENGL
-	#include <hako/common_gl/render.h>
-#endif
-
-// Linux OpenGL setup.
-void linux_opengl_enable(Display* display, Window* window);
-
-Display* linux_display;
-Window   linux_window;
+#include <hako/common/debug.h>
+#include "gfx_opengl.h"
+#include <sys/time.h>
 
 
 int main(int argc, char** argv)
@@ -26,81 +11,102 @@ int main(int argc, char** argv)
 	HAKO_UNUSED(argc);
 	HAKO_UNUSED(argv);
 
+
 	Hako::Engine engine;
 	engine.init();
+
 
 	Hako::Application::init_start(&engine);
 
 
-	int screen;
-	int depth;
-
-	linux_display = XOpenDisplay(NULL);
-	screen = DefaultScreen(linux_display);
-	depth = DefaultDepth(linux_display, screen);
-
-	int x       = 0;
-	int y       = 0;
-	int width   = 640;
-	int height  = 480;
-	int flag    = 0;
-	char* title = "Hako Game Engine";
-
-	XSetWindowAttributes window_attributes;
-	window_attributes.event_mask = ExposureMask | KeyPressMask | ButtonPressMask | StructureNotifyMask;
-
-	unsigned long window_mask;
-	XSizeHints size_hints;
-
-	window_mask = CWBackPixel | CWBorderPixel | CWEventMask;
-
-	// Create the window.
-	linux_window = XCreateWindow(linux_display,
-					RootWindow(linux_display, screen),
-					x, y, width, height,
-					2,depth,
-					InputOutput,
-					CopyFromParent,
-					window_mask,
-					&window_attributes);
-
-	XSetStandardProperties(linux_display, linux_window, title, "icon_name", None, 0, 0, NULL);
-
-	// Set size and position hints.
-	size_hints.flags = PPosition | PSize;
-
-	XSetNormalHints(linux_display, linux_window, &size_hints);
-
-	// Map window.
-	XMapWindow(linux_display, linux_window);
-	XFlush(linux_display);
-
+	Hako::Gfx* gfx;
 #ifdef HAKO_BUILD_GFXOPENGL
-	linux_opengl_enable(linux_display, &linux_window);
+	Hako::Linux::GfxOpenGL gfx_opengl;
+	gfx = &gfx_opengl;
 #endif
+	gfx->init(&engine);
+    engine.set_gfx(gfx);
 
 
 	Hako::Application::init_end(&engine);
 
 
-	XEvent  event;
-
-	for(;;)
+	//
+	// Main loop. Can only break when user quits the application.
+	//
+	int fixed_timer = 0;
+	int fixed_cycles_per_second = 30;
+	while (true)
 	{
-		XNextEvent(linux_display, &event);
+		//
+		// Get current timestamp using Linux functions.
+		//
+		unsigned long long timer_frequency;
+		unsigned long long timer_starttime;
+		unsigned long long timer_endtime;
+		unsigned long long timer_elapsed_microseconds;
+		//QueryPerformanceFrequency(&timer_frequency);
+		//QueryPerformanceCounter(&timer_starttime);
 
-		switch (event.type)
+		gfx->process_events();
+		if (gfx->did_user_quit())
+			break;
+
+		//
+		// Process frame-syncronized tasks.
+		//
+
+		// interpolation factor: (fixed_timer / float(1000000 / fixed_cycles_per_second))
+		/*for (unsigned int i = 0; i < engine.m_framesync_tasks.m_tasks.get_length(); i++)
+			engine.m_framesync_tasks.m_tasks.get_element(i).get_entry_point().call(&engine);
+
+		//
+		// Sleep for the remaining of frame.
+		//
+		QueryPerformanceCounter(&timer_endtime);
+		timer_elapsed_microseconds.QuadPart  = timer_endtime.QuadPart - timer_starttime.QuadPart;
+		timer_elapsed_microseconds.QuadPart *= 1000;
+		timer_elapsed_microseconds.QuadPart /= timer_frequency.QuadPart;
+		int elapsedMilliseconds = int(timer_elapsed_microseconds.QuadPart);
+		if (elapsedMilliseconds < 1000 / 60) Sleep((1000 / 60) - int(elapsedMilliseconds));
+
+		//
+		// Advance fixed timer, and execute fixed-syncronized tasks.
+		//
+		QueryPerformanceCounter(&timer_endtime);
+		timer_elapsed_microseconds.QuadPart  = timer_endtime.QuadPart - timer_starttime.QuadPart;
+		timer_elapsed_microseconds.QuadPart *= 1000000;
+		timer_elapsed_microseconds.QuadPart /= timer_frequency.QuadPart;
+
+		fixed_timer += int(timer_elapsed_microseconds.QuadPart);
+		while (fixed_timer >= 1000000 / fixed_cycles_per_second)
 		{
-			case Expose:
-			{
-			#ifdef HAKO_BUILD_GFXOPENGL
-				Hako::common_opengl_render();
-				glXSwapBuffers(linux_display, linux_window);
-			#endif
-				break;
-			}
+			fixed_timer -= 1000000 / fixed_cycles_per_second;
+			for (unsigned int i = 0; i < engine.m_fixedsync_tasks.m_tasks.get_length(); i++)
+				engine.m_fixedsync_tasks.m_tasks.get_element(i).get_entry_point().call(&engine);
 		}
+
+		//
+		// Count frames-per-second rate.
+		//
+		/*QueryPerformanceCounter(&nEndTime);
+		elapsedMicroseconds.QuadPart = nEndTime.QuadPart - nBeginTime.QuadPart;
+		elapsedMicroseconds.QuadPart *= 1000000;
+		elapsedMicroseconds.QuadPart /= nFreq.QuadPart;
+
+		highFreqFramesPerSecond = 1000000.0f / (elapsedMicroseconds.QuadPart);
+
+		frameCounter++;
+		frameTimer += int(elapsedMicroseconds.QuadPart);
+		if (frameTimer >= 1000000)
+		{
+			framesPerSecond = frameCounter;
+			frameCounter = 0;
+			frameTimer -= 1000000;
+		}*/
 	}
+
+	gfx->shutdown();
 
 	return 0;
 }
@@ -108,14 +114,7 @@ int main(int argc, char** argv)
 
 void linux_opengl_enable(Display* display, Window* window)
 {
-	GLint		att[] = { GLX_RGBA, GLX_DEPTH_SIZE, 24, GLX_DOUBLEBUFFER, None };
-	GLXContext	glc;
-	XVisualInfo	*vi;
 
-	vi = glXChooseVisual(display, 0, att);
-
-	glc = glXCreateContext(display, vi, NULL, GL_TRUE);
-	glXMakeCurrent(display, *window, glc);
 }
 
 
