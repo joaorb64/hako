@@ -1,11 +1,11 @@
 #ifdef HAKO_BUILD_LINUX
 
 
-#ifndef HAKO_LINUX_GFX_H
-#define HAKO_LINUX_GFX_H
+#ifndef HAKO_LINUX_GFX_OPENGL_H
+#define HAKO_LINUX_GFX_OPENGL_H
 
 
-#include <hako/common/gfx.h>
+#include "gfx.h"
 
 #include <X11/X.h>
 #include <X11/Xlib.h>
@@ -16,7 +16,7 @@ namespace Hako
 {
 	namespace Linux
 	{
-		class GfxOpenGL : public Hako::Gfx
+		class WindowGfxOpenGL : public Hako::Linux::WindowGfx
 		{
 		public:
 			void init           (Hako::Engine* engine) override;
@@ -27,6 +27,9 @@ namespace Hako
 
 
 		protected:
+			// Reference to the engine instance.
+			Hako::Engine* m_engine;
+
 			// Handle to the main window.
 			Window   m_window;
 
@@ -37,15 +40,9 @@ namespace Hako
 			bool   m_user_quit;
 
 
-			// Window callback function used by Linux.
-			void window_callback();
-
 			// Linux OpenGL setup.
 			void opengl_enable  (Display* display, Window* window);
 			void opengl_disable (Display* display, Window* window);
-
-			// OpenGL render task.
-			static void render (void* gfx, Hako::Engine* engine);
 		};
 	}
 }

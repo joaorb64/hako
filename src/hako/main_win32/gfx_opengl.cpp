@@ -3,15 +3,11 @@
 
 #include "gfx_opengl.h"
 #include <hako/common/engine.h>
-
-
-#ifdef HAKO_BUILD_GFXOPENGL
-	#include <hako/common_gl/render.h>
-#endif
+#include <hako/common_gl/render.h>
 
 
 
-void Hako::Win32::GfxOpenGL::init(Hako::Engine* engine)
+void Hako::Win32::WindowGfxOpenGL::init(Hako::Engine* engine)
 {
 	m_user_quit = false;
 
@@ -65,14 +61,14 @@ void Hako::Win32::GfxOpenGL::init(Hako::Engine* engine)
 
 
 
-void Hako::Win32::GfxOpenGL::shutdown()
+void Hako::Win32::WindowGfxOpenGL::shutdown()
 {
 	opengl_disable(m_hwnd, m_hdc, m_hrc);
 }
 
 
 
-void Hako::Win32::GfxOpenGL::process_events()
+void Hako::Win32::WindowGfxOpenGL::process_events()
 {
 	//
 	// Process all queued Win32 event messages.
@@ -94,14 +90,14 @@ void Hako::Win32::GfxOpenGL::process_events()
 
 
 
-bool Hako::Win32::GfxOpenGL::did_user_quit()
+bool Hako::Win32::WindowGfxOpenGL::did_user_quit()
 {
 	return m_user_quit;
 }
 
 
 
-LRESULT CALLBACK Hako::Win32::GfxOpenGL::window_callback(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK Hako::Win32::WindowGfxOpenGL::window_callback(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	//
 	// Switch on the message kind.
@@ -135,7 +131,7 @@ LRESULT CALLBACK Hako::Win32::GfxOpenGL::window_callback(HWND hwnd, UINT uMsg, W
 
 
 
-void Hako::Win32::GfxOpenGL::opengl_enable(HWND hwnd, HDC* hdc, HGLRC* hrc)
+void Hako::Win32::WindowGfxOpenGL::opengl_enable(HWND hwnd, HDC* hdc, HGLRC* hrc)
 {
 	PIXELFORMATDESCRIPTOR pfd;
 	int iFormat;
@@ -159,7 +155,7 @@ void Hako::Win32::GfxOpenGL::opengl_enable(HWND hwnd, HDC* hdc, HGLRC* hrc)
 
 
 
-void Hako::Win32::GfxOpenGL::opengl_disable(HWND hwnd, HDC hdc, HGLRC hrc)
+void Hako::Win32::WindowGfxOpenGL::opengl_disable(HWND hwnd, HDC hdc, HGLRC hrc)
 {
 	wglMakeCurrent(NULL, NULL);
 	wglDeleteContext(hrc);
@@ -168,12 +164,11 @@ void Hako::Win32::GfxOpenGL::opengl_disable(HWND hwnd, HDC hdc, HGLRC hrc)
 
 
 
-void Hako::Win32::GfxOpenGL::render(void* userdata, Hako::Engine* engine)
+void Hako::Win32::WindowGfxOpenGL::render(void* userdata, Hako::Engine* engine)
 {
-	HAKO_UNUSED(engine);
-    Hako::Win32::GfxOpenGL* gfx = (Hako::Win32::GfxOpenGL*)userdata;
+    Hako::Win32::WindowGfxOpenGL* gfx = (Hako::Win32::WindowGfxOpenGL*)userdata;
 
-    Hako::common_opengl_render();
+    Hako::common_opengl_render(engine);
     SwapBuffers(gfx->m_hdc);
 }
 

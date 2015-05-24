@@ -1,11 +1,11 @@
 #ifdef HAKO_BUILD_WIN32
 
 
-#ifndef HAKO_WIN32_GFX_H
-#define HAKO_WIN32_GFX_H
+#ifndef HAKO_WIN32_GFX_OPENGL_H
+#define HAKO_WIN32_GFX_OPENGL_H
 
 
-#include <hako/common/gfx.h>
+#include "gfx.h"
 #include <windows.h>
 
 
@@ -13,7 +13,7 @@ namespace Hako
 {
 	namespace Win32
 	{
-		class GfxOpenGL : public Hako::Gfx
+		class WindowGfxOpenGL : public Hako::Win32::WindowGfx
 		{
 		public:
 			void init           (Hako::Engine* engine) override;
@@ -42,7 +42,7 @@ namespace Hako
 			void opengl_disable (HWND hwnd, HDC  hdc, HGLRC  hrc);
 
 			// OpenGL render task.
-			static void render (void* gfx, Hako::Engine* engine);
+			static void render (void* userdata, Hako::Engine* engine);
 		};
 	}
 }

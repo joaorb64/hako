@@ -118,9 +118,11 @@
 		<Unit filename="src/hako/common/task.h" />
 		<Unit filename="src/hako/common_gl/render.cpp" />
 		<Unit filename="src/hako/common_gl/render.h" />
+		<Unit filename="src/hako/main_linux/gfx.h" />
 		<Unit filename="src/hako/main_linux/gfx_opengl.cpp" />
 		<Unit filename="src/hako/main_linux/gfx_opengl.h" />
 		<Unit filename="src/hako/main_linux/main.cpp" />
+		<Unit filename="src/hako/main_win32/gfx.h" />
 		<Unit filename="src/hako/main_win32/gfx_opengl.cpp" />
 		<Unit filename="src/hako/main_win32/gfx_opengl.h" />
 		<Unit filename="src/hako/main_win32/main.cpp" />

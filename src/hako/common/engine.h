@@ -29,8 +29,6 @@ namespace Hako
 
 		Hako::Gfx* gfx();
 
-		void set_gfx(Hako::Gfx* gfx) { m_gfx = gfx; }
-
 		static void* mem_alloc(
 			void* engine,
 			unsigned int size_in_bytes,
@@ -50,7 +48,7 @@ namespace Hako
 
 
 	protected:
-		Hako::Gfx* m_gfx;
+		Hako::Gfx m_gfx;
 	};
 }
 

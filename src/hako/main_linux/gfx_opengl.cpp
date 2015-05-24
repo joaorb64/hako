@@ -3,17 +3,15 @@
 
 #include "gfx_opengl.h"
 #include <hako/common/engine.h>
-
-
-#ifdef HAKO_BUILD_GFXOPENGL
-	#include <hako/common_gl/render.h>
-#endif
+#include <hako/common_gl/render.h>
 
 
 
-void Hako::Linux::GfxOpenGL::init(Hako::Engine* engine)
+void Hako::Linux::WindowGfxOpenGL::init(Hako::Engine* engine)
 {
 	m_user_quit = false;
+	m_engine = engine;
+
 
 	m_display = XOpenDisplay(NULL);
 	int screen = DefaultScreen(m_display);
@@ -57,34 +55,23 @@ void Hako::Linux::GfxOpenGL::init(Hako::Engine* engine)
 	XMapWindow(m_display, m_window);
 
 	opengl_enable(m_display, &m_window);
-
-	//
-	// Register render task.
-	//
-	Hako::Callback<void, Hako::Engine*> render_callback;
-	render_callback.init(this, render);
-
-	Hako::Task render_task;
-	render_task.init(render_callback);
-
-	engine->task_add_framesync(render_task);
 }
 
 
 
-void Hako::Linux::GfxOpenGL::shutdown()
+void Hako::Linux::WindowGfxOpenGL::shutdown()
 {
 	opengl_disable(m_display, &m_window);
 }
 
 
 
-void Hako::Linux::GfxOpenGL::process_events()
+void Hako::Linux::WindowGfxOpenGL::process_events()
 {
 	//
 	// Process all queued Linux event messages.
 	//
-	XEvent  event;
+	XEvent event;
 
 	while(XPending(m_display))
 	{
@@ -94,7 +81,7 @@ void Hako::Linux::GfxOpenGL::process_events()
 		{
 			case Expose:
 			{
-				Hako::common_opengl_render();
+				Hako::common_opengl_render(m_engine);
 				glXSwapBuffers(m_display, m_window);
 				break;
 			}
@@ -104,21 +91,14 @@ void Hako::Linux::GfxOpenGL::process_events()
 
 
 
-bool Hako::Linux::GfxOpenGL::did_user_quit()
+bool Hako::Linux::WindowGfxOpenGL::did_user_quit()
 {
 	return m_user_quit;
 }
 
 
 
-void Hako::Linux::GfxOpenGL::window_callback()
-{
-	//TODO: Callback handling.
-}
-
-
-
-void Hako::Linux::GfxOpenGL::opengl_enable(Display* display, Window* window)
+void Hako::Linux::WindowGfxOpenGL::opengl_enable(Display* display, Window* window)
 {
 	GLint		att[] = { GLX_RGBA, GLX_DEPTH_SIZE, 24, GLX_DOUBLEBUFFER, None };
 	GLXContext	glc;
@@ -132,20 +112,9 @@ void Hako::Linux::GfxOpenGL::opengl_enable(Display* display, Window* window)
 
 
 
-void Hako::Linux::GfxOpenGL::opengl_disable(Display* display, Window* window)
+void Hako::Linux::WindowGfxOpenGL::opengl_disable(Display* display, Window* window)
 {
-	//TODO: To be written.
-}
-
-
-
-void Hako::Linux::GfxOpenGL::render(void* userdata, Hako::Engine* engine)
-{
-	HAKO_UNUSED(engine);
-    Hako::Linux::GfxOpenGL* gfx = (Hako::Linux::GfxOpenGL*)userdata;
-
-    Hako::common_opengl_render();
-    glXSwapBuffers(gfx->m_display, gfx->m_window);
+	// TODO: To be written.
 }
 
 

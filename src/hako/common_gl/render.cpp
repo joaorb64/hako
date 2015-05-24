@@ -2,10 +2,26 @@
 
 
 #include "render.h"
+#include <hako/common/debug.h>
+
+#ifdef HAKO_BUILD_WIN32
+	#include <windows.h>
+	#include <gl/gl.h>
+#endif
+
+#ifdef HAKO_BUILD_LINUX
+	#include <GL/glx.h>
+	#include <GL/gl.h>
+	#include <X11/X.h>
+	#include <X11/Xlib.h>
+	#include <X11/Xutil.h>
+#endif
 
 
-void Hako::common_opengl_render()
+void Hako::common_opengl_render(Hako::Engine* engine)
 {
+	HAKO_UNUSED(engine);
+
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glFrustum(-1.0, 1.0, -1.0, 1.0, 1.0, 10.0);

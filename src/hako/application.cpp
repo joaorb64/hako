@@ -6,7 +6,7 @@
 void test_fixed_task(void* unused, Hako::Engine* engine);
 
 
-Hako::Options* Hako::Application::init_start(Hako::Engine* engine)
+Hako::Options* Hako::Application::on_startup(Hako::Engine* engine)
 {
 	HAKO_UNUSED(engine);
 
@@ -16,7 +16,7 @@ Hako::Options* Hako::Application::init_start(Hako::Engine* engine)
 }
 
 
-void Hako::Application::init_end(Hako::Engine* engine)
+void Hako::Application::on_ready(Hako::Engine* engine)
 {
 	Hako::Callback<void, Hako::Engine*> fixed_task_callback;
 	fixed_task_callback.init(nullptr, test_fixed_task);

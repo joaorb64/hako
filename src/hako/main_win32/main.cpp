@@ -13,25 +13,31 @@ int main(int argc, char** argv)
 	HAKO_UNUSED(argc);
 	HAKO_UNUSED(argv);
 
-
+	//
+	// Create an instance of the engine.
+	//
 	Hako::Engine engine;
 	engine.init();
 
+	//
+	// Call the application's on_startup function.
+	//
+	Hako::Application::on_startup(&engine);
 
-	Hako::Application::init_start(&engine);
-
-
-	Hako::Gfx* gfx;
+	//
+	// Create a window and a render context.
+	//
+	Hako::Win32::WindowGfx* window_gfx;
 #ifdef HAKO_BUILD_GFXOPENGL
-	Hako::Win32::GfxOpenGL gfx_opengl;
-	gfx = &gfx_opengl;
+	Hako::Win32::WindowGfxOpenGL window_gfx_opengl;
+	window_gfx = &window_gfx_opengl;
 #endif
-	gfx->init(&engine);
-    engine.set_gfx(gfx);
+	window_gfx->init(&engine);
 
-
-	Hako::Application::init_end(&engine);
-
+	//
+	// Call the application's on_ready function.
+	//
+	Hako::Application::on_ready(&engine);
 
 	//
 	// Main loop. Can only break when user quits the application.
@@ -50,10 +56,6 @@ int main(int argc, char** argv)
 		QueryPerformanceFrequency(&timer_frequency);
 		QueryPerformanceCounter(&timer_starttime);
 
-		gfx->process_events();
-		if (gfx->did_user_quit())
-			break;
-
 		//
 		// Process frame-syncronized tasks.
 		//
@@ -61,6 +63,13 @@ int main(int argc, char** argv)
 		// interpolation factor: (fixed_timer / float(1000000 / fixed_cycles_per_second))
 		for (unsigned int i = 0; i < engine.m_framesync_tasks.m_tasks.get_length(); i++)
 			engine.m_framesync_tasks.m_tasks.get_element(i).get_entry_point().call(&engine);
+
+		//
+		// Render graphics.
+		//
+		window_gfx->process_events();
+		if (window_gfx->did_user_quit())
+			break;
 
 		//
 		// Sleep for the remaining of frame.
@@ -108,7 +117,7 @@ int main(int argc, char** argv)
 		}*/
 	}
 
-	gfx->shutdown();
+	window_gfx->shutdown();
 
 	return 0;
 }

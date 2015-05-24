@@ -11,45 +11,39 @@ int main(int argc, char** argv)
 	HAKO_UNUSED(argc);
 	HAKO_UNUSED(argv);
 
-
 	Hako::Engine engine;
 	engine.init();
 
+	Hako::Application::on_startup(&engine);
 
-	Hako::Application::init_start(&engine);
-
-
-	Hako::Gfx* gfx;
+	Hako::Linux::WindowGfx* window_gfx;
 #ifdef HAKO_BUILD_GFXOPENGL
-	Hako::Linux::GfxOpenGL gfx_opengl;
-	gfx = &gfx_opengl;
+	Hako::Linux::WindowGfxOpenGL window_gfx_opengl;
+	window_gfx = &window_gfx_opengl;
 #endif
-	gfx->init(&engine);
-    engine.set_gfx(gfx);
+	window_gfx->init(&engine);
 
-
-	Hako::Application::init_end(&engine);
-
+	Hako::Application::on_ready(&engine);
 
 	//
 	// Main loop. Can only break when user quits the application.
 	//
-	int fixed_timer = 0;
-	int fixed_cycles_per_second = 30;
+	//int fixed_timer = 0;
+	//int fixed_cycles_per_second = 30;
 	while (true)
 	{
 		//
 		// Get current timestamp using Linux functions.
 		//
-		unsigned long long timer_frequency;
-		unsigned long long timer_starttime;
-		unsigned long long timer_endtime;
-		unsigned long long timer_elapsed_microseconds;
+		//unsigned long long timer_frequency;
+		//unsigned long long timer_starttime;
+		//unsigned long long timer_endtime;
+		//unsigned long long timer_elapsed_microseconds;
 		//QueryPerformanceFrequency(&timer_frequency);
 		//QueryPerformanceCounter(&timer_starttime);
 
-		gfx->process_events();
-		if (gfx->did_user_quit())
+		window_gfx->process_events();
+		if (window_gfx->did_user_quit())
 			break;
 
 		//
@@ -106,15 +100,9 @@ int main(int argc, char** argv)
 		}*/
 	}
 
-	gfx->shutdown();
+	window_gfx->shutdown();
 
 	return 0;
-}
-
-
-void linux_opengl_enable(Display* display, Window* window)
-{
-
 }
 
 

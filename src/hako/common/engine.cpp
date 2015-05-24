@@ -12,8 +12,6 @@ void Hako::Engine::init()
 	m_noreturn_tasks      .init(this);
 	m_fixedsync_tasks     .init(this);
 	m_framesync_tasks     .init(this);
-
-	m_gfx = nullptr;
 }
 
 
@@ -34,7 +32,7 @@ void Hako::Engine::task_add_framesync(Hako::Task task)
 
 Hako::Gfx* Hako::Engine::gfx()
 {
-	return m_gfx;
+	return &m_gfx;
 }
 
 

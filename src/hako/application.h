@@ -14,11 +14,11 @@ namespace Hako
 	public:
 		// Called when the engine first starts. Should return an Options
 		// structure containing startup directives, or nullptr.
-		static Hako::Options* init_start(Hako::Engine* engine);
+		static Hako::Options* on_startup(Hako::Engine* engine);
 
 		// Called after modules have loaded, but before main loop
 		// has started.
-		static void init_end  (Hako::Engine* engine);
+		static void on_ready(Hako::Engine* engine);
 	};
 }
 
