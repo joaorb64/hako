@@ -79,14 +79,12 @@ void Hako::Linux::WindowOpenGL::process_events()
 
 		switch (event.type)
 		{
-			case Expose:
-			{
-				Hako::common_opengl_render(this->engine);
-				glXSwapBuffers(this->display, this->window);
-				break;
-			}
+
 		}
 	}
+
+	Hako::common_opengl_render(this->engine);
+	glXSwapBuffers(this->display, this->window);
 }
 
 
@@ -98,7 +96,7 @@ bool Hako::Linux::WindowOpenGL::did_user_quit()
 
 
 
-void Hako::Linux::WindowOpenGL::opengl_enable(Display* display, Window* window)
+void Hako::Linux::WindowOpenGL::opengl_enable(Display* display, ::Window* window)
 {
 	GLint		att[] = { GLX_RGBA, GLX_DEPTH_SIZE, 24, GLX_DOUBLEBUFFER, None };
 	GLXContext	glc;
@@ -112,7 +110,7 @@ void Hako::Linux::WindowOpenGL::opengl_enable(Display* display, Window* window)
 
 
 
-void Hako::Linux::WindowOpenGL::opengl_disable(Display* display, Window* window)
+void Hako::Linux::WindowOpenGL::opengl_disable(Display* display, ::Window* window)
 {
 	// TODO: To be written.
 }

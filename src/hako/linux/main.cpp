@@ -32,28 +32,34 @@ int main(int argc, char** argv)
 	//int fixed_cycles_per_second = 30;
 	while (true)
 	{
+		/*
 		//
-		// Get current timestamp using Linux functions.
+		// Get current timestamp using Windows functions.
 		//
-		//unsigned long long timer_frequency;
-		//unsigned long long timer_starttime;
-		//unsigned long long timer_endtime;
-		//unsigned long long timer_elapsed_microseconds;
-		//QueryPerformanceFrequency(&timer_frequency);
-		//QueryPerformanceCounter(&timer_starttime);
-
-		window->process_events();
-		if (window->did_user_quit())
-			break;
+		LARGE_INTEGER timer_frequency;
+		LARGE_INTEGER timer_starttime;
+		LARGE_INTEGER timer_endtime;
+		LARGE_INTEGER timer_elapsed_microseconds;
+		QueryPerformanceFrequency(&timer_frequency);
+		QueryPerformanceCounter(&timer_starttime);
+		*/
 
 		//
 		// Process frame-syncronized tasks.
 		//
 
 		// interpolation factor: (fixed_timer / float(1000000 / fixed_cycles_per_second))
-		/*for (unsigned int i = 0; i < engine.m_framesync_tasks.m_tasks.get_length(); i++)
-			engine.m_framesync_tasks.m_tasks.get_element(i).get_entry_point().call(&engine);
+		for (unsigned int i = 0; i < engine.framesync_tasks.tasks.get_length(); i++)
+			engine.framesync_tasks.tasks.get_element(i).get_entry_point().call(&engine);
 
+		//
+		// Render graphics.
+		//
+		window->process_events();
+		if (window->did_user_quit())
+			break;
+
+		/*
 		//
 		// Sleep for the remaining of frame.
 		//
@@ -63,7 +69,9 @@ int main(int argc, char** argv)
 		timer_elapsed_microseconds.QuadPart /= timer_frequency.QuadPart;
 		int elapsedMilliseconds = int(timer_elapsed_microseconds.QuadPart);
 		if (elapsedMilliseconds < 1000 / 60) Sleep((1000 / 60) - int(elapsedMilliseconds));
+		*/
 
+		/*
 		//
 		// Advance fixed timer, and execute fixed-syncronized tasks.
 		//
@@ -76,8 +84,28 @@ int main(int argc, char** argv)
 		while (fixed_timer >= 1000000 / fixed_cycles_per_second)
 		{
 			fixed_timer -= 1000000 / fixed_cycles_per_second;
-			for (unsigned int i = 0; i < engine.m_fixedsync_tasks.m_tasks.get_length(); i++)
-				engine.m_fixedsync_tasks.m_tasks.get_element(i).get_entry_point().call(&engine);
+			for (unsigned int i = 0; i < engine.fixedsync_tasks.tasks.get_length(); i++)
+				engine.fixedsync_tasks.tasks.get_element(i).get_entry_point().call(&engine);
+		}
+		*/
+
+		//
+		// Count frames-per-second rate.
+		//
+		/*QueryPerformanceCounter(&nEndTime);
+		elapsedMicroseconds.QuadPart = nEndTime.QuadPart - nBeginTime.QuadPart;
+		elapsedMicroseconds.QuadPart *= 1000000;
+		elapsedMicroseconds.QuadPart /= nFreq.QuadPart;
+
+		highFreqFramesPerSecond = 1000000.0f / (elapsedMicroseconds.QuadPart);
+
+		frameCounter++;
+		frameTimer += int(elapsedMicroseconds.QuadPart);
+		if (frameTimer >= 1000000)
+		{
+			framesPerSecond = frameCounter;
+			frameCounter = 0;
+			frameTimer -= 1000000;
 		}*/
 	}
 

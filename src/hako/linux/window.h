@@ -7,6 +7,8 @@
 
 namespace Hako
 {
+	class Engine;
+
 	namespace Linux
 	{
 		class Window

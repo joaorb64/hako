@@ -6,11 +6,11 @@
 
 
 #include "window.h"
-
 #include <X11/X.h>
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
-
+#include <GL/gl.h>
+#include <GL/glx.h>
 
 namespace Hako
 {
@@ -31,7 +31,7 @@ namespace Hako
 			Hako::Engine* engine;
 
 			// Handle to the main window.
-			Window   window;
+			::Window   window;
 
 			//Handle to the display.
 			Display* display;
@@ -41,8 +41,8 @@ namespace Hako
 
 
 			// Linux OpenGL setup.
-			void opengl_enable  (Display* display, Window* window);
-			void opengl_disable (Display* display, Window* window);
+			void opengl_enable  (Display* display, ::Window* window);
+			void opengl_disable (Display* display, ::Window* window);
 		};
 	}
 }
