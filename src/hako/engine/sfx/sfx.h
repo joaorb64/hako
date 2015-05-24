@@ -1,5 +1,5 @@
-#ifndef HAKO_COMMON_GFX_H
-#define HAKO_COMMON_GFX_H
+#ifndef HAKO_ENGINE_SFX_SFX_H
+#define HAKO_ENGINE_SFX_SFX_H
 
 
 #include <hako/common/debug.h>
@@ -7,7 +7,7 @@
 
 namespace Hako
 {
-	class Gfx
+	class Sfx
 	{
 		/* To be written. */
 	};

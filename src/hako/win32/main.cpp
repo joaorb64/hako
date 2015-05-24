@@ -3,6 +3,8 @@
 
 #include <hako/application.h>
 #include <hako/common/debug.h>
+#include <hako/engine/engine.h>
+#include <hako/engine/filesys/filesys_stdio.h>
 #include "window_opengl.h"
 #include <windows.h>
 
@@ -18,6 +20,10 @@ int main(int argc, char** argv)
 	//
 	Hako::Engine engine;
 	engine.init();
+
+	Hako::FileSys_Stdio filesys;
+	filesys.init(&engine);
+	engine.set_filesys(&filesys);
 
 	//
 	// Call the application's on_startup function.

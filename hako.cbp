@@ -111,9 +111,15 @@
 		<Unit filename="src/hako/common/ds/vector.h" />
 		<Unit filename="src/hako/common/mem.h" />
 		<Unit filename="src/hako/common/options.h" />
+		<Unit filename="src/hako/common/string.h" />
 		<Unit filename="src/hako/engine/engine.cpp" />
 		<Unit filename="src/hako/engine/engine.h" />
-		<Unit filename="src/hako/engine/gfx.h" />
+		<Unit filename="src/hako/engine/filesys/filesys.h" />
+		<Unit filename="src/hako/engine/filesys/filesys_stdio.cpp" />
+		<Unit filename="src/hako/engine/filesys/filesys_stdio.h" />
+		<Unit filename="src/hako/engine/gfx/gfx.h" />
+		<Unit filename="src/hako/engine/input/input.h" />
+		<Unit filename="src/hako/engine/sfx/sfx.h" />
 		<Unit filename="src/hako/engine/task.cpp" />
 		<Unit filename="src/hako/engine/task.h" />
 		<Unit filename="src/hako/linux/main.cpp" />
