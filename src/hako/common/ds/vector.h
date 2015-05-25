@@ -71,16 +71,8 @@ namespace Hako
 			}
 
 
-		protected:
-			HAKO_ONLYINDEBUG( bool initialized = false; )
-
-			T*           data;
-			unsigned int element_num;
-			unsigned int element_capacity;
-
-			Hako::MemCallbacks mem_callbacks;
-
-
+			// Ensures that the vector's capacity is larger than or equal to
+			// the given value, growing the storage space if necessary.
 			void ensure_capacity(unsigned int capacity)
 			{
 				HAKO_ASSERT(this->initialized, "init() must be called before");
@@ -94,6 +86,26 @@ namespace Hako
 						32);
 				}
 			}
+
+
+			// Sets the number of elements to the given value, growing the
+			// storage space if necessary.
+			void set_length(unsigned int length)
+			{
+				HAKO_ASSERT(this->initialized, "init() must be called before");
+				ensure_capacity(length);
+				this->element_num = length;
+			}
+
+
+		protected:
+			HAKO_ONLYINDEBUG( bool initialized = false; )
+
+			T*           data;
+			unsigned int element_num;
+			unsigned int element_capacity;
+
+			Hako::MemCallbacks mem_callbacks;
 		};
 	}
 }

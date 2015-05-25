@@ -119,9 +119,6 @@ extern PTR_GLBUFFERSUBDATA 		glBufferSubData;
 extern PTR_GLGETSTRINGI			glGetStringi;
 
 
-#define GLCheckError() GLCheckErrorInternal(__FILE__, __LINE__)
-
-
 #define GL_MAJOR_VERSION                  0x821B
 #define GL_MINOR_VERSION                  0x821C
 #define GL_NUM_EXTENSIONS                 0x821D

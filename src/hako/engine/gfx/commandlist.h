@@ -16,6 +16,7 @@ namespace Hako
 			void init            (Hako::Engine* engine) = 0;
 
             void begin           () = 0;
+            void set_material    (Hako::Gfx::Material* material) = 0;
             void draw            (Hako::Gfx::Mesh* mesh) = 0;
             void finish          () = 0;
 		};

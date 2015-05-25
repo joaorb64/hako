@@ -8,10 +8,12 @@ namespace Hako
 	{
 		class Manager_Generic;
 		class Mesh_Generic;
+		class Material_Generic;
 		class CommandList_Generic;
 
 		typedef Hako::Gfx::Manager_Generic      Manager;
 		typedef Hako::Gfx::Mesh_Generic         Mesh;
+		typedef Hako::Gfx::Material_Generic     Material;
 		typedef Hako::Gfx::CommandList_Generic  CommandList;
 	}
 

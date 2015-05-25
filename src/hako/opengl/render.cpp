@@ -12,6 +12,8 @@ void Hako::common_opengl_render(Hako::Engine* engine)
 {
 	HAKO_UNUSED(engine);
 
+	glFinish();
+
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glFrustum(-1.0, 1.0, -1.0, 1.0, 1.0, 10.0);
@@ -29,6 +31,8 @@ void Hako::common_opengl_render(Hako::Engine* engine)
 		glVertex3f(1.0, -1.0, 1.0);
 		glVertex3f(-1.0, -1.0, 1.0);
 	glEnd();
+
+	glFlush();
 }
 
 

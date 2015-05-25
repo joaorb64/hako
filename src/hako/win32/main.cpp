@@ -135,6 +135,20 @@ int main(int argc, char** argv)
 
 			fps_timer -= 1000000;
 		}
+
+		//
+		// Sleep for the rest of frame.
+		//
+		QueryPerformanceCounter(&timer_endtime);
+		timer_elapsed_microseconds.QuadPart  = timer_endtime.QuadPart - timer_starttime.QuadPart;
+		timer_elapsed_microseconds.QuadPart *= 1000000;
+		timer_elapsed_microseconds.QuadPart /= timer_frequency.QuadPart;
+		elapsed_microseconds = int(timer_elapsed_microseconds.QuadPart);
+
+		// FIXME: Sleep for slightly shorter than a frame to
+		// account for vsync off-timings.
+		if (elapsed_microseconds < 1000000 / 65)
+			Sleep((1000 / 65) - (elapsed_microseconds / 1000));
 	}
 
 	window->shutdown();
