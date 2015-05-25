@@ -7,17 +7,16 @@
 #include <hako/engine/bindings.h>
 
 
+int main(int argc, char** argv);
+
+
 namespace Hako
 {
 	// Holds general engine information.
 	class Engine
 	{
 	public:
-		TaskManager independent_tasks;
-		TaskManager noreturn_tasks;
-		TaskManager fixedsync_tasks;
-		TaskManager framesync_tasks;
-
+		friend int (::main)(int argc, char** argv);
 
 		void init();
 		void task_add_fixedsync(Hako::Task task);
@@ -29,10 +28,11 @@ namespace Hako
 		Hako::FileSys::Manager* get_filesys();
 		Hako::MemCallbacks      get_mem_callbacks();
 
-		void set_gfx     (Hako::Gfx::Manager* gfx);
-		void set_sfx     (Hako::Sfx::Manager* sfx);
-		void set_input   (Hako::Input::Manager* input);
-		void set_filesys (Hako::FileSys::Manager* filesys);
+		int get_frame_steps_executed();
+		int get_fixed_steps_executed();
+		int get_fixed_milliseconds_since_startup();
+		int get_frame_steps_per_second();
+		int get_fixed_steps_per_second();
 
 		static void* mem_alloc(
 			void* engine,
@@ -53,11 +53,22 @@ namespace Hako
 
 
 	protected:
+		TaskManager independent_tasks;
+		TaskManager noreturn_tasks;
+		TaskManager fixedsync_tasks;
+		TaskManager framesync_tasks;
+
 		Hako::MemCallbacks       mem_callbacks;
 		Hako::Gfx::Manager*      gfx;
 		Hako::Sfx::Manager*      sfx;
 		Hako::Input::Manager*    input;
 		Hako::FileSys::Manager*  filesys;
+
+		int frame_steps_executed;
+		int frame_steps_per_second;
+		int fixed_steps_executed;
+		int fixed_steps_per_second;
+		int fixed_milliseconds_since_startup;
 	};
 }
 

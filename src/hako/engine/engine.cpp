@@ -16,6 +16,12 @@ void Hako::Engine::init()
 	this->sfx     = nullptr;
 	this->input   = nullptr;
 	this->filesys = nullptr;
+
+	this->frame_steps_executed             = 0;
+	this->fixed_steps_executed             = 0;
+	this->fixed_milliseconds_since_startup = 0;
+	this->frame_steps_per_second           = 0;
+	this->fixed_steps_per_second           = 0;
 }
 
 
@@ -69,31 +75,37 @@ Hako::MemCallbacks Hako::Engine::get_mem_callbacks()
 
 
 
-void Hako::Engine::set_gfx(Hako::Gfx::Manager* gfx)
+int Hako::Engine::get_frame_steps_executed()
 {
-	this->gfx = gfx;
+	return this->frame_steps_executed;
 }
 
 
 
-void Hako::Engine::set_sfx(Hako::Sfx::Manager* sfx)
+int Hako::Engine::get_frame_steps_per_second()
 {
-	this->sfx = sfx;
+	return this->frame_steps_per_second;
 }
 
 
 
-
-void Hako::Engine::set_input(Hako::Input::Manager* input)
+int Hako::Engine::get_fixed_steps_per_second()
 {
-	this->input = input;
+	return this->fixed_steps_per_second;
 }
 
 
 
-void Hako::Engine::set_filesys(Hako::FileSys::Manager* filesys)
+int Hako::Engine::get_fixed_steps_executed()
 {
-	this->filesys = filesys;
+	return this->fixed_steps_executed;
+}
+
+
+
+int Hako::Engine::get_fixed_milliseconds_since_startup()
+{
+	return this->fixed_milliseconds_since_startup;
 }
 
 

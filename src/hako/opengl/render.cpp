@@ -4,16 +4,13 @@
 #include "render.h"
 #include "gl_includes.h"
 #include <hako/common/debug.h>
+#include <hako/engine/engine.h>
 #include <math.h>
 
 
 void Hako::common_opengl_render(Hako::Engine* engine)
 {
 	HAKO_UNUSED(engine);
-
-	//Animation
-	static float debug_x = 0;
-	debug_x += 0.1;
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
@@ -24,7 +21,7 @@ void Hako::common_opengl_render(Hako::Engine* engine)
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	glTranslatef(cos(debug_x), 0.0, -3.0);
+	glTranslatef(cosf(engine->get_fixed_milliseconds_since_startup() / 200.0f), 0.0, -3.0);
 	glBegin(GL_TRIANGLE_FAN);
 		glColor3f(0.0, 0.7, 0.1);
 		glVertex3f(-1.0, 1.0, 1.0);

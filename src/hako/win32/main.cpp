@@ -23,7 +23,7 @@ int main(int argc, char** argv)
 
 	Hako::FileSys::Manager_Stdio filesys;
 	filesys.init(&engine);
-	engine.set_filesys(&filesys);
+	engine.filesys = &filesys;
 
 	//
 	// Call the application's on_startup function.
@@ -46,81 +46,95 @@ int main(int argc, char** argv)
 	Hako::Application::on_ready(&engine);
 
 	//
-	// Main loop. Can only break when user quits the application.
+	// Timing variables.
 	//
 	int fixed_timer = 0;
-	int fixed_cycles_per_second = 30;
+	int frame_timer = 0;
+	int fixed_cycles_per_second = 60;
+	int fps_timer = 0;
+	int total_timer = 0;
+	int last_frame_step = 0;
+	int last_fixed_step = 0;
+
+	//
+	// Get current timestamp using Windows functions.
+	//
+	LARGE_INTEGER timer_frequency;
+	LARGE_INTEGER timer_starttime;
+	LARGE_INTEGER timer_endtime;
+	QueryPerformanceFrequency(&timer_frequency);
+	QueryPerformanceCounter(&timer_starttime);
+
+	//
+	// Main loop. Can only break when user quits the application.
+	//
 	while (true)
 	{
 		//
-		// Get current timestamp using Windows functions.
+		// Get current timestamp and time delta.
 		//
-		LARGE_INTEGER timer_frequency;
-		LARGE_INTEGER timer_starttime;
-		LARGE_INTEGER timer_endtime;
+		QueryPerformanceCounter(&timer_endtime);
+
 		LARGE_INTEGER timer_elapsed_microseconds;
-		QueryPerformanceFrequency(&timer_frequency);
-		QueryPerformanceCounter(&timer_starttime);
+		timer_elapsed_microseconds.QuadPart  = timer_endtime.QuadPart - timer_starttime.QuadPart;
+		timer_elapsed_microseconds.QuadPart *= 1000000;
+		timer_elapsed_microseconds.QuadPart /= timer_frequency.QuadPart;
+		int elapsed_microseconds = int(timer_elapsed_microseconds.QuadPart);
+
+		timer_starttime = timer_endtime;
+
+		total_timer += elapsed_microseconds;
+		engine.fixed_milliseconds_since_startup = total_timer / 1000;
 
 		//
-		// Process frame-syncronized tasks.
-		//
-
-		// interpolation factor: (fixed_timer / float(1000000 / fixed_cycles_per_second))
-		for (unsigned int i = 0; i < engine.framesync_tasks.tasks.get_length(); i++)
-			engine.framesync_tasks.tasks.get_element(i).get_entry_point().call(&engine);
-
-		//
-		// Render graphics.
+		// Process window events.
 		//
 		window->process_events();
 		if (window->did_user_quit())
 			break;
 
 		//
-		// Sleep for the remaining of frame.
+		// Process frame-syncronized tasks.
 		//
-		/*QueryPerformanceCounter(&timer_endtime);
-		timer_elapsed_microseconds.QuadPart  = timer_endtime.QuadPart - timer_starttime.QuadPart;
-		timer_elapsed_microseconds.QuadPart *= 1000;
-		timer_elapsed_microseconds.QuadPart /= timer_frequency.QuadPart;
-		int elapsedMilliseconds = int(timer_elapsed_microseconds.QuadPart);
-		if (elapsedMilliseconds < 1000 / 60) Sleep((1000 / 60) - int(elapsedMilliseconds));*/
+		frame_timer += elapsed_microseconds;
+		for (unsigned int i = 0; i < engine.framesync_tasks.tasks.get_length(); i++)
+			engine.framesync_tasks.tasks.get_element(i).get_entry_point().call(&engine);
+
+		engine.frame_steps_executed += 1;
 
 		//
 		// Advance fixed timer, and execute fixed-syncronized tasks.
 		//
-		QueryPerformanceCounter(&timer_endtime);
-		timer_elapsed_microseconds.QuadPart  = timer_endtime.QuadPart - timer_starttime.QuadPart;
-		timer_elapsed_microseconds.QuadPart *= 1000000;
-		timer_elapsed_microseconds.QuadPart /= timer_frequency.QuadPart;
+		fixed_timer += elapsed_microseconds;
 
-		fixed_timer += int(timer_elapsed_microseconds.QuadPart);
-		while (fixed_timer >= 1000000 / fixed_cycles_per_second)
+		int microseconds_per_fixed = 1000000 / fixed_cycles_per_second;
+		int fixed_per_frame_limit = 120;
+		while (fixed_timer >= microseconds_per_fixed && fixed_per_frame_limit > 0)
 		{
-			fixed_timer -= 1000000 / fixed_cycles_per_second;
+			fixed_timer -= microseconds_per_fixed;
+
 			for (unsigned int i = 0; i < engine.fixedsync_tasks.tasks.get_length(); i++)
 				engine.fixedsync_tasks.tasks.get_element(i).get_entry_point().call(&engine);
+
+			engine.fixed_steps_executed += 1;
+			fixed_per_frame_limit -= 1;
 		}
 
 		//
 		// Count frames-per-second rate.
 		//
-		/*QueryPerformanceCounter(&nEndTime);
-		elapsedMicroseconds.QuadPart = nEndTime.QuadPart - nBeginTime.QuadPart;
-		elapsedMicroseconds.QuadPart *= 1000000;
-		elapsedMicroseconds.QuadPart /= nFreq.QuadPart;
+		fps_timer += elapsed_microseconds;
 
-		highFreqFramesPerSecond = 1000000.0f / (elapsedMicroseconds.QuadPart);
-
-		frameCounter++;
-		frameTimer += int(elapsedMicroseconds.QuadPart);
-		if (frameTimer >= 1000000)
+		if (fps_timer >= 1000000)
 		{
-			framesPerSecond = frameCounter;
-			frameCounter = 0;
-			frameTimer -= 1000000;
-		}*/
+			engine.frame_steps_per_second = engine.frame_steps_executed - last_frame_step;
+			last_frame_step = engine.frame_steps_executed;
+
+			engine.fixed_steps_per_second = engine.fixed_steps_executed - last_fixed_step;
+			last_fixed_step = engine.fixed_steps_executed;
+
+			fps_timer -= 1000000;
+		}
 	}
 
 	window->shutdown();
