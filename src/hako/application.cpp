@@ -10,7 +10,7 @@ Hako::Options* Hako::Application::on_startup(Hako::Engine* engine)
 {
 	HAKO_UNUSED(engine);
 
-	printf("Hako init_start!\n");
+	printf("Hako::Application::on_startup\n");
 
 	return nullptr;
 }
@@ -26,7 +26,7 @@ void Hako::Application::on_ready(Hako::Engine* engine)
 
 	engine->task_add_fixedsync(fixed_task);
 
-	printf("Hako init_end!\n");
+	printf("Hako::Application::on_ready\n");
 }
 
 
@@ -34,5 +34,5 @@ void test_fixed_task(void* unused, Hako::Engine* engine)
 {
 	HAKO_UNUSED(unused);
 	HAKO_UNUSED(engine);
-	printf("Hako fixed_task!\n");
+	printf("Hako::Application::test_fixed_task\n");
 }
