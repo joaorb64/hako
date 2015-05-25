@@ -121,6 +121,7 @@
 		<Unit filename="src/hako/engine/gfx/commandlist.h" />
 		<Unit filename="src/hako/engine/gfx/manager.cpp" />
 		<Unit filename="src/hako/engine/gfx/manager.h" />
+		<Unit filename="src/hako/engine/gfx/material.h" />
 		<Unit filename="src/hako/engine/gfx/mesh.h" />
 		<Unit filename="src/hako/engine/input/manager.h" />
 		<Unit filename="src/hako/engine/sfx/manager.h" />
@@ -136,6 +137,8 @@
 		<Unit filename="src/hako/opengl/gl_includes_linux.h" />
 		<Unit filename="src/hako/opengl/gl_includes_win32.cpp" />
 		<Unit filename="src/hako/opengl/gl_includes_win32.h" />
+		<Unit filename="src/hako/opengl/material.cpp" />
+		<Unit filename="src/hako/opengl/material.h" />
 		<Unit filename="src/hako/opengl/mesh.cpp" />
 		<Unit filename="src/hako/opengl/mesh.h" />
 		<Unit filename="src/hako/opengl/render.cpp" />
