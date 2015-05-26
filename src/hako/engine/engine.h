@@ -28,11 +28,13 @@ namespace Hako
 		Hako::FileSys::Manager* get_filesys();
 		Hako::MemCallbacks      get_mem_callbacks();
 
-		int get_frame_steps_executed();
-		int get_fixed_steps_executed();
-		int get_fixed_milliseconds_since_startup();
-		int get_frame_steps_per_second();
-		int get_fixed_steps_per_second();
+		int  get_frame_steps_executed();
+		int  get_fixed_steps_executed();
+		int  get_fixed_milliseconds_since_startup();
+		int  get_frame_steps_per_second();
+		int  get_fixed_steps_per_second();
+		void set_desired_frame_steps_per_second(int desired_value);
+		void set_desired_fixed_steps_per_second(int desired_value);
 
 		static void* mem_alloc(
 			void* engine,
@@ -64,6 +66,8 @@ namespace Hako
 		Hako::Input::Manager*    input;
 		Hako::FileSys::Manager*  filesys;
 
+		int desired_frame_steps_per_second;
+		int desired_fixed_steps_per_second;
 		int frame_steps_executed;
 		int frame_steps_per_second;
 		int fixed_steps_executed;

@@ -111,6 +111,7 @@
 		<Unit filename="src/hako/common/ds/vector.h" />
 		<Unit filename="src/hako/common/mem.h" />
 		<Unit filename="src/hako/common/options.h" />
+		<Unit filename="src/hako/common/references.h" />
 		<Unit filename="src/hako/common/string.h" />
 		<Unit filename="src/hako/engine/bindings.h" />
 		<Unit filename="src/hako/engine/engine.cpp" />

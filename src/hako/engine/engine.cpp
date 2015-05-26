@@ -22,6 +22,9 @@ void Hako::Engine::init()
 	this->fixed_milliseconds_since_startup = 0;
 	this->frame_steps_per_second           = 0;
 	this->fixed_steps_per_second           = 0;
+
+	this->desired_frame_steps_per_second   = 60;
+	this->desired_fixed_steps_per_second   = 30;
 }
 
 
@@ -106,6 +109,21 @@ int Hako::Engine::get_fixed_steps_executed()
 int Hako::Engine::get_fixed_milliseconds_since_startup()
 {
 	return this->fixed_milliseconds_since_startup;
+}
+
+
+
+
+void Hako::Engine::set_desired_frame_steps_per_second(int desired_value)
+{
+	this->desired_frame_steps_per_second = desired_value;
+}
+
+
+
+void Hako::Engine::set_desired_fixed_steps_per_second(int desired_value)
+{
+	this->desired_fixed_steps_per_second = desired_value;
 }
 
 

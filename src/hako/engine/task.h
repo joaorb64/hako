@@ -16,15 +16,17 @@ namespace Hako
 		friend class TaskManager;
 
 	public:
-		void init(Hako::Callback<void, Hako::Engine*> entry_point)
-			{ this->entry_point = entry_point; }
+		void init(Hako::Engine* engine, Hako::Callback<void, Hako::Engine*> entry_point);
+		Hako::Callback<void, Hako::Engine*> get_entry_point();
 
-		Hako::Callback<void, Hako::Engine*> get_entry_point()
-			{ return this->entry_point; }
+		void add_dependency             (Task* task);
+		void add_concurrent_prohibition (Task* task);
 
 
 	protected:
 		Hako::Callback<void, Hako::Engine*> entry_point;
+		Hako::DS::Vector<Task*> dependency_list;
+		Hako::DS::Vector<Task*> concurrent_prohibition_list;
 	};
 
 

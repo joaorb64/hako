@@ -48,22 +48,20 @@ int main(int argc, char** argv)
 	//
 	// Timing variables.
 	//
-	int fixed_timer = 0;
-	int frame_timer = 0;
-	int fixed_cycles_per_second = 60;
-	int fps_timer = 0;
-	int total_timer = 0;
-	int last_frame_step = 0;
-	int last_fixed_step = 0;
+	int fixed_step_available_microseconds = 0;
+	int frame_step_available_microseconds = 0;
+	int fps_counter_last_frame_timestamp  = 0;
+	int fps_counter_last_fixed_timestamp  = 0;
+	int fps_counter_timestamp             = 0;
+	int total_microseconds_running        = 0;
 
 	//
 	// Get current timestamp using Windows functions.
 	//
-	LARGE_INTEGER timer_frequency;
-	LARGE_INTEGER timer_starttime;
-	LARGE_INTEGER timer_endtime;
-	QueryPerformanceFrequency(&timer_frequency);
-	QueryPerformanceCounter(&timer_starttime);
+	LARGE_INTEGER win32_highrestimer_frequency;
+	LARGE_INTEGER win32_highrestimer_last;
+	QueryPerformanceFrequency(&win32_highrestimer_frequency);
+	QueryPerformanceCounter(&win32_highrestimer_last);
 
 	//
 	// Main loop. Can only break when user quits the application.
@@ -73,18 +71,16 @@ int main(int argc, char** argv)
 		//
 		// Get current timestamp and time delta.
 		//
-		QueryPerformanceCounter(&timer_endtime);
+		LARGE_INTEGER win32_highrestimer_current;
+		QueryPerformanceCounter(&win32_highrestimer_current);
 
-		LARGE_INTEGER timer_elapsed_microseconds;
-		timer_elapsed_microseconds.QuadPart  = timer_endtime.QuadPart - timer_starttime.QuadPart;
-		timer_elapsed_microseconds.QuadPart *= 1000000;
-		timer_elapsed_microseconds.QuadPart /= timer_frequency.QuadPart;
-		int elapsed_microseconds = int(timer_elapsed_microseconds.QuadPart);
+		long long int elapsed_microseconds;
+		elapsed_microseconds = win32_highrestimer_current.QuadPart - win32_highrestimer_last.QuadPart;
+		elapsed_microseconds *= 1000000;
+		elapsed_microseconds /= win32_highrestimer_frequency.QuadPart;
 
-		timer_starttime = timer_endtime;
-
-		total_timer += elapsed_microseconds;
-		engine.fixed_milliseconds_since_startup = total_timer / 1000;
+		total_microseconds_running += elapsed_microseconds;
+		engine.fixed_milliseconds_since_startup = total_microseconds_running / 1000;
 
 		//
 		// Process window events.
@@ -96,7 +92,7 @@ int main(int argc, char** argv)
 		//
 		// Process frame-syncronized tasks.
 		//
-		frame_timer += elapsed_microseconds;
+		frame_step_available_microseconds += elapsed_microseconds;
 		for (unsigned int i = 0; i < engine.framesync_tasks.tasks.get_length(); i++)
 			engine.framesync_tasks.tasks.get_element(i).get_entry_point().call(&engine);
 
@@ -105,13 +101,13 @@ int main(int argc, char** argv)
 		//
 		// Advance fixed timer, and execute fixed-syncronized tasks.
 		//
-		fixed_timer += elapsed_microseconds;
+		fixed_step_available_microseconds += elapsed_microseconds;
 
-		int microseconds_per_fixed = 1000000 / fixed_cycles_per_second;
+		int microseconds_per_fixed = 1000000 / engine.desired_fixed_steps_per_second;
 		int fixed_per_frame_limit = 120;
-		while (fixed_timer >= microseconds_per_fixed && fixed_per_frame_limit > 0)
+		while (fixed_step_available_microseconds >= microseconds_per_fixed && fixed_per_frame_limit > 0)
 		{
-			fixed_timer -= microseconds_per_fixed;
+			fixed_step_available_microseconds -= microseconds_per_fixed;
 
 			for (unsigned int i = 0; i < engine.fixedsync_tasks.tasks.get_length(); i++)
 				engine.fixedsync_tasks.tasks.get_element(i).get_entry_point().call(&engine);
@@ -123,32 +119,37 @@ int main(int argc, char** argv)
 		//
 		// Count frames-per-second rate.
 		//
-		fps_timer += elapsed_microseconds;
+		fps_counter_timestamp += elapsed_microseconds;
 
-		if (fps_timer >= 1000000)
+		if (fps_counter_timestamp >= 1000000)
 		{
-			engine.frame_steps_per_second = engine.frame_steps_executed - last_frame_step;
-			last_frame_step = engine.frame_steps_executed;
+			engine.frame_steps_per_second = engine.frame_steps_executed - fps_counter_last_frame_timestamp;
+			fps_counter_last_frame_timestamp = engine.frame_steps_executed;
 
-			engine.fixed_steps_per_second = engine.fixed_steps_executed - last_fixed_step;
-			last_fixed_step = engine.fixed_steps_executed;
+			engine.fixed_steps_per_second = engine.fixed_steps_executed - fps_counter_last_fixed_timestamp;
+			fps_counter_last_fixed_timestamp = engine.fixed_steps_executed;
 
-			fps_timer -= 1000000;
+			fps_counter_timestamp -= 1000000;
 		}
 
 		//
 		// Sleep for the rest of frame.
 		//
-		QueryPerformanceCounter(&timer_endtime);
-		timer_elapsed_microseconds.QuadPart  = timer_endtime.QuadPart - timer_starttime.QuadPart;
-		timer_elapsed_microseconds.QuadPart *= 1000000;
-		timer_elapsed_microseconds.QuadPart /= timer_frequency.QuadPart;
-		elapsed_microseconds = int(timer_elapsed_microseconds.QuadPart);
+		LARGE_INTEGER win32_highrestimer_current_sleep;
+		QueryPerformanceCounter(&win32_highrestimer_current_sleep);
+		elapsed_microseconds  = win32_highrestimer_current_sleep.QuadPart - win32_highrestimer_last.QuadPart;
+		elapsed_microseconds *= 1000000;
+		elapsed_microseconds /= win32_highrestimer_frequency.QuadPart;
 
 		// FIXME: Sleep for slightly shorter than a frame to
 		// account for vsync off-timings.
-		if (elapsed_microseconds < 1000000 / 65)
-			Sleep((1000 / 65) - (elapsed_microseconds / 1000));
+		if (elapsed_microseconds < 1000000 / int(engine.desired_frame_steps_per_second * 1.1f))
+			Sleep(int(1000 / (engine.desired_frame_steps_per_second * 1.1f)) - (elapsed_microseconds / 1000));
+
+		//
+		// Set the current timestamp as the last frame's timestamp.
+		//
+		win32_highrestimer_last = win32_highrestimer_current;
 	}
 
 	window->shutdown();

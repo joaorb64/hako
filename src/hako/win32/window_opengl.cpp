@@ -56,7 +56,7 @@ void Hako::Win32::WindowOpenGL::init(Hako::Engine* engine)
 	render_callback.init(this, this->render);
 
 	Hako::Task render_task;
-	render_task.init(render_callback);
+	render_task.init(engine, render_callback);
 
 	engine->task_add_framesync(render_task);
 }
