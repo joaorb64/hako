@@ -124,10 +124,13 @@
 		<Unit filename="src/hako/engine/gfx/manager.h" />
 		<Unit filename="src/hako/engine/gfx/material.h" />
 		<Unit filename="src/hako/engine/gfx/mesh.h" />
+		<Unit filename="src/hako/engine/input/input_request.h" />
 		<Unit filename="src/hako/engine/input/manager.h" />
 		<Unit filename="src/hako/engine/sfx/manager.h" />
 		<Unit filename="src/hako/engine/task.cpp" />
 		<Unit filename="src/hako/engine/task.h" />
+		<Unit filename="src/hako/linux/input.cpp" />
+		<Unit filename="src/hako/linux/input.h" />
 		<Unit filename="src/hako/linux/main.cpp" />
 		<Unit filename="src/hako/linux/window.h" />
 		<Unit filename="src/hako/linux/window_opengl.cpp" />
