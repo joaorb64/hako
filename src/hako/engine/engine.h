@@ -5,6 +5,7 @@
 #include <hako/common/mem.h>
 #include <hako/engine/task.h>
 #include <hako/engine/bindings.h>
+#include <hako/common/references.h>
 
 
 int main(int argc, char** argv);

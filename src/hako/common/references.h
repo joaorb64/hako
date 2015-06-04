@@ -34,7 +34,7 @@ namespace Hako
 
 
 
-			T* get()
+			T* operator ->()
 			{
 				HAKO_ASSERT(this->data != nullptr, "attempting to access a unique reference to null");
 				return this->data;
@@ -54,8 +54,11 @@ namespace Hako
 		public:
 			~Borrowed()
 			{
-				this->unique_source->borrowed = false;
-				this->unique_source           = nullptr;
+				if (this->unique_source != nullptr)
+				{
+					this->unique_source->borrowed = false;
+					this->unique_source           = nullptr;
+				}
 			}
 
 
@@ -66,17 +69,31 @@ namespace Hako
 				HAKO_ASSERT(!this->unique_ref->borrow, "attempting to double-borrow from a unique reference");
 				this->unique_source           = unique_ref;
 				this->unique_source->borrowed = true;
+				this->data                    = unique_ref->get();
 			}
 
 
 
-			T* get()
+			void init_from_raw(T* data)
 			{
-				return this->unique_source->get();
+				HAKO_ASSERT(this->unique_ref != nullptr, "borrowed pointer cannot be null");
+				this->data          = data;
+				this->unique_source = nullptr;
+			}
+
+
+
+			T* operator ->()
+			{
+				return this->data;
 			}
 
 		protected:
+			T*         data;
 			Unique<T>* unique_source;
+
+
+			Borrowed(Borrowed& b) = delete;
 		};
 
 
