@@ -25,7 +25,6 @@ namespace Hako
 
 			bool did_user_quit  () override;
 
-
 		protected:
 			// Reference to the engine instance.
 			Hako::Engine* engine;
