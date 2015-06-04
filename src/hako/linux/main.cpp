@@ -3,9 +3,8 @@
 #include <hako/application.h>
 #include <hako/common/debug.h>
 #include "window_opengl.h"
-#include <sys/time.h>
+#include <ctime>
 #include <unistd.h>
-
 
 int main(int argc, char** argv)
 {
@@ -39,11 +38,7 @@ int main(int argc, char** argv)
 	//
 	// Get current timestamp
 	//
-	timeval highrestimer_frequency;
-	timeval highrestimer_last;
-	gettimeofday(&highrestimer_last, NULL);
-	gettimeofday(&highrestimer_frequency, NULL);
-
+	clock_t highrestimer_last = clock();
 
 	//
 	// Main loop. Can only break when user quits the application.
@@ -53,13 +48,10 @@ int main(int argc, char** argv)
 		//
 		// Get current timestamp and time delta.
 		//
-		timeval highrestimer_current;
-		gettimeofday(&highrestimer_current, NULL);
+		clock_t highrestimer_current = clock();
 
 		long long int elapsed_microseconds;
-		elapsed_microseconds = highrestimer_current.tv_usec - highrestimer_last.tv_usec;
-		elapsed_microseconds *= 1000000;
-		elapsed_microseconds /= highrestimer_frequency.tv_usec;
+		elapsed_microseconds = (highrestimer_current - highrestimer_last)* 10000000 / (float)CLOCKS_PER_SEC;
 
 		total_microseconds_running += elapsed_microseconds;
 		engine.fixed_milliseconds_since_startup = total_microseconds_running / 1000;
@@ -117,11 +109,8 @@ int main(int argc, char** argv)
 		//
 		// Sleep for the rest of frame.
 		//
-		timeval highrestimer_current_sleep;
-		gettimeofday(&highrestimer_current_sleep, NULL);
-		elapsed_microseconds  = highrestimer_current_sleep.tv_usec - highrestimer_last.tv_usec;
-		elapsed_microseconds *= 1000000;
-		elapsed_microseconds /= highrestimer_frequency.tv_usec;
+		clock_t highrestimer_current_sleep = clock();
+		elapsed_microseconds  = (highrestimer_current_sleep - highrestimer_last)* 100000 / (float)CLOCKS_PER_SEC;
 
 		// FIXME: Sleep for slightly shorter than a frame to
 		// account for vsync off-timings.
