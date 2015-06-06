@@ -135,12 +135,16 @@
 		<Unit filename="src/hako/linux/window.h" />
 		<Unit filename="src/hako/linux/window_opengl.cpp" />
 		<Unit filename="src/hako/linux/window_opengl.h" />
+		<Unit filename="src/hako/opengl/commandlist.cpp" />
+		<Unit filename="src/hako/opengl/commandlist.h" />
 		<Unit filename="src/hako/opengl/gl_includes.cpp" />
 		<Unit filename="src/hako/opengl/gl_includes.h" />
 		<Unit filename="src/hako/opengl/gl_includes_linux.cpp" />
 		<Unit filename="src/hako/opengl/gl_includes_linux.h" />
 		<Unit filename="src/hako/opengl/gl_includes_win32.cpp" />
 		<Unit filename="src/hako/opengl/gl_includes_win32.h" />
+		<Unit filename="src/hako/opengl/manager.cpp" />
+		<Unit filename="src/hako/opengl/manager.h" />
 		<Unit filename="src/hako/opengl/material.cpp" />
 		<Unit filename="src/hako/opengl/material.h" />
 		<Unit filename="src/hako/opengl/mesh.cpp" />
