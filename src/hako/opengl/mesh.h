@@ -5,16 +5,26 @@
 #define HAKO_OPENGL_MESH_H
 
 
+#include <hako/engine/bindings.h>
 #include <hako/engine/gfx/mesh.h>
 #include "gl_includes.h"
 
 
+
 namespace Hako
 {
+	namespace OpenGL
+	{
+		void render(Hako::Engine* engine);
+		void execute_commandlist(Hako::Gfx::CommandList* cl);
+	}
+
 	namespace Gfx
 	{
 		class Mesh_OpenGL : public Hako::Gfx::Mesh_Generic
 		{
+			friend void Hako::OpenGL::execute_commandlist(Hako::Gfx::CommandList* cl);
+
 		public:
 			~Mesh_OpenGL();
 

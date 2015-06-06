@@ -9,6 +9,10 @@
 #include <windows.h>
 
 
+#ifdef HAKO_BUILD_GFXOPENGL
+	#include <hako/opengl/manager.h>
+#endif
+
 
 int main(int argc, char** argv)
 {
@@ -37,6 +41,10 @@ int main(int argc, char** argv)
 #ifdef HAKO_BUILD_GFXOPENGL
 	Hako::Win32::WindowOpenGL window_opengl;
 	window = &window_opengl;
+
+	Hako::Gfx::Manager_OpenGL gfx;
+	gfx.init(&engine);
+	engine.gfx = &gfx;
 #endif
 	window->init(&engine);
 

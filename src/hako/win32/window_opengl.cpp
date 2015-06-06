@@ -170,7 +170,7 @@ void Hako::Win32::WindowOpenGL::render(void* userdata, Hako::Engine* engine)
 {
     Hako::Win32::WindowOpenGL* this_window = (Hako::Win32::WindowOpenGL*)userdata;
 
-    Hako::common_opengl_render(engine);
+    Hako::OpenGL::render(engine);
     SwapBuffers(this_window->hdc);
 }
 

@@ -7,18 +7,22 @@
 
 namespace Hako
 {
+	class Engine;
+
+
 	namespace Gfx
 	{
 		class CommandList_Generic
 		{
 		public:
-			~CommandList_Generic () { /* Do nothing. */ }
-			void init            (Hako::Engine* engine) = 0;
+			virtual ~CommandList_Generic () { /* Do nothing. */ }
+			virtual void init            (Hako::Engine* engine) = 0;
+			virtual void clear           () = 0;
 
-            void begin           () = 0;
-            void set_material    (Hako::Gfx::Material* material) = 0;
-            void draw            (Hako::Gfx::Mesh* mesh) = 0;
-            void finish          () = 0;
+            virtual void begin           () = 0;
+            virtual void set_material    (Hako::Gfx::Material* material) = 0;
+            virtual void draw            (Hako::Gfx::Mesh* mesh) = 0;
+            virtual void finish          () = 0;
 		};
 	}
 }

@@ -5,12 +5,21 @@
 #define HAKO_OPENGL_RENDER_H
 
 
+#include <hako/engine/bindings.h>
+
+
 namespace Hako
 {
 	class Engine;
 
-	// Render current OpenGL frame using system-independent functions.
-	void common_opengl_render(Hako::Engine* engine);
+
+	namespace OpenGL
+	{
+		// Render current OpenGL commandlists using system-independent functions.
+		void render(Hako::Engine* engine);
+
+		void execute_commandlist(Hako::Gfx::CommandList* cl);
+	}
 }
 
 

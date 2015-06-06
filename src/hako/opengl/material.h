@@ -5,16 +5,24 @@
 #define HAKO_OPENGL_MATERIAL_H
 
 
+#include <hako/engine/bindings.h>
 #include <hako/engine/gfx/material.h>
 #include "gl_includes.h"
 
 
 namespace Hako
 {
+	namespace OpenGL
+	{
+		void execute_commandlist(Hako::Gfx::CommandList* cl);
+	}
+
 	namespace Gfx
 	{
 		class Material_OpenGL : public Hako::Gfx::Material_Generic
 		{
+			friend void Hako::OpenGL::execute_commandlist(Hako::Gfx::CommandList* cl);
+
 		public:
 			void init        (Hako::Engine* engine) override;
 			void set_shaders (ShaderData* vertex_shader, ShaderData* pixel_shader) override;
