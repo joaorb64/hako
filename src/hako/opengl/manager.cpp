@@ -12,7 +12,7 @@ void Hako::Gfx::Manager_OpenGL::init(Hako::Engine* engine)
 
 
 
-void Hako::Gfx::Manager_OpenGL::commandlist_add(Hako::Gfx::CommandList* commandlist)
+void Hako::Gfx::Manager_OpenGL::commandlist_add(Hako::Gfx::CommandList_Generic* commandlist)
 {
 	this->commandlists.add(commandlist);
 }

@@ -6,7 +6,6 @@
 
 
 #include <hako/engine/gfx/manager.h>
-#include <hako/engine/bindings.h>
 #include <hako/common/ds/vector.h>
 
 
@@ -17,7 +16,7 @@ namespace Hako
 	namespace OpenGL
 	{
 		void render(Hako::Engine* engine);
-		void execute_commandlist(Hako::Gfx::CommandList* cl);
+		void execute_commandlist(Hako::Gfx::CommandList_Generic* cl);
 	}
 
 	namespace Gfx
@@ -28,10 +27,10 @@ namespace Hako
 
 		public:
 			void init(Hako::Engine* engine);
-			void commandlist_add(Hako::Gfx::CommandList* commandlist) override;
+			void commandlist_add(Hako::Gfx::CommandList_Generic* commandlist) override;
 
 		protected:
-			Hako::DS::Vector<Hako::Gfx::CommandList*> commandlists;
+			Hako::DS::Vector<Hako::Gfx::CommandList_Generic*> commandlists;
 		};
 	}
 }

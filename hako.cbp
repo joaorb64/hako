@@ -113,6 +113,7 @@
 		<Unit filename="src/hako/common/options.h" />
 		<Unit filename="src/hako/common/references.h" />
 		<Unit filename="src/hako/common/string.h" />
+		<Unit filename="src/hako/engine/abstract_bindings.h" />
 		<Unit filename="src/hako/engine/bindings.h" />
 		<Unit filename="src/hako/engine/engine.cpp" />
 		<Unit filename="src/hako/engine/engine.h" />
@@ -122,6 +123,7 @@
 		<Unit filename="src/hako/engine/gfx/commandlist.h" />
 		<Unit filename="src/hako/engine/gfx/manager.cpp" />
 		<Unit filename="src/hako/engine/gfx/manager.h" />
+		<Unit filename="src/hako/engine/gfx/material.cpp" />
 		<Unit filename="src/hako/engine/gfx/material.h" />
 		<Unit filename="src/hako/engine/gfx/mesh.h" />
 		<Unit filename="src/hako/engine/input/input_request.h" />
@@ -151,6 +153,7 @@
 		<Unit filename="src/hako/opengl/mesh.h" />
 		<Unit filename="src/hako/opengl/render.cpp" />
 		<Unit filename="src/hako/opengl/render.h" />
+		<Unit filename="src/hako/win32/bindings.h" />
 		<Unit filename="src/hako/win32/main.cpp" />
 		<Unit filename="src/hako/win32/window.h" />
 		<Unit filename="src/hako/win32/window_opengl.cpp" />

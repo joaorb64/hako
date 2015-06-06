@@ -5,7 +5,7 @@
 #define HAKO_OPENGL_MESH_H
 
 
-#include <hako/engine/bindings.h>
+#include <hako/engine/gfx/commandlist.h>
 #include <hako/engine/gfx/mesh.h>
 #include "gl_includes.h"
 
@@ -16,14 +16,14 @@ namespace Hako
 	namespace OpenGL
 	{
 		void render(Hako::Engine* engine);
-		void execute_commandlist(Hako::Gfx::CommandList* cl);
+		void execute_commandlist(Hako::Gfx::CommandList_Generic* cl);
 	}
 
 	namespace Gfx
 	{
 		class Mesh_OpenGL : public Hako::Gfx::Mesh_Generic
 		{
-			friend void Hako::OpenGL::execute_commandlist(Hako::Gfx::CommandList* cl);
+			friend void Hako::OpenGL::execute_commandlist(Hako::Gfx::CommandList_Generic* cl);
 
 		public:
 			~Mesh_OpenGL();
@@ -31,7 +31,7 @@ namespace Hako
 			void init(
 				Hako::Engine*    engine,
 				unsigned int     attrib_number,
-				AttributeFormat* attrib_formats,
+				MeshAttributeFormat* attrib_formats,
 				unsigned int     vertex_number,
 				unsigned int     index_number) override;
 
@@ -46,7 +46,7 @@ namespace Hako
 		protected:
 			Hako::Engine*    engine;
 			unsigned int     attrib_number;
-			AttributeFormat* attrib_formats;
+			MeshAttributeFormat* attrib_formats;
 			unsigned int     vertex_number;
 			unsigned int     index_number;
 

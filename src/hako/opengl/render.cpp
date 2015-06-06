@@ -50,7 +50,7 @@ void Hako::OpenGL::render(Hako::Engine* engine)
 
 
 
-void Hako::OpenGL::execute_commandlist(Hako::Gfx::CommandList* cl)
+void Hako::OpenGL::execute_commandlist(Hako::Gfx::CommandList_Generic* cl)
 {
 	Hako::Gfx::CommandList_OpenGL* commandlist = (Hako::Gfx::CommandList_OpenGL*)cl;
 

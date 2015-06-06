@@ -18,7 +18,7 @@ Hako::Gfx::Mesh_OpenGL::~Mesh_OpenGL()
 void Hako::Gfx::Mesh_OpenGL::init(
 	Hako::Engine*    engine,
 	unsigned int     attrib_number,
-	AttributeFormat* attrib_formats,
+	MeshAttributeFormat* attrib_formats,
 	unsigned int     vertex_number,
 	unsigned int     index_number)
 {
@@ -34,8 +34,8 @@ void Hako::Gfx::Mesh_OpenGL::init(
 	//
 	// Copy attribute formats over.
 	//
-	this->attrib_formats = (AttributeFormat*)
-		engine->get_mem_callbacks().alloc_callback.call(sizeof(AttributeFormat) * attrib_number, 32);
+	this->attrib_formats = (MeshAttributeFormat*)
+		engine->get_mem_callbacks().alloc_callback.call(sizeof(MeshAttributeFormat) * attrib_number, 32);
 	HAKO_ASSERT(this->attrib_formats, "unable to allocate mesh data format array");
 
 	for (unsigned int i = 0; i < attrib_number; i++)

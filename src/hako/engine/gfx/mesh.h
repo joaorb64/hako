@@ -9,23 +9,24 @@ namespace Hako
 
 	namespace Gfx
 	{
+		enum class MeshAttributeFormat
+		{
+			Float,
+			Float2,
+			Float3,
+			Float4
+		};
+
+
 		class Mesh_Generic
 		{
 		public:
-			enum class AttributeFormat
-			{
-				Float,
-				Float2,
-				Float3,
-				Float4
-			};
-
 			virtual ~Mesh_Generic() { /* Do nothing. */ };
 
 			virtual void init(
 				Hako::Engine*    engine,
 				unsigned int     attrib_number,
-				AttributeFormat* attrib_formats,
+				MeshAttributeFormat* attrib_formats,
 				unsigned int     vertex_number,
 				unsigned int     index_number) = 0;
 

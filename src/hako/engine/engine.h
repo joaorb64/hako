@@ -16,9 +16,9 @@ namespace Hako
 	// Holds general engine information.
 	class Engine
 	{
-	public:
 		friend int (::main)(int argc, char** argv);
 
+	public:
 		void init();
 		void task_add_fixedsync(Hako::Task task);
 		void task_add_framesync(Hako::Task task);

@@ -6,7 +6,6 @@
 
 
 #include <hako/engine/gfx/commandlist.h>
-#include <hako/engine/bindings.h>
 #include <hako/common/ds/vector.h>
 
 
@@ -16,14 +15,18 @@ namespace Hako
 
 	namespace OpenGL
 	{
-		void execute_commandlist(Hako::Gfx::CommandList* cl);
+		void execute_commandlist(Hako::Gfx::CommandList_Generic* cl);
 	}
 
 	namespace Gfx
 	{
+		class Material_Generic;
+		class Mesh_Generic;
+
+
 		class CommandList_OpenGL : public CommandList_Generic
 		{
-			friend void Hako::OpenGL::execute_commandlist(Hako::Gfx::CommandList* cl);
+			friend void Hako::OpenGL::execute_commandlist(Hako::Gfx::CommandList_Generic* cl);
 
 		public:
 			~CommandList_OpenGL  ();
@@ -31,8 +34,8 @@ namespace Hako
 			void clear           () override;
 
             void begin           () override;
-            void set_material    (Hako::Gfx::Material* material) override;
-            void draw            (Hako::Gfx::Mesh* mesh) override;
+            void set_material    (Hako::Gfx::Material_Generic* material) override;
+            void draw            (Hako::Gfx::Mesh_Generic* mesh) override;
             void finish          () override;
 
 
@@ -49,8 +52,8 @@ namespace Hako
 				Kind kind;
 				union
 				{
-					Hako::Gfx::Material* material;
-					Hako::Gfx::Mesh*     mesh;
+					Hako::Gfx::Material_Generic* material;
+					Hako::Gfx::Mesh_Generic*     mesh;
 				} command_data;
 			};
 

@@ -33,7 +33,7 @@ void Hako::Gfx::CommandList_OpenGL::begin()
 
 
 
-void Hako::Gfx::CommandList_OpenGL::set_material(Hako::Gfx::Material* material)
+void Hako::Gfx::CommandList_OpenGL::set_material(Hako::Gfx::Material_Generic* material)
 {
 	Command command;
 	command.kind = Command::Kind::SetMaterial;
@@ -43,7 +43,7 @@ void Hako::Gfx::CommandList_OpenGL::set_material(Hako::Gfx::Material* material)
 
 
 
-void Hako::Gfx::CommandList_OpenGL::draw(Hako::Gfx::Mesh* mesh)
+void Hako::Gfx::CommandList_OpenGL::draw(Hako::Gfx::Mesh_Generic* mesh)
 {
 	Command command;
 	command.kind = Command::Kind::Draw;

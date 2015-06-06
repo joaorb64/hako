@@ -2,7 +2,7 @@
 #define HAKO_ENGINE_GFX_MANAGER_H
 
 
-#include <hako/engine/bindings.h>
+#include <hako/engine/abstract_bindings.h>
 
 
 namespace Hako
@@ -15,7 +15,7 @@ namespace Hako
 			float get_interpolation ();
 			void set_interpolation  (float interpolation_factor);
 
-			virtual void commandlist_add(Hako::Gfx::CommandList* commandlist) = 0;
+			virtual void commandlist_add(Hako::Gfx::CommandList_Generic* commandlist) = 0;
 
 		protected:
 			float interpolation_factor;

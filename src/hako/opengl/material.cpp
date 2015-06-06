@@ -35,7 +35,7 @@ void Hako::Gfx::Material_OpenGL::init(Hako::Engine* engine)
 	this->engine = engine;
 	this->vertex_shader = nullptr;
 	this->pixel_shader  = nullptr;
-	this->ztest         = ZTest::AlwaysPass;
+	this->ztest         = Hako::Gfx::MaterialZTest::AlwaysPass;
 
 	this->uniform_float_slots   .init(engine->get_mem_callbacks(), 0);
 	this->uniform_float2_slots  .init(engine->get_mem_callbacks(), 0);
@@ -55,7 +55,7 @@ void Hako::Gfx::Material_OpenGL::set_shaders(ShaderData* vertex_shader, ShaderDa
 
 
 
-void Hako::Gfx::Material_OpenGL::set_ztest(ZTest ztest)
+void Hako::Gfx::Material_OpenGL::set_ztest(Hako::Gfx::MaterialZTest ztest)
 {
 	this->ztest = ztest;
 }

@@ -47,29 +47,40 @@ namespace Hako
 				Hako::String* name;
 			};
 
+
+			~ShaderData();
+			void init(Hako::Engine* engine);
+			void add_attribute(Attribute::Format format, int position);
+			void add_uniform(Uniform::Type type, int position, Hako::String* name);
+			void set_program_data(void* data, unsigned int length);
+			void finish();
+
+
+		public:
 			Hako::DS::Vector<Attribute> attributes;
 			Hako::DS::Vector<Uniform>   uniforms;
 
-			unsigned char* data;
+			void*          data;
 			unsigned int   length;
+		};
+
+
+		enum class MaterialZTest
+		{
+			AlwaysPass,
+			PassIfLess,
+			PassIfLessOrEqual,
+			PassIfGreater,
+			PassIfGreaterOrEqual
 		};
 
 
 		class Material_Generic
 		{
 		public:
-			enum class ZTest
-			{
-				AlwaysPass,
-				PassIfLess,
-				PassIfLessOrEqual,
-				PassIfGreater,
-				PassIfGreaterOrEqual
-			};
-
 			virtual void init        (Hako::Engine* engine) = 0;
 			virtual void set_shaders (ShaderData* vertex_shader, ShaderData* pixel_shader) = 0;
-			virtual void set_ztest   (ZTest ztest) = 0;
+			virtual void set_ztest   (Hako::Gfx::MaterialZTest ztest) = 0;
 			virtual void finish      () = 0;
 
 			virtual int  get_float_slot   (Hako::String* name) = 0;

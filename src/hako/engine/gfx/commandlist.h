@@ -2,7 +2,7 @@
 #define HAKO_ENGINE_GFX_COMMANDLIST_H
 
 
-#include <hako/engine/bindings.h>
+#include <hako/engine/abstract_bindings.h>
 
 
 namespace Hako
@@ -20,8 +20,8 @@ namespace Hako
 			virtual void clear           () = 0;
 
             virtual void begin           () = 0;
-            virtual void set_material    (Hako::Gfx::Material* material) = 0;
-            virtual void draw            (Hako::Gfx::Mesh* mesh) = 0;
+            virtual void set_material    (Hako::Gfx::Material_Generic* material) = 0;
+            virtual void draw            (Hako::Gfx::Mesh_Generic* mesh) = 0;
             virtual void finish          () = 0;
 		};
 	}
