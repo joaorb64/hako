@@ -2,9 +2,13 @@
 
 #include <hako/application.h>
 #include <hako/common/debug.h>
-#include "window_opengl.h"
-#include <ctime>
+#include <sys/time.h>
 #include <unistd.h>
+
+#ifdef HAKO_BUILD_GFXOPENGL
+	#include <hako/opengl/manager.h>
+	#include "window_opengl.h"
+#endif
 
 int main(int argc, char** argv)
 {
@@ -20,6 +24,10 @@ int main(int argc, char** argv)
 #ifdef HAKO_BUILD_GFXOPENGL
 	Hako::Linux::WindowOpenGL window_opengl;
 	window = &window_opengl;
+
+	Hako::Gfx::Manager_OpenGL gfx;
+	gfx.init(&engine);
+	engine.gfx = &gfx;
 #endif
 	window->init(&engine);
 
@@ -38,23 +46,27 @@ int main(int argc, char** argv)
 	//
 	// Get current timestamp
 	//
-	clock_t highrestimer_last = clock();
+	timeval highrestimer_last;
+	gettimeofday(&highrestimer_last, NULL);
 
 	//
 	// Main loop. Can only break when user quits the application.
 	//
+
 	while (true)
 	{
 		//
 		// Get current timestamp and time delta.
 		//
-		clock_t highrestimer_current = clock();
+		timeval highrestimer_current;
+		gettimeofday(&highrestimer_current, NULL);
 
 		long long int elapsed_microseconds;
-		elapsed_microseconds = (highrestimer_current - highrestimer_last)* 10000000 / (float)CLOCKS_PER_SEC;
+		elapsed_microseconds = (highrestimer_current.tv_sec - highrestimer_last.tv_sec) * 1000000.0
+								+ highrestimer_current.tv_usec - highrestimer_last.tv_usec;
 
 		total_microseconds_running += elapsed_microseconds;
-		engine.fixed_milliseconds_since_startup = total_microseconds_running / 1000;
+		engine.fixed_milliseconds_since_startup = total_microseconds_running / 1000.0;
 
 		//
 		// Process window events.
@@ -109,8 +121,10 @@ int main(int argc, char** argv)
 		//
 		// Sleep for the rest of frame.
 		//
-		clock_t highrestimer_current_sleep = clock();
-		elapsed_microseconds  = (highrestimer_current_sleep - highrestimer_last)* 100000 / (float)CLOCKS_PER_SEC;
+		timeval highrestimer_current_sleep;
+		gettimeofday(&highrestimer_current_sleep, NULL);
+		elapsed_microseconds  = (highrestimer_current_sleep.tv_sec - highrestimer_last.tv_sec) * 1000000.0
+								+ highrestimer_current_sleep.tv_usec - highrestimer_last.tv_usec;
 
 		// FIXME: Sleep for slightly shorter than a frame to
 		// account for vsync off-timings.
