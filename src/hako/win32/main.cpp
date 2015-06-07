@@ -7,6 +7,7 @@
 #include <hako/engine/filesys/manager_stdio.h>
 #include "window_opengl.h"
 #include <windows.h>
+#include <hako/win32/input_manager.h>
 
 
 #ifdef HAKO_BUILD_GFXOPENGL
@@ -35,16 +36,23 @@ int main(int argc, char** argv)
 	Hako::Application::on_startup(&engine);
 
 	//
+	// Create an input manager.
+	//
+	Hako::Input::Manager_Win32 input;
+	input.init();
+	engine.input = &input;
+
+	//
 	// Create a window and a render context.
 	//
 	Hako::Win32::Window* window;
 #ifdef HAKO_BUILD_GFXOPENGL
-	Hako::Win32::WindowOpenGL window_opengl;
-	window = &window_opengl;
+		Hako::Win32::WindowOpenGL window_opengl;
+		window = &window_opengl;
 
-	Hako::Gfx::Manager_OpenGL gfx;
-	gfx.init(&engine);
-	engine.gfx = &gfx;
+		Hako::Gfx::Manager_OpenGL gfx;
+		gfx.init(&engine);
+		engine.gfx = &gfx;
 #endif
 	window->init(&engine);
 
@@ -105,6 +113,11 @@ int main(int argc, char** argv)
 			engine.framesync_tasks.tasks.get_element(i).get_entry_point().call(&engine);
 
 		engine.frame_steps_executed += 1;
+
+		//
+		// Update input.
+		//
+		input.process();
 
 		//
 		// Advance fixed timer, and execute fixed-syncronized tasks.

@@ -5,6 +5,8 @@
 #define HAKO_WIN32_BINDINGS_H
 
 
+#include <hako/win32/input_manager.h>
+
 
 #ifdef HAKO_BUILD_GFXOPENGL
 #include <hako/opengl/commandlist.h>
@@ -24,6 +26,7 @@ namespace Hako
 #endif
 
 
+
 namespace Hako
 {
 	namespace Sfx
@@ -35,9 +38,7 @@ namespace Hako
 
 	namespace Input
 	{
-		class Manager_Generic;
-
-		typedef Hako::Input::Manager_Generic    Manager;
+		typedef Hako::Input::Manager_Win32      Manager;
 	}
 
 	namespace FileSys

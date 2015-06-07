@@ -92,4 +92,9 @@ void test_fixed_task(void* unused, Hako::Engine* engine)
 			engine->get_fixed_steps_per_second(),
 			engine->get_fixed_milliseconds_since_startup() / 1000.0f);
 	}
+
+	Hako::Input::Request input_req;
+	input_req.key_code = Hako::Input::KeyCode::KeyboardSpace;
+	if (engine->get_input()->GetButton(&input_req))
+		printf("Spacebar is held down!\n");
 }
