@@ -1,4 +1,4 @@
-#ifdef HAKO_BUILD_LINUX
+#ifdef HAKO_PLATFORM_LINUX
 
 #ifndef INPUT_H_INCLUDED
 #define INPUT_H_INCLUDED
@@ -19,4 +19,4 @@ namespace Hako
 
 #endif // INPUT_H_INCLUDED
 
-#endif // HAKO_BUILD_LINUX
+#endif // HAKO_PLATFORM_LINUX

@@ -1,7 +1,7 @@
-#ifdef HAKO_BUILD_GFXOPENGL
+#ifdef HAKO_MODULE_OPENGL
 
 
-#ifdef HAKO_BUILD_LINUX
+#ifdef HAKO_PLATFORM_LINUX
 
 
 #include "gl_includes_linux.h"

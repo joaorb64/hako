@@ -1,4 +1,4 @@
-#ifdef HAKO_BUILD_LINUX
+#ifdef HAKO_PLATFORM_LINUX
 
 
 #include "window_opengl.h"

@@ -1,4 +1,4 @@
-#ifdef HAKO_BUILD_LINUX
+#ifdef HAKO_PLATFORM_LINUX
 
 
 #ifndef HAKO_LINUX_BINDINGS_H
@@ -9,7 +9,7 @@
 #include <hako/standard/filesys_manager.h>
 
 
-#ifdef HAKO_BUILD_GFXOPENGL
+#ifdef HAKO_MODULE_OPENGL
 	#include <hako/opengl/commandlist.h>
 	#include <hako/opengl/manager.h>
 	#include <hako/opengl/material.h>

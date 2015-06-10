@@ -1,4 +1,4 @@
-#ifdef HAKO_BUILD_LINUX
+#ifdef HAKO_PLATFORM_LINUX
 
 
 #include <hako/application.h>
@@ -8,7 +8,7 @@
 #include <unistd.h>
 
 
-#ifdef HAKO_BUILD_GFXOPENGL
+#ifdef HAKO_MODULE_OPENGL
 	#include <hako/opengl/manager.h>
 	#include "window_opengl.h"
 #endif
@@ -45,7 +45,7 @@ int main(int argc, char** argv)
 	// Create a Linux window and a render context.
 	//
 	Hako::Linux::Window* window;
-#ifdef HAKO_BUILD_GFXOPENGL
+#ifdef HAKO_MODULE_OPENGL
 		Hako::Linux::WindowOpenGL window_opengl;
 		window = &window_opengl;
 #endif

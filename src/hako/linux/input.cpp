@@ -1,4 +1,4 @@
-#ifdef HAKO_BUILD_LINUX
+#ifdef HAKO_PLATFORM_LINUX
 
 #include <hako/linux/input.h>
 
@@ -12,4 +12,4 @@ float Hako::Input::Manager_Linux::GetAxis1(Input_Request::InputCode code)
 
 }
 
-#endif // HAKO_BUILD_LINUX
+#endif // HAKO_PLATFORM_LINUX

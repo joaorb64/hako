@@ -2,13 +2,13 @@
 #define HAKO_OPENGL_INCLUDES_H
 
 
-#ifdef HAKO_BUILD_WIN32
+#ifdef HAKO_PLATFORM_WIN32
 	#include <windows.h>
 	#include <gl/gl.h>
 	#include "gl_includes_win32.h"
 #endif
 
-#ifdef HAKO_BUILD_LINUX
+#ifdef HAKO_PLATFORM_LINUX
 	#include <GL/glx.h>
 	#include <GL/gl.h>
 	#include <X11/X.h>

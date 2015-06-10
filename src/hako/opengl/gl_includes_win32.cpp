@@ -1,7 +1,7 @@
-#ifdef HAKO_BUILD_GFXOPENGL
+#ifdef HAKO_MODULE_OPENGL
 
 
-#ifdef HAKO_BUILD_WIN32
+#ifdef HAKO_PLATFORM_WIN32
 
 
 #include "gl_includes_win32.h"

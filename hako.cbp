@@ -19,8 +19,8 @@
 					<Add option="-Wextra" />
 					<Add option="-Wall" />
 					<Add option="-g" />
-					<Add option="-DHAKO_BUILD_WIN32" />
-					<Add option="-DHAKO_BUILD_GFXOPENGL" />
+					<Add option="-DHAKO_PLATFORM_WIN32" />
+					<Add option="-DHAKO_MODULE_OPENGL" />
 					<Add option="-DHAKO_BUILD_DEBUG" />
 				</Compiler>
 				<Linker>
@@ -44,8 +44,8 @@
 					<Add option="-std=c++11" />
 					<Add option="-Wextra" />
 					<Add option="-Wall" />
-					<Add option="-DHAKO_BUILD_WIN32" />
-					<Add option="-DHAKO_BUILD_GFXOPENGL" />
+					<Add option="-DHAKO_PLATFORM_WIN32" />
+					<Add option="-DHAKO_MODULE_OPENGL" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -68,8 +68,8 @@
 					<Add option="-Wextra" />
 					<Add option="-Wall" />
 					<Add option="-g" />
-					<Add option="-DHAKO_BUILD_LINUX" />
-					<Add option="-DHAKO_BUILD_GFXOPENGL" />
+					<Add option="-DHAKO_PLATFORM_LINUX" />
+					<Add option="-DHAKO_MODULE_OPENGL" />
 					<Add option="-DHAKO_BUILD_DEBUG" />
 				</Compiler>
 				<Linker>
@@ -91,7 +91,8 @@
 					<Add option="-std=c++11" />
 					<Add option="-Wextra" />
 					<Add option="-Wall" />
-					<Add option="-DHAKO_BUILD_LINUX" />
+					<Add option="-DHAKO_PLATFORM_LINUX" />
+					<Add option="-DHAKO_MODULE_OPENGL" />
 					<Add option="-DHAKO_BUILD_GFXOPENGL" />
 				</Compiler>
 				<Linker>

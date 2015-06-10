@@ -1,4 +1,4 @@
-#ifdef HAKO_BUILD_WIN32
+#ifdef HAKO_PLATFORM_WIN32
 
 
 #include <hako/application.h>
@@ -39,7 +39,7 @@ int main(int argc, char** argv)
 	// Create a Win32 window and a render context.
 	//
 	Hako::Win32::Window* window;
-#ifdef HAKO_BUILD_GFXOPENGL
+#ifdef HAKO_MODULE_OPENGL
 		Hako::Win32::WindowOpenGL window_opengl;
 		window = &window_opengl;
 #endif

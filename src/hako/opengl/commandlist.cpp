@@ -1,4 +1,4 @@
-#ifdef HAKO_BUILD_GFXOPENGL
+#ifdef HAKO_MODULE_OPENGL
 
 
 #include "commandlist.h"
