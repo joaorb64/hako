@@ -42,18 +42,6 @@ namespace Hako
 		public:
 			KeyCode key_code;
 		};
-
-
-		class Manager_Generic
-		{
-			virtual bool  GetButton             (Hako::Input::Request* req) = 0;
-			virtual float GetAxis1              (Hako::Input::Request* req) = 0;
-			virtual Hako::Math::Vec<2> GetAxis2 (Hako::Input::Request* req) = 0;
-			virtual Hako::Math::Vec<3> GetAxis3 (Hako::Input::Request* req) = 0;
-			virtual void SetAxis1               (Hako::Input::Request* req, float x) = 0;
-			virtual void SetAxis2               (Hako::Input::Request* req, float x, float y) = 0;
-			virtual void SetAxis3               (Hako::Input::Request* req, float x, float y, float z) = 0;
-		};
 	}
 }
 

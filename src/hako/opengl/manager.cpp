@@ -5,14 +5,14 @@
 #include <hako/engine/engine.h>
 
 
-void Hako::Gfx::Manager_OpenGL::init(Hako::Engine* engine)
+void Hako::OpenGL::Manager::init(Hako::Engine* engine)
 {
 	this->commandlists.init(engine->get_mem_callbacks(), 0);
 }
 
 
 
-void Hako::Gfx::Manager_OpenGL::commandlist_add(Hako::Gfx::CommandList_Generic* commandlist)
+void Hako::OpenGL::Manager::commandlist_add(Hako::OpenGL::CommandList* commandlist)
 {
 	this->commandlists.add(commandlist);
 }

@@ -12,11 +12,6 @@ void Hako::Engine::init()
 	this->fixedsync_tasks   .init(this);
 	this->framesync_tasks   .init(this);
 
-	this->gfx     = nullptr;
-	this->sfx     = nullptr;
-	this->input   = nullptr;
-	this->filesys = nullptr;
-
 	this->frame_steps_executed             = 0;
 	this->fixed_steps_executed             = 0;
 	this->fixed_milliseconds_since_startup = 0;
@@ -45,28 +40,21 @@ void Hako::Engine::task_add_framesync(Hako::Task task)
 
 Hako::Gfx::Manager* Hako::Engine::get_gfx()
 {
-	return this->gfx;
-}
-
-
-
-Hako::Sfx::Manager* Hako::Engine::get_sfx()
-{
-	return this->sfx;
+	return &this->gfx;
 }
 
 
 
 Hako::Input::Manager* Hako::Engine::get_input()
 {
-	return this->input;
+	return &this->input;
 }
 
 
 
 Hako::FileSys::Manager* Hako::Engine::get_filesys()
 {
-	return this->filesys;
+	return &this->filesys;
 }
 
 

@@ -1,4 +1,4 @@
-#include "material.h"
+#include "shaderdata.h"
 #include <hako/engine/engine.h>
 
 
@@ -54,5 +54,3 @@ void Hako::Gfx::ShaderData::finish()
 {
 	// Do nothing.
 }
-
-

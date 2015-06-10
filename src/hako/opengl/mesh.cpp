@@ -7,7 +7,7 @@
 
 
 
-Hako::Gfx::Mesh_OpenGL::~Mesh_OpenGL()
+Hako::OpenGL::Mesh::~Mesh()
 {
 	this->engine->get_mem_callbacks().free_callback.call(this->attrib_formats);
 	this->engine->get_mem_callbacks().free_callback.call(this->gl_data_buffers);
@@ -15,12 +15,12 @@ Hako::Gfx::Mesh_OpenGL::~Mesh_OpenGL()
 
 
 
-void Hako::Gfx::Mesh_OpenGL::init(
-	Hako::Engine*    engine,
-	unsigned int     attrib_number,
-	MeshAttributeFormat* attrib_formats,
-	unsigned int     vertex_number,
-	unsigned int     index_number)
+void Hako::OpenGL::Mesh::init(
+	Hako::Engine*                   engine,
+	unsigned int                    attrib_number,
+	Hako::Gfx::MeshAttributeFormat* attrib_formats,
+	unsigned int                    vertex_number,
+	unsigned int                    index_number)
 {
 	this->engine         = engine;
 	this->attrib_number  = attrib_number;
@@ -34,8 +34,8 @@ void Hako::Gfx::Mesh_OpenGL::init(
 	//
 	// Copy attribute formats over.
 	//
-	this->attrib_formats = (MeshAttributeFormat*)
-		engine->get_mem_callbacks().alloc_callback.call(sizeof(MeshAttributeFormat) * attrib_number, 32);
+	this->attrib_formats = (Hako::Gfx::MeshAttributeFormat*)
+		engine->get_mem_callbacks().alloc_callback.call(sizeof(Hako::Gfx::MeshAttributeFormat) * attrib_number, 32);
 	HAKO_ASSERT(this->attrib_formats, "unable to allocate mesh data format array");
 
 	for (unsigned int i = 0; i < attrib_number; i++)
@@ -58,7 +58,7 @@ void Hako::Gfx::Mesh_OpenGL::init(
 
 
 
-void Hako::Gfx::Mesh_OpenGL::set_data_float(unsigned int attrib_index, float* data)
+void Hako::OpenGL::Mesh::set_data_float(unsigned int attrib_index, float* data)
 {
 	HAKO_ASSERT(attrib_index < this->attrib_number, "attrib_index out of bounds");
 	glBindBuffer(GL_ARRAY_BUFFER, this->gl_data_buffers[attrib_index]);
@@ -68,7 +68,7 @@ void Hako::Gfx::Mesh_OpenGL::set_data_float(unsigned int attrib_index, float* da
 
 
 
-void Hako::Gfx::Mesh_OpenGL::set_data_float2(unsigned int attrib_index, float* data)
+void Hako::OpenGL::Mesh::set_data_float2(unsigned int attrib_index, float* data)
 {
 	HAKO_ASSERT(attrib_index < this->attrib_number, "attrib_index out of bounds");
 	glBindBuffer(GL_ARRAY_BUFFER, this->gl_data_buffers[attrib_index]);
@@ -78,7 +78,7 @@ void Hako::Gfx::Mesh_OpenGL::set_data_float2(unsigned int attrib_index, float* d
 
 
 
-void Hako::Gfx::Mesh_OpenGL::set_data_float3(unsigned int attrib_index, float* data)
+void Hako::OpenGL::Mesh::set_data_float3(unsigned int attrib_index, float* data)
 {
 	HAKO_ASSERT(attrib_index < this->attrib_number, "attrib_index out of bounds");
 	glBindBuffer(GL_ARRAY_BUFFER, this->gl_data_buffers[attrib_index]);
@@ -88,7 +88,7 @@ void Hako::Gfx::Mesh_OpenGL::set_data_float3(unsigned int attrib_index, float* d
 
 
 
-void Hako::Gfx::Mesh_OpenGL::set_data_float4(unsigned int attrib_index, float* data)
+void Hako::OpenGL::Mesh::set_data_float4(unsigned int attrib_index, float* data)
 {
 	HAKO_ASSERT(attrib_index < this->attrib_number, "attrib_index out of bounds");
 	glBindBuffer(GL_ARRAY_BUFFER, this->gl_data_buffers[attrib_index]);
@@ -98,7 +98,7 @@ void Hako::Gfx::Mesh_OpenGL::set_data_float4(unsigned int attrib_index, float* d
 
 
 
-void Hako::Gfx::Mesh_OpenGL::set_indices(unsigned int* indices)
+void Hako::OpenGL::Mesh::set_indices(unsigned int* indices)
 {
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->gl_index_buffer);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, this->index_number * sizeof(unsigned int), indices, GL_STATIC_DRAW);
@@ -107,9 +107,9 @@ void Hako::Gfx::Mesh_OpenGL::set_indices(unsigned int* indices)
 
 
 
-void Hako::Gfx::Mesh_OpenGL::finish()
+void Hako::OpenGL::Mesh::finish()
 {
-
+	// Do nothing.
 }
 
 

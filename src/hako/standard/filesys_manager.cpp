@@ -1,24 +1,25 @@
-#include "manager_stdio.h"
+#include "filesys_manager.h"
 #include <hako/common/debug.h>
 #include <hako/common/string.h>
 #include <hako/engine/engine.h>
 #include <stdio.h>
 
 
-void Hako::FileSys::Manager_Stdio::init(Hako::Engine* engine)
+void Hako::Standard::Filesys_Manager::init(Hako::Engine* engine)
 {
 	this->engine = engine;
 }
 
 
 
-void Hako::FileSys::Manager_Stdio::shutdown()
+void Hako::Standard::Filesys_Manager::shutdown()
 {
 	/* Do nothing. */
 }
 
 
-bool Hako::FileSys::Manager_Stdio::does_exist(Hako::String* filename)
+
+bool Hako::Standard::Filesys_Manager::does_exist(Hako::String* filename)
 {
 	FILE* fp = fopen(filename->get_c_str(), "rb");
 	bool result = (fp != 0);
@@ -29,12 +30,12 @@ bool Hako::FileSys::Manager_Stdio::does_exist(Hako::String* filename)
 
 
 
-Hako::FileSys::FileContents Hako::FileSys::Manager_Stdio::read(Hako::String* filename)
+Hako::FileSys::FileContents Hako::Standard::Filesys_Manager::read(Hako::String* filename)
 {
 	//
 	// Prepare a struct to return.
 	//
-	FileContents result;
+	Hako::FileSys::FileContents result;
 	result.data   = nullptr;
 	result.length = 0;
 
@@ -67,7 +68,7 @@ Hako::FileSys::FileContents Hako::FileSys::Manager_Stdio::read(Hako::String* fil
 
 
 
-void Hako::FileSys::Manager_Stdio::free(Hako::FileSys::FileContents* contents)
+void Hako::Standard::Filesys_Manager::free(Hako::FileSys::FileContents* contents)
 {
 	this->engine->get_mem_callbacks().free_callback.call(contents->data);
 	contents->data = nullptr;

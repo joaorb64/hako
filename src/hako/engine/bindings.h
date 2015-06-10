@@ -3,6 +3,7 @@
 
 
 #include <hako/win32/bindings.h>
+#include <hako/linux/bindings.h>
 
 
 #endif

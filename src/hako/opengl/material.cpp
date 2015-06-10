@@ -30,7 +30,7 @@ int opengl_compile_shader(void* data, GLuint type, GLuint* id)
 
 
 
-void Hako::Gfx::Material_OpenGL::init(Hako::Engine* engine)
+void Hako::OpenGL::Material::init(Hako::Engine* engine)
 {
 	this->engine = engine;
 	this->vertex_shader = nullptr;
@@ -47,7 +47,7 @@ void Hako::Gfx::Material_OpenGL::init(Hako::Engine* engine)
 
 
 
-void Hako::Gfx::Material_OpenGL::set_shaders(ShaderData* vertex_shader, ShaderData* pixel_shader)
+void Hako::OpenGL::Material::set_shaders(Hako::Gfx::ShaderData* vertex_shader, Hako::Gfx::ShaderData* pixel_shader)
 {
 	this->vertex_shader = vertex_shader;
 	this->pixel_shader  = pixel_shader;
@@ -55,14 +55,14 @@ void Hako::Gfx::Material_OpenGL::set_shaders(ShaderData* vertex_shader, ShaderDa
 
 
 
-void Hako::Gfx::Material_OpenGL::set_ztest(Hako::Gfx::MaterialZTest ztest)
+void Hako::OpenGL::Material::set_ztest(Hako::Gfx::MaterialZTest ztest)
 {
 	this->ztest = ztest;
 }
 
 
 
-void Hako::Gfx::Material_OpenGL::finish()
+void Hako::OpenGL::Material::finish()
 {
 	//
 	// Compile OpenGL shaders into a program.
@@ -94,12 +94,12 @@ void Hako::Gfx::Material_OpenGL::finish()
 	{
 		switch (this->vertex_shader->uniforms.get_element(i).type)
 		{
-			case ShaderData::Uniform::Type::Float:   float_slots++;   break;
-			case ShaderData::Uniform::Type::Float2:  float2_slots++;  break;
-			case ShaderData::Uniform::Type::Float3:  float3_slots++;  break;
-			case ShaderData::Uniform::Type::Float4:  float4_slots++;  break;
-			case ShaderData::Uniform::Type::Matrix4: matrix4_slots++; break;
-			case ShaderData::Uniform::Type::Texture: texture_slots++; break;
+			case Hako::Gfx::ShaderData::Uniform::Type::Float:   float_slots++;   break;
+			case Hako::Gfx::ShaderData::Uniform::Type::Float2:  float2_slots++;  break;
+			case Hako::Gfx::ShaderData::Uniform::Type::Float3:  float3_slots++;  break;
+			case Hako::Gfx::ShaderData::Uniform::Type::Float4:  float4_slots++;  break;
+			case Hako::Gfx::ShaderData::Uniform::Type::Matrix4: matrix4_slots++; break;
+			case Hako::Gfx::ShaderData::Uniform::Type::Texture: texture_slots++; break;
 		}
 	}
 
@@ -107,12 +107,12 @@ void Hako::Gfx::Material_OpenGL::finish()
 	{
 		switch (this->pixel_shader->uniforms.get_element(i).type)
 		{
-			case ShaderData::Uniform::Type::Float:   float_slots++;   break;
-			case ShaderData::Uniform::Type::Float2:  float2_slots++;  break;
-			case ShaderData::Uniform::Type::Float3:  float3_slots++;  break;
-			case ShaderData::Uniform::Type::Float4:  float4_slots++;  break;
-			case ShaderData::Uniform::Type::Matrix4: matrix4_slots++; break;
-			case ShaderData::Uniform::Type::Texture: texture_slots++; break;
+			case Hako::Gfx::ShaderData::Uniform::Type::Float:   float_slots++;   break;
+			case Hako::Gfx::ShaderData::Uniform::Type::Float2:  float2_slots++;  break;
+			case Hako::Gfx::ShaderData::Uniform::Type::Float3:  float3_slots++;  break;
+			case Hako::Gfx::ShaderData::Uniform::Type::Float4:  float4_slots++;  break;
+			case Hako::Gfx::ShaderData::Uniform::Type::Matrix4: matrix4_slots++; break;
+			case Hako::Gfx::ShaderData::Uniform::Type::Texture: texture_slots++; break;
 		}
 	}
 
@@ -134,36 +134,36 @@ void Hako::Gfx::Material_OpenGL::finish()
 
 
 
-void Hako::Gfx::Material_OpenGL::add_slot(ShaderData::Uniform* uniform)
+void Hako::OpenGL::Material::add_slot(Hako::Gfx::ShaderData::Uniform* uniform)
 {
 	switch (uniform->type)
 	{
-		case ShaderData::Uniform::Type::Float:
+		case Hako::Gfx::ShaderData::Uniform::Type::Float:
 		{
 			this->uniform_float_slots.add(glGetUniformLocation(this->gl_program, uniform->name->get_c_str()));
 			break;
 		}
-		case ShaderData::Uniform::Type::Float2:
+		case Hako::Gfx::ShaderData::Uniform::Type::Float2:
 		{
 			this->uniform_float2_slots.add(glGetUniformLocation(this->gl_program, uniform->name->get_c_str()));
 			break;
 		}
-		case ShaderData::Uniform::Type::Float3:
+		case Hako::Gfx::ShaderData::Uniform::Type::Float3:
 		{
 			this->uniform_float3_slots.add(glGetUniformLocation(this->gl_program, uniform->name->get_c_str()));
 			break;
 		}
-		case ShaderData::Uniform::Type::Float4:
+		case Hako::Gfx::ShaderData::Uniform::Type::Float4:
 		{
 			this->uniform_float4_slots.add(glGetUniformLocation(this->gl_program, uniform->name->get_c_str()));
 			break;
 		}
-		case ShaderData::Uniform::Type::Matrix4:
+		case Hako::Gfx::ShaderData::Uniform::Type::Matrix4:
 		{
 			this->uniform_matrix4_slots.add(glGetUniformLocation(this->gl_program, uniform->name->get_c_str()));
 			break;
 		}
-		case ShaderData::Uniform::Type::Texture:
+		case Hako::Gfx::ShaderData::Uniform::Type::Texture:
 		{
 			this->uniform_texture_slots.add(glGetUniformLocation(this->gl_program, uniform->name->get_c_str()));
 			break;
@@ -173,7 +173,7 @@ void Hako::Gfx::Material_OpenGL::add_slot(ShaderData::Uniform* uniform)
 
 
 
-int Hako::Gfx::Material_OpenGL::get_float_slot(Hako::String* name)
+int Hako::OpenGL::Material::get_float_slot(Hako::String* name)
 {
 	// To be written.
 	HAKO_UNUSED(name);
@@ -182,7 +182,7 @@ int Hako::Gfx::Material_OpenGL::get_float_slot(Hako::String* name)
 
 
 
-int Hako::Gfx::Material_OpenGL::get_float2_slot(Hako::String* name)
+int Hako::OpenGL::Material::get_float2_slot(Hako::String* name)
 {
 	// To be written.
 	HAKO_UNUSED(name);
@@ -191,7 +191,7 @@ int Hako::Gfx::Material_OpenGL::get_float2_slot(Hako::String* name)
 
 
 
-int Hako::Gfx::Material_OpenGL::get_float3_slot(Hako::String* name)
+int Hako::OpenGL::Material::get_float3_slot(Hako::String* name)
 {
 	// To be written.
 	HAKO_UNUSED(name);
@@ -200,7 +200,7 @@ int Hako::Gfx::Material_OpenGL::get_float3_slot(Hako::String* name)
 
 
 
-int Hako::Gfx::Material_OpenGL::get_float4_slot(Hako::String* name)
+int Hako::OpenGL::Material::get_float4_slot(Hako::String* name)
 {
 	// To be written.
 	HAKO_UNUSED(name);
@@ -209,7 +209,7 @@ int Hako::Gfx::Material_OpenGL::get_float4_slot(Hako::String* name)
 
 
 
-int Hako::Gfx::Material_OpenGL::get_matrix4_slot(Hako::String* name)
+int Hako::OpenGL::Material::get_matrix4_slot(Hako::String* name)
 {
 	// To be written.
 	HAKO_UNUSED(name);
@@ -218,7 +218,7 @@ int Hako::Gfx::Material_OpenGL::get_matrix4_slot(Hako::String* name)
 
 
 
-int Hako::Gfx::Material_OpenGL::get_texture_slot(Hako::String* name)
+int Hako::OpenGL::Material::get_texture_slot(Hako::String* name)
 {
 	// To be written.
 	HAKO_UNUSED(name);

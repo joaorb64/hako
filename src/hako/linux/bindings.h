@@ -1,11 +1,11 @@
-#ifdef HAKO_BUILD_WIN32
+#ifdef HAKO_BUILD_LINUX
 
 
-#ifndef HAKO_WIN32_BINDINGS_H
-#define HAKO_WIN32_BINDINGS_H
+#ifndef HAKO_LINUX_BINDINGS_H
+#define HAKO_LINUX_BINDINGS_H
 
 
-#include <hako/win32/input_manager.h>
+#include <hako/dummy/input_manager.h>
 #include <hako/standard/filesys_manager.h>
 
 

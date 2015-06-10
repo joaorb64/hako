@@ -5,54 +5,57 @@
 #define HAKO_OPENGL_MESH_H
 
 
-#include <hako/engine/gfx/commandlist.h>
-#include <hako/engine/gfx/mesh.h>
+#include <hako/engine/gfx/enums.h>
 #include "gl_includes.h"
 
 
 
 namespace Hako
 {
+	class Engine;
+
+
 	namespace OpenGL
 	{
-		void render(Hako::Engine* engine);
-		void execute_commandlist(Hako::Gfx::CommandList_Generic* cl);
-	}
+		class CommandList;
 
-	namespace Gfx
-	{
-		class Mesh_OpenGL : public Hako::Gfx::Mesh_Generic
+
+		void render(Hako::Engine* engine);
+		void execute_commandlist(Hako::OpenGL::CommandList* cl);
+
+
+		class Mesh
 		{
-			friend void Hako::OpenGL::execute_commandlist(Hako::Gfx::CommandList_Generic* cl);
+			friend void Hako::OpenGL::execute_commandlist(Hako::OpenGL::CommandList* cl);
 
 		public:
-			~Mesh_OpenGL();
+			~Mesh();
 
 			void init(
-				Hako::Engine*    engine,
-				unsigned int     attrib_number,
-				MeshAttributeFormat* attrib_formats,
-				unsigned int     vertex_number,
-				unsigned int     index_number) override;
+				Hako::Engine*                   engine,
+				unsigned int                    attrib_number,
+				Hako::Gfx::MeshAttributeFormat* attrib_formats,
+				unsigned int                    vertex_number,
+				unsigned int                    index_number);
 
-			void set_data_float  (unsigned int attrib_index, float* data) override;
-			void set_data_float2 (unsigned int attrib_index, float* data) override;
-			void set_data_float3 (unsigned int attrib_index, float* data) override;
-			void set_data_float4 (unsigned int attrib_index, float* data) override;
-			void set_indices     (unsigned int* indices) override;
-			void finish          () override;
+			void set_data_float  (unsigned int attrib_index, float* data);
+			void set_data_float2 (unsigned int attrib_index, float* data);
+			void set_data_float3 (unsigned int attrib_index, float* data);
+			void set_data_float4 (unsigned int attrib_index, float* data);
+			void set_indices     (unsigned int* indices);
+			void finish          ();
 
 
 		protected:
-			Hako::Engine*    engine;
-			unsigned int     attrib_number;
-			MeshAttributeFormat* attrib_formats;
-			unsigned int     vertex_number;
-			unsigned int     index_number;
+			Hako::Engine*                    engine;
+			unsigned int                     attrib_number;
+			Hako::Gfx::MeshAttributeFormat*  attrib_formats;
+			unsigned int                     vertex_number;
+			unsigned int                     index_number;
 
-			GLuint          gl_vertex_array_object;
-			GLuint*         gl_data_buffers;
-			GLuint          gl_index_buffer;
+			GLuint   gl_vertex_array_object;
+			GLuint*  gl_data_buffers;
+			GLuint   gl_index_buffer;
 		};
 	}
 }

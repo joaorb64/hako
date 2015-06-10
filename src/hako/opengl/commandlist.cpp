@@ -5,35 +5,35 @@
 #include <hako/engine/engine.h>
 
 
-Hako::Gfx::CommandList_OpenGL::~CommandList_OpenGL()
+Hako::OpenGL::CommandList::~CommandList()
 {
 
 }
 
 
 
-void Hako::Gfx::CommandList_OpenGL::init(Hako::Engine* engine)
+void Hako::OpenGL::CommandList::init(Hako::Engine* engine)
 {
 	this->commands.init(engine->get_mem_callbacks(), 0);
 }
 
 
 
-void Hako::Gfx::CommandList_OpenGL::clear()
+void Hako::OpenGL::CommandList::clear()
 {
 	this->commands.set_length(0);
 }
 
 
 
-void Hako::Gfx::CommandList_OpenGL::begin()
+void Hako::OpenGL::CommandList::begin()
 {
 	this->commands.set_length(0);
 }
 
 
 
-void Hako::Gfx::CommandList_OpenGL::set_material(Hako::Gfx::Material_Generic* material)
+void Hako::OpenGL::CommandList::set_material(Hako::OpenGL::Material* material)
 {
 	Command command;
 	command.kind = Command::Kind::SetMaterial;
@@ -43,7 +43,7 @@ void Hako::Gfx::CommandList_OpenGL::set_material(Hako::Gfx::Material_Generic* ma
 
 
 
-void Hako::Gfx::CommandList_OpenGL::draw(Hako::Gfx::Mesh_Generic* mesh)
+void Hako::OpenGL::CommandList::draw(Hako::OpenGL::Mesh* mesh)
 {
 	Command command;
 	command.kind = Command::Kind::Draw;
@@ -53,7 +53,7 @@ void Hako::Gfx::CommandList_OpenGL::draw(Hako::Gfx::Mesh_Generic* mesh)
 
 
 
-void Hako::Gfx::CommandList_OpenGL::finish()
+void Hako::OpenGL::CommandList::finish()
 {
 
 }

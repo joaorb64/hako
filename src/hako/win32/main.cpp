@@ -4,15 +4,8 @@
 #include <hako/application.h>
 #include <hako/common/debug.h>
 #include <hako/engine/engine.h>
-#include <hako/engine/filesys/manager_stdio.h>
-#include "window_opengl.h"
 #include <windows.h>
-#include <hako/win32/input_manager.h>
-
-
-#ifdef HAKO_BUILD_GFXOPENGL
-	#include <hako/opengl/manager.h>
-#endif
+#include "window_opengl.h"
 
 
 int main(int argc, char** argv)
@@ -21,14 +14,15 @@ int main(int argc, char** argv)
 	HAKO_UNUSED(argv);
 
 	//
-	// Create an instance of the engine.
+	// Set up an instance of the engine.
 	//
 	Hako::Engine engine;
 	engine.init();
 
-	Hako::FileSys::Manager_Stdio filesys;
-	filesys.init(&engine);
-	engine.filesys = &filesys;
+	//
+	// Initialize only the filesystem module.
+	//
+	engine.filesys.init(&engine);
 
 	//
 	// Call the application's on_startup function.
@@ -36,23 +30,18 @@ int main(int argc, char** argv)
 	Hako::Application::on_startup(&engine);
 
 	//
-	// Create an input manager.
+	// Initialize other modules.
 	//
-	Hako::Input::Manager_Win32 input;
-	input.init();
-	engine.input = &input;
+	engine.input.init (&engine);
+	engine.gfx  .init (&engine);
 
 	//
-	// Create a window and a render context.
+	// Create a Win32 window and a render context.
 	//
 	Hako::Win32::Window* window;
 #ifdef HAKO_BUILD_GFXOPENGL
 		Hako::Win32::WindowOpenGL window_opengl;
 		window = &window_opengl;
-
-		Hako::Gfx::Manager_OpenGL gfx;
-		gfx.init(&engine);
-		engine.gfx = &gfx;
 #endif
 	window->init(&engine);
 
@@ -117,7 +106,7 @@ int main(int argc, char** argv)
 		//
 		// Update input.
 		//
-		input.process();
+		engine.input.process();
 
 		//
 		// Advance fixed timer, and execute fixed-syncronized tasks.

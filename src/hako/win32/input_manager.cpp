@@ -3,8 +3,10 @@
 
 
 
-void Hako::Input::Manager_Win32::init()
+void Hako::Win32::Input_Manager::init(Hako::Engine* engine)
 {
+	HAKO_UNUSED(engine);
+
 	this->current_keyboard_buffer = 0;
 
 	for (int j = 0; j < 2; j++)
@@ -16,7 +18,7 @@ void Hako::Input::Manager_Win32::init()
 
 
 
-void Hako::Input::Manager_Win32::process()
+void Hako::Win32::Input_Manager::process()
 {
 	this->current_keyboard_buffer = (this->current_keyboard_buffer == 0 ? 1 : 0);
 	GetKeyboardState(this->keyboard_state[this->current_keyboard_buffer]);
@@ -24,8 +26,11 @@ void Hako::Input::Manager_Win32::process()
 
 
 
-int Hako::Input::Manager_Win32::translate_keyboard_code(Hako::Input::KeyCode c)
+int Hako::Win32::Input_Manager::translate_keyboard_code(Hako::Input::KeyCode c)
 {
+	//
+	// Translate a Hako keycode to a Win32 keyboard code.
+	//
 	int index = 0;
 	unsigned int code = (unsigned int)c;
 
@@ -51,8 +56,11 @@ int Hako::Input::Manager_Win32::translate_keyboard_code(Hako::Input::KeyCode c)
 
 
 
-bool Hako::Input::Manager_Win32::GetButton(Hako::Input::Request* req)
+bool Hako::Win32::Input_Manager::GetButton(Hako::Input::Request* req)
 {
+	//
+	// Check if keycode is inside keyboard range.
+	//
 	if ((unsigned int)req->key_code >= (unsigned int)Hako::Input::KeyCode::KeyboardStart &&
 		(unsigned int)req->key_code <= (unsigned int)Hako::Input::KeyCode::KeyboardEnd)
 	{
@@ -64,7 +72,7 @@ bool Hako::Input::Manager_Win32::GetButton(Hako::Input::Request* req)
 
 
 
-float Hako::Input::Manager_Win32::GetAxis1(Hako::Input::Request* req)
+float Hako::Win32::Input_Manager::GetAxis1(Hako::Input::Request* req)
 {
 	HAKO_UNUSED(req);
 	return 0;
@@ -72,7 +80,7 @@ float Hako::Input::Manager_Win32::GetAxis1(Hako::Input::Request* req)
 
 
 
-Hako::Math::Vec<2> Hako::Input::Manager_Win32::GetAxis2(Hako::Input::Request* req)
+Hako::Math::Vec<2> Hako::Win32::Input_Manager::GetAxis2(Hako::Input::Request* req)
 {
 	HAKO_UNUSED(req);
 	return Hako::Math::Vec<2>();
@@ -80,7 +88,7 @@ Hako::Math::Vec<2> Hako::Input::Manager_Win32::GetAxis2(Hako::Input::Request* re
 
 
 
-Hako::Math::Vec<3> Hako::Input::Manager_Win32::GetAxis3(Hako::Input::Request* req)
+Hako::Math::Vec<3> Hako::Win32::Input_Manager::GetAxis3(Hako::Input::Request* req)
 {
 	HAKO_UNUSED(req);
 	return Hako::Math::Vec<3>();
@@ -88,7 +96,7 @@ Hako::Math::Vec<3> Hako::Input::Manager_Win32::GetAxis3(Hako::Input::Request* re
 
 
 
-void Hako::Input::Manager_Win32::SetAxis1(Hako::Input::Request* req, float x)
+void Hako::Win32::Input_Manager::SetAxis1(Hako::Input::Request* req, float x)
 {
 	HAKO_UNUSED(req);
 	HAKO_UNUSED(x);
@@ -97,7 +105,7 @@ void Hako::Input::Manager_Win32::SetAxis1(Hako::Input::Request* req, float x)
 
 
 
-void Hako::Input::Manager_Win32::SetAxis2(Hako::Input::Request* req, float x, float y)
+void Hako::Win32::Input_Manager::SetAxis2(Hako::Input::Request* req, float x, float y)
 {
 	HAKO_UNUSED(req);
 	HAKO_UNUSED(x);
@@ -107,7 +115,7 @@ void Hako::Input::Manager_Win32::SetAxis2(Hako::Input::Request* req, float x, fl
 
 
 
-void Hako::Input::Manager_Win32::SetAxis3(Hako::Input::Request* req, float x, float y, float z)
+void Hako::Win32::Input_Manager::SetAxis3(Hako::Input::Request* req, float x, float y, float z)
 {
 	HAKO_UNUSED(req);
 	HAKO_UNUSED(x);

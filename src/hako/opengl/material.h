@@ -5,8 +5,9 @@
 #define HAKO_OPENGL_MATERIAL_H
 
 
-#include <hako/engine/gfx/material.h>
-#include <hako/engine/gfx/commandlist.h>
+#include <hako/engine/abstract_bindings.h>
+#include <hako/engine/gfx/shaderdata.h>
+#include <hako/engine/gfx/enums.h>
 #include "gl_includes.h"
 
 
@@ -14,34 +15,33 @@ namespace Hako
 {
 	namespace OpenGL
 	{
-		void execute_commandlist(Hako::Gfx::CommandList_Generic* cl);
-	}
+		void execute_commandlist(Hako::OpenGL::CommandList* cl);
 
-	namespace Gfx
-	{
-		class Material_OpenGL : public Hako::Gfx::Material_Generic
+
+		class Material
 		{
-			friend void Hako::OpenGL::execute_commandlist(Hako::Gfx::CommandList_Generic* cl);
+			friend void Hako::OpenGL::execute_commandlist(Hako::OpenGL::CommandList* cl);
+
 
 		public:
-			void init        (Hako::Engine* engine) override;
-			void set_shaders (ShaderData* vertex_shader, ShaderData* pixel_shader) override;
-			void set_ztest   (Hako::Gfx::MaterialZTest ztest) override;
-			void finish      () override;
+			void init        (Hako::Engine* engine);
+			void set_shaders (Hako::Gfx::ShaderData* vertex_shader, Hako::Gfx::ShaderData* pixel_shader);
+			void set_ztest   (Hako::Gfx::MaterialZTest ztest);
+			void finish      ();
 
-			int  get_float_slot   (Hako::String* name) override;
-			int  get_float2_slot  (Hako::String* name) override;
-			int  get_float3_slot  (Hako::String* name) override;
-			int  get_float4_slot  (Hako::String* name) override;
-			int  get_texture_slot (Hako::String* name) override;
-			int  get_matrix4_slot (Hako::String* name) override;
+			int  get_float_slot   (Hako::String* name);
+			int  get_float2_slot  (Hako::String* name);
+			int  get_float3_slot  (Hako::String* name);
+			int  get_float4_slot  (Hako::String* name);
+			int  get_texture_slot (Hako::String* name);
+			int  get_matrix4_slot (Hako::String* name);
 
 
 		protected:
 			Hako::Engine* engine;
 
-			ShaderData* vertex_shader;
-			ShaderData* pixel_shader;
+			Hako::Gfx::ShaderData* vertex_shader;
+			Hako::Gfx::ShaderData* pixel_shader;
 
 			GLuint gl_vertex_shader;
 			GLuint gl_pixel_shader;
@@ -56,7 +56,7 @@ namespace Hako
 			Hako::DS::Vector<GLuint> uniform_matrix4_slots;
 			Hako::DS::Vector<GLuint> uniform_texture_slots;
 
-			void add_slot(ShaderData::Uniform* uniform);
+			void add_slot(Hako::Gfx::ShaderData::Uniform* uniform);
 		};
 	}
 }

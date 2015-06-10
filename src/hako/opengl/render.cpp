@@ -20,7 +20,7 @@ void Hako::OpenGL::render(Hako::Engine* engine)
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    Hako::Gfx::Manager_OpenGL* gfx = (Hako::Gfx::Manager_OpenGL*)engine->get_gfx();
+    Hako::OpenGL::Manager* gfx = engine->get_gfx();
     for (unsigned int i = 0; i < gfx->commandlists.get_length(); i++)
     {
 		execute_commandlist(gfx->commandlists.get_element(i));
@@ -50,25 +50,23 @@ void Hako::OpenGL::render(Hako::Engine* engine)
 
 
 
-void Hako::OpenGL::execute_commandlist(Hako::Gfx::CommandList_Generic* cl)
+void Hako::OpenGL::execute_commandlist(Hako::OpenGL::CommandList* commandlist)
 {
-	Hako::Gfx::CommandList_OpenGL* commandlist = (Hako::Gfx::CommandList_OpenGL*)cl;
-
 	for (unsigned int i = 0; i < commandlist->commands.get_length(); i++)
 	{
-		Hako::Gfx::CommandList_OpenGL::Command* command = &commandlist->commands.get_element(i);
+		Hako::OpenGL::CommandList::Command* command = &commandlist->commands.get_element(i);
 
 		switch (command->kind)
 		{
-			case Hako::Gfx::CommandList_OpenGL::Command::Kind::SetMaterial:
+			case Hako::OpenGL::CommandList::Command::Kind::SetMaterial:
 			{
-				Hako::Gfx::Material_OpenGL* material = (Hako::Gfx::Material_OpenGL*)command->command_data.material;
+				Hako::OpenGL::Material* material = command->command_data.material;
 				glUseProgram(material->gl_program);
 				break;
 			}
-			case Hako::Gfx::CommandList_OpenGL::Command::Kind::Draw:
+			case Hako::OpenGL::CommandList::Command::Kind::Draw:
 			{
-				Hako::Gfx::Mesh_OpenGL* mesh = (Hako::Gfx::Mesh_OpenGL*)command->command_data.mesh;
+				Hako::OpenGL::Mesh* mesh = command->command_data.mesh;
 				glBindVertexArray(mesh->gl_vertex_array_object);
 				glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->gl_index_buffer);
 				glDrawRangeElements(GL_TRIANGLES, 0, mesh->index_number, mesh->index_number, GL_UNSIGNED_INT, (void*)0);

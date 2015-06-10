@@ -24,7 +24,6 @@ namespace Hako
 		void task_add_framesync(Hako::Task task);
 
 		Hako::Gfx::Manager*     get_gfx();
-		Hako::Sfx::Manager*     get_sfx();
 		Hako::Input::Manager*   get_input();
 		Hako::FileSys::Manager* get_filesys();
 		Hako::MemCallbacks      get_mem_callbacks();
@@ -61,11 +60,10 @@ namespace Hako
 		TaskManager fixedsync_tasks;
 		TaskManager framesync_tasks;
 
-		Hako::MemCallbacks       mem_callbacks;
-		Hako::Gfx::Manager*      gfx;
-		Hako::Sfx::Manager*      sfx;
-		Hako::Input::Manager*    input;
-		Hako::FileSys::Manager*  filesys;
+		Hako::MemCallbacks      mem_callbacks;
+		Hako::Gfx::Manager      gfx;
+		Hako::Input::Manager    input;
+		Hako::FileSys::Manager  filesys;
 
 		int desired_frame_steps_per_second;
 		int desired_fixed_steps_per_second;

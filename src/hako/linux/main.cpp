@@ -1,36 +1,59 @@
 #ifdef HAKO_BUILD_LINUX
 
+
 #include <hako/application.h>
 #include <hako/common/debug.h>
+#include <hako/engine/engine.h>
 #include <sys/time.h>
 #include <unistd.h>
+
 
 #ifdef HAKO_BUILD_GFXOPENGL
 	#include <hako/opengl/manager.h>
 	#include "window_opengl.h"
 #endif
 
+
 int main(int argc, char** argv)
 {
 	HAKO_UNUSED(argc);
 	HAKO_UNUSED(argv);
 
+	//
+	// Set up an engine instance.
+	//
 	Hako::Engine engine;
 	engine.init();
 
+	//
+	// Initialize only the filesystem module.
+	//
+	engine.filesys.init(&engine);
+
+	//
+	// Call Application's on_startup.
+	//
 	Hako::Application::on_startup(&engine);
 
+	//
+	// Initialize other modules.
+	//
+	engine.input.init(&engine);
+	engine.gfx.  init(&engine);
+
+	//
+	// Create a Linux window and a render context.
+	//
 	Hako::Linux::Window* window;
 #ifdef HAKO_BUILD_GFXOPENGL
-	Hako::Linux::WindowOpenGL window_opengl;
-	window = &window_opengl;
-
-	Hako::Gfx::Manager_OpenGL gfx;
-	gfx.init(&engine);
-	engine.gfx = &gfx;
+		Hako::Linux::WindowOpenGL window_opengl;
+		window = &window_opengl;
 #endif
 	window->init(&engine);
 
+	//
+	// Call Application's on_ready.
+	//
 	Hako::Application::on_ready(&engine);
 
 	//

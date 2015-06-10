@@ -5,27 +5,30 @@
 #define HAKO_WIN32_INPUT_MANAGER_H
 
 
-#include <hako/engine/input/manager.h>
+#include <hako/engine/input/request.h>
 #include <windows.h>
 
 
 namespace Hako
 {
-	namespace Input
+	class Engine;
+
+
+	namespace Win32
 	{
-		class Manager_Win32 : public Manager_Generic
+		class Input_Manager
 		{
 		public:
-			void init();
-			void process();
+			void init    (Hako::Engine* engine);
+			void process ();
 
-			bool  GetButton             (Hako::Input::Request* req) override;
-			float GetAxis1              (Hako::Input::Request* req) override;
-			Hako::Math::Vec<2> GetAxis2 (Hako::Input::Request* req) override;
-			Hako::Math::Vec<3> GetAxis3 (Hako::Input::Request* req) override;
-			void SetAxis1               (Hako::Input::Request* req, float x) override;
-			void SetAxis2               (Hako::Input::Request* req, float x, float y) override;
-			void SetAxis3               (Hako::Input::Request* req, float x, float y, float z) override;
+			bool               GetButton(Hako::Input::Request* req);
+			float              GetAxis1 (Hako::Input::Request* req);
+			Hako::Math::Vec<2> GetAxis2 (Hako::Input::Request* req);
+			Hako::Math::Vec<3> GetAxis3 (Hako::Input::Request* req);
+			void               SetAxis1 (Hako::Input::Request* req, float x);
+			void               SetAxis2 (Hako::Input::Request* req, float x, float y);
+			void               SetAxis3 (Hako::Input::Request* req, float x, float y, float z);
 
 
 		protected:

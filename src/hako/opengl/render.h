@@ -17,8 +17,7 @@ namespace Hako
 	{
 		// Render current OpenGL commandlists using system-independent functions.
 		void render(Hako::Engine* engine);
-
-		void execute_commandlist(Hako::Gfx::CommandList_Generic* cl);
+		void execute_commandlist(Hako::OpenGL::CommandList* cl);
 	}
 }
 
