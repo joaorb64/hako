@@ -19,6 +19,8 @@
 					<Add option="-Wextra" />
 					<Add option="-Wall" />
 					<Add option="-g" />
+					<Add option="-fno-rtti" />
+					<Add option="-fno-exceptions" />
 					<Add option="-DHAKO_PLATFORM_WIN32" />
 					<Add option="-DHAKO_MODULE_OPENGL" />
 					<Add option="-DHAKO_BUILD_DEBUG" />
@@ -44,6 +46,8 @@
 					<Add option="-std=c++11" />
 					<Add option="-Wextra" />
 					<Add option="-Wall" />
+					<Add option="-fno-rtti" />
+					<Add option="-fno-exceptions" />
 					<Add option="-DHAKO_PLATFORM_WIN32" />
 					<Add option="-DHAKO_MODULE_OPENGL" />
 				</Compiler>
@@ -68,6 +72,8 @@
 					<Add option="-Wextra" />
 					<Add option="-Wall" />
 					<Add option="-g" />
+					<Add option="-fno-rtti" />
+					<Add option="-fno-exceptions" />
 					<Add option="-DHAKO_PLATFORM_LINUX" />
 					<Add option="-DHAKO_MODULE_OPENGL" />
 					<Add option="-DHAKO_BUILD_DEBUG" />
@@ -91,6 +97,8 @@
 					<Add option="-std=c++11" />
 					<Add option="-Wextra" />
 					<Add option="-Wall" />
+					<Add option="-fno-rtti" />
+					<Add option="-fno-exceptions" />
 					<Add option="-DHAKO_PLATFORM_LINUX" />
 					<Add option="-DHAKO_MODULE_OPENGL" />
 					<Add option="-DHAKO_BUILD_GFXOPENGL" />
