@@ -25,6 +25,7 @@ int opengl_compile_shader(void* data, GLuint type, GLuint* id)
 		HAKO_ERROR("could not compile OpenGL shader");
 		return -1;
 	}
+	HAKO_OPENGL_CHECKERROR();
 	return 0;
 }
 
@@ -76,7 +77,7 @@ void Hako::OpenGL::Material::finish()
 	opengl_compile_shader(this->pixel_shader->data, GL_FRAGMENT_SHADER, &this->gl_pixel_shader);
 	glAttachShader(this->gl_program, this->gl_pixel_shader);
 
-	//glBindFragDataLocation(this->gl_program, 0, "outColor");
+	glBindFragDataLocation(this->gl_program, 0, "color");
 
 	glLinkProgram(this->gl_program);
 	glUseProgram(this->gl_program);
@@ -132,7 +133,11 @@ void Hako::OpenGL::Material::finish()
 
 	this->attribute_slots.set_length(this->vertex_shader->attributes.get_length());
 	for (unsigned int i = 0; i < this->vertex_shader->attributes.get_length(); i++)
-		this->attribute_slots.get_element(i) = glGetAttribLocation(this->gl_program, this->vertex_shader->attributes.get_element(i).name->get_c_str());
+	{
+		GLint attrb_loc = glGetAttribLocation(this->gl_program, this->vertex_shader->attributes.get_element(i).name->get_c_str());
+		HAKO_ASSERT(attrb_loc >= 0, "unable to get OpenGL shader attribute location");
+		this->attribute_slots.get_element(i) = attrb_loc;
+	}
 
 	HAKO_OPENGL_CHECKERROR();
 }

@@ -10,6 +10,7 @@
 
 void Hako::Win32::WindowOpenGL::init(Hako::Engine* engine)
 {
+	HAKO_UNUSED(engine);
 	this->user_quit = false;
 
 	//
@@ -48,17 +49,8 @@ void Hako::Win32::WindowOpenGL::init(Hako::Engine* engine)
 	this->opengl_enable(this->hwnd, &this->hdc, &this->hrc);
 	Hako::OpenGL::win32_load_extensions();
 
-
-	//
-	// Register render task.
-	//
-	Hako::Callback<void, Hako::Engine*> render_callback;
-	render_callback.init(this, this->render);
-
-	Hako::Task render_task;
-	render_task.init(engine, render_callback);
-
-	engine->task_add_framesync(render_task);
+	glDisable(GL_DEPTH_TEST);
+	glDisable(GL_BLEND);
 }
 
 
@@ -66,6 +58,7 @@ void Hako::Win32::WindowOpenGL::init(Hako::Engine* engine)
 void Hako::Win32::WindowOpenGL::shutdown()
 {
 	this->opengl_disable(this->hwnd, this->hdc, this->hrc);
+	CloseWindow(this->hwnd);
 }
 
 
@@ -166,12 +159,10 @@ void Hako::Win32::WindowOpenGL::opengl_disable(HWND hwnd, HDC hdc, HGLRC hrc)
 
 
 
-void Hako::Win32::WindowOpenGL::render(void* userdata, Hako::Engine* engine)
+void Hako::Win32::WindowOpenGL::render(Hako::Engine* engine)
 {
-    Hako::Win32::WindowOpenGL* this_window = (Hako::Win32::WindowOpenGL*)userdata;
-
     Hako::OpenGL::render(engine);
-    SwapBuffers(this_window->hdc);
+    SwapBuffers(this->hdc);
 }
 
 

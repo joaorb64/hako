@@ -65,7 +65,7 @@ void Hako::Application::on_ready(Hako::Engine* engine)
 	// Create a mesh.
 	//
 	float mesh_positions_data[] =
-		{ 0, 0, 0,   1, 0, 0,   0, 1, 0 };
+		{ -0.5f, -0.5f, 0,   0, 0.5f, 0,   0.5f, -0.5f, 0 };
 	unsigned int mesh_indices_data[] =
 		{ 0, 1, 2 };
 

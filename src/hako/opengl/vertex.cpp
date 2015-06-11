@@ -32,11 +32,25 @@ void Hako::OpenGL::VertexBuffer::init(
 
 
 
+int Hako::OpenGL::get_format_element_num(Hako::Gfx::BufferFormat format)
+{
+	switch (format)
+	{
+		case Hako::Gfx::BufferFormat::Float:  return 1;
+		case Hako::Gfx::BufferFormat::Float2: return 2;
+		case Hako::Gfx::BufferFormat::Float3: return 3;
+		case Hako::Gfx::BufferFormat::Float4: return 4;
+	}
+	return 0;
+}
+
+
+
 void Hako::OpenGL::VertexBuffer::set_data(unsigned int start_vertex, unsigned int length, float* data)
 {
 	HAKO_ASSERT(start_vertex + length <= this->vertex_number, "some vertices are out of the buffer's bounds");
 	glBindBuffer(GL_ARRAY_BUFFER, this->gl_buffer);
-	glBufferData(GL_ARRAY_BUFFER, this->vertex_number * 1 * 4, data, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, length * Hako::OpenGL::get_format_element_num(this->buffer_format) * 4, data, GL_STATIC_DRAW);
 	HAKO_OPENGL_CHECKERROR();
 }
 
@@ -76,7 +90,7 @@ void Hako::OpenGL::IndexBuffer::set_data(unsigned int start_index, unsigned int 
 {
 	HAKO_ASSERT(start_index + length <= this->index_number, "some indices are out of the buffer's bounds");
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->gl_buffer);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, this->index_number * sizeof(unsigned int), data, GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, length * sizeof(unsigned int), data, GL_STATIC_DRAW);
 	HAKO_OPENGL_CHECKERROR();
 }
 

@@ -16,8 +16,7 @@ void Hako::OpenGL::render(Hako::Engine* engine)
 {
 	HAKO_UNUSED(engine);
 
-	glFinish();
-
+	glClearColor(0, 0, 1, 1);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     Hako::OpenGL::Manager* gfx = engine->get_gfx();
@@ -26,7 +25,7 @@ void Hako::OpenGL::render(Hako::Engine* engine)
 		execute_commandlist(gfx->commandlists.get_element(i));
     }
 
-	glFlush();
+	glFinish();
 
 /*
 	glMatrixMode(GL_PROJECTION);
@@ -72,17 +71,25 @@ void Hako::OpenGL::execute_commandlist(Hako::OpenGL::CommandList* commandlist)
 			}
 			case Hako::OpenGL::CommandList::Command::Kind::SetVertexBuffer:
 			{
+				HAKO_ASSERT(current_material != nullptr, "material is null");
 				Hako::OpenGL::VertexBuffer* buffer = command->command_data.vertex_buffer;
-				glEnableVertexAttribArray(current_material->attribute_slots.get_element(command->index));
+				GLint attrib_loc = current_material->attribute_slots.get_element(command->index);
+				glEnableVertexAttribArray(attrib_loc);
 				glBindBuffer(GL_ARRAY_BUFFER, buffer->gl_buffer);
-				glVertexAttribPointer(current_material->attribute_slots.get_element(command->index), 3, GL_FLOAT, GL_TRUE, 0, (void*)0);
+				glVertexAttribPointer(attrib_loc, Hako::OpenGL::get_format_element_num(buffer->buffer_format), GL_FLOAT, GL_FALSE, 0, (void*)0);
 				break;
 			}
 			case Hako::OpenGL::CommandList::Command::Kind::DrawIndexed:
 			{
+				HAKO_ASSERT(current_material != nullptr, "material is null");
 				Hako::OpenGL::IndexBuffer* index_buffer = command->command_data.index_buffer;
 				glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, index_buffer->gl_buffer);
 				glDrawRangeElements(GL_TRIANGLES, 0, index_buffer->index_number, index_buffer->index_number, GL_UNSIGNED_INT, (void*)0);
+				break;
+			}
+			default:
+			{
+				HAKO_ERROR("unrecognized gfx commandlist command");
 				break;
 			}
 		}

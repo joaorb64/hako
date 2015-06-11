@@ -55,8 +55,8 @@ int main(int argc, char** argv)
 	//
 	int fixed_step_available_microseconds = 0;
 	int frame_step_available_microseconds = 0;
-	int fps_counter_last_frame_timestamp  = 0;
-	int fps_counter_last_fixed_timestamp  = 0;
+	int fps_counter_last_frame_count      = 0;
+	int fps_counter_last_fixed_count      = 0;
 	int fps_counter_timestamp             = 0;
 	int total_microseconds_running        = 0;
 
@@ -102,6 +102,7 @@ int main(int argc, char** argv)
 			engine.framesync_tasks.tasks.get_element(i).get_entry_point().call(&engine);
 
 		engine.frame_steps_executed += 1;
+		window->render(&engine);
 
 		//
 		// Update input.
@@ -133,11 +134,11 @@ int main(int argc, char** argv)
 
 		if (fps_counter_timestamp >= 1000000)
 		{
-			engine.frame_steps_per_second = engine.frame_steps_executed - fps_counter_last_frame_timestamp;
-			fps_counter_last_frame_timestamp = engine.frame_steps_executed;
+			engine.frame_steps_per_second = engine.frame_steps_executed - fps_counter_last_frame_count;
+			fps_counter_last_frame_count = engine.frame_steps_executed;
 
-			engine.fixed_steps_per_second = engine.fixed_steps_executed - fps_counter_last_fixed_timestamp;
-			fps_counter_last_fixed_timestamp = engine.fixed_steps_executed;
+			engine.fixed_steps_per_second = engine.fixed_steps_executed - fps_counter_last_fixed_count;
+			fps_counter_last_fixed_count = engine.fixed_steps_executed;
 
 			fps_counter_timestamp -= 1000000;
 		}

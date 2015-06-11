@@ -49,13 +49,13 @@ namespace Hako
 
 			Hako::Gfx::MaterialZTest ztest;
 
-			Hako::DS::Vector<GLuint> attribute_slots;
-			Hako::DS::Vector<GLuint> uniform_float_slots;
-			Hako::DS::Vector<GLuint> uniform_float2_slots;
-			Hako::DS::Vector<GLuint> uniform_float3_slots;
-			Hako::DS::Vector<GLuint> uniform_float4_slots;
-			Hako::DS::Vector<GLuint> uniform_matrix4_slots;
-			Hako::DS::Vector<GLuint> uniform_texture_slots;
+			Hako::DS::Vector<GLint> attribute_slots;
+			Hako::DS::Vector<GLint> uniform_float_slots;
+			Hako::DS::Vector<GLint> uniform_float2_slots;
+			Hako::DS::Vector<GLint> uniform_float3_slots;
+			Hako::DS::Vector<GLint> uniform_float4_slots;
+			Hako::DS::Vector<GLint> uniform_matrix4_slots;
+			Hako::DS::Vector<GLint> uniform_texture_slots;
 
 			void add_slot(Hako::Gfx::ShaderData::Uniform* uniform);
 		};

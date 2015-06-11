@@ -20,6 +20,7 @@ namespace Hako
 		class CommandList;
 
 
+		int get_format_element_num(Hako::Gfx::BufferFormat format);
 		void render(Hako::Engine* engine);
 		void execute_commandlist(Hako::OpenGL::CommandList* cl);
 

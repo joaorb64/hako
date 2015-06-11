@@ -22,6 +22,9 @@ namespace Hako
 
 			bool did_user_quit  () override;
 
+			// OpenGL render task.
+			void render (Hako::Engine* engine) override;
+
 
 		protected:
 			// Win32 handle to the main window.
@@ -40,9 +43,6 @@ namespace Hako
 			// Win32 OpenGL setup.
 			void opengl_enable  (HWND hwnd, HDC* hdc, HGLRC* hrc);
 			void opengl_disable (HWND hwnd, HDC  hdc, HGLRC  hrc);
-
-			// OpenGL render task.
-			static void render (void* userdata, Hako::Engine* engine);
 		};
 	}
 }

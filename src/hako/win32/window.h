@@ -20,6 +20,8 @@ namespace Hako
 			virtual void process_events () = 0;
 
 			virtual bool did_user_quit  () = 0;
+
+			virtual void render         (Hako::Engine* engine) = 0;
 		};
 	}
 }
