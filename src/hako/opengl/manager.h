@@ -26,8 +26,10 @@ namespace Hako
 
 
 		public:
-			void init            (Hako::Engine* engine);
-			void commandlist_add (Hako::OpenGL::CommandList* commandlist);
+			void init              (Hako::Engine* engine);
+
+			void commandlist_clear ();
+			void commandlist_add   (Hako::OpenGL::CommandList* commandlist);
 
 
 		protected:

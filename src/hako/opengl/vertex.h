@@ -5,6 +5,7 @@
 #define HAKO_OPENGL_MESH_H
 
 
+#include <hako/common/debug.h>
 #include <hako/engine/gfx/enums.h>
 #include "gl_includes.h"
 
@@ -31,6 +32,7 @@ namespace Hako
 
 
 		public:
+			VertexBuffer();
 			~VertexBuffer();
 
 			void init(
@@ -43,6 +45,9 @@ namespace Hako
 
 
 		protected:
+			HAKO_ONLYINDEBUG(bool init_called;)
+			HAKO_ONLYINDEBUG(bool finish_called;)
+
 			Hako::Gfx::BufferFormat  buffer_format;
 			unsigned int             vertex_number;
 
@@ -57,6 +62,7 @@ namespace Hako
 
 
 		public:
+			IndexBuffer();
 			~IndexBuffer();
 
 			void init     (Hako::Engine* engine, unsigned int index_number);
@@ -65,6 +71,8 @@ namespace Hako
 
 
 		protected:
+			HAKO_ONLYINDEBUG(bool init_called;)
+			HAKO_ONLYINDEBUG(bool finish_called;)
 			unsigned int index_number;
 
 			GLuint gl_buffer;

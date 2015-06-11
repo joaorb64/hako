@@ -1,7 +1,7 @@
 #ifdef HAKO_PLATFORM_WIN32
 
 
-#include <hako/application.h>
+#include <hako/engine/app.h>
 #include <hako/common/debug.h>
 #include <hako/engine/engine.h>
 #include <windows.h>
@@ -27,7 +27,8 @@ int main(int argc, char** argv)
 	//
 	// Call the application's on_startup function.
 	//
-	Hako::Application::on_startup(&engine);
+	void* userdata = nullptr;
+	Hako::App::on_startup(&userdata, &engine);
 
 	//
 	// Initialize other modules.
@@ -48,7 +49,7 @@ int main(int argc, char** argv)
 	//
 	// Call the application's on_ready function.
 	//
-	Hako::Application::on_ready(&engine);
+	Hako::App::on_ready(userdata, &engine);
 
 	//
 	// Timing variables.
@@ -103,6 +104,7 @@ int main(int argc, char** argv)
 
 		engine.frame_steps_executed += 1;
 		window->render(&engine);
+		engine.gfx.commandlist_clear();
 
 		//
 		// Update input.

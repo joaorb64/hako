@@ -7,6 +7,14 @@
 
 
 
+Hako::OpenGL::VertexBuffer::VertexBuffer()
+{
+	HAKO_ONLYINDEBUG(this->init_called = false;)
+	HAKO_ONLYINDEBUG(this->finish_called = false;)
+}
+
+
+
 Hako::OpenGL::VertexBuffer::~VertexBuffer()
 {
 
@@ -28,6 +36,7 @@ void Hako::OpenGL::VertexBuffer::init(
 	//
 	glGenBuffers(1, &this->gl_buffer);
 	HAKO_OPENGL_CHECKERROR();
+	HAKO_ONLYINDEBUG(this->init_called = true;)
 }
 
 
@@ -48,6 +57,7 @@ int Hako::OpenGL::get_format_element_num(Hako::Gfx::BufferFormat format)
 
 void Hako::OpenGL::VertexBuffer::set_data(unsigned int start_vertex, unsigned int length, float* data)
 {
+	HAKO_ASSERT(this->init_called, "init() must be called first");
 	HAKO_ASSERT(start_vertex + length <= this->vertex_number, "some vertices are out of the buffer's bounds");
 	glBindBuffer(GL_ARRAY_BUFFER, this->gl_buffer);
 	glBufferData(GL_ARRAY_BUFFER, length * Hako::OpenGL::get_format_element_num(this->buffer_format) * 4, data, GL_STATIC_DRAW);
@@ -58,10 +68,21 @@ void Hako::OpenGL::VertexBuffer::set_data(unsigned int start_vertex, unsigned in
 
 void Hako::OpenGL::VertexBuffer::finish()
 {
+	HAKO_ASSERT(this->init_called, "init() must be called first");
 	// Do nothing.
 }
 
 
+
+
+
+
+
+Hako::OpenGL::IndexBuffer::IndexBuffer()
+{
+	HAKO_ONLYINDEBUG(this->init_called = false;)
+	HAKO_ONLYINDEBUG(this->finish_called = false;)
+}
 
 
 
@@ -82,12 +103,14 @@ void Hako::OpenGL::IndexBuffer::init(Hako::Engine* engine, unsigned int index_nu
 	//
 	glGenBuffers(1, &this->gl_buffer);
 	HAKO_OPENGL_CHECKERROR();
+	HAKO_ONLYINDEBUG(this->init_called = true;)
 }
 
 
 
 void Hako::OpenGL::IndexBuffer::set_data(unsigned int start_index, unsigned int length, unsigned int* data)
 {
+	HAKO_ASSERT(this->init_called, "init() must be called first");
 	HAKO_ASSERT(start_index + length <= this->index_number, "some indices are out of the buffer's bounds");
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->gl_buffer);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, length * sizeof(unsigned int), data, GL_STATIC_DRAW);
@@ -98,6 +121,7 @@ void Hako::OpenGL::IndexBuffer::set_data(unsigned int start_index, unsigned int 
 
 void Hako::OpenGL::IndexBuffer::finish()
 {
+	HAKO_ASSERT(this->init_called, "init() must be called first");
 	// Do nothing.
 }
 

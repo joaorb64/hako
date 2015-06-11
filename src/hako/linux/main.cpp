@@ -33,7 +33,8 @@ int main(int argc, char** argv)
 	//
 	// Call Application's on_startup.
 	//
-	Hako::Application::on_startup(&engine);
+	void* userdata = nullptr;
+	Hako::App::on_startup(&userdata, &engine);
 
 	//
 	// Initialize other modules.
@@ -54,7 +55,7 @@ int main(int argc, char** argv)
 	//
 	// Call Application's on_ready.
 	//
-	Hako::Application::on_ready(&engine);
+	Hako::App::on_ready(userdata, &engine);
 
 	//
 	// Timing variables.
@@ -106,6 +107,7 @@ int main(int argc, char** argv)
 			engine.framesync_tasks.tasks.get_element(i).get_entry_point().call(&engine);
 
 		engine.frame_steps_executed += 1;
+		engine.gfx.commandlist_clear();
 
 		//
 		// Advance fixed timer, and execute fixed-syncronized tasks.

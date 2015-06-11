@@ -12,6 +12,13 @@ void Hako::OpenGL::Manager::init(Hako::Engine* engine)
 
 
 
+void Hako::OpenGL::Manager::commandlist_clear()
+{
+	this->commandlists.set_length(0);
+}
+
+
+
 void Hako::OpenGL::Manager::commandlist_add(Hako::OpenGL::CommandList* commandlist)
 {
 	this->commandlists.add(commandlist);

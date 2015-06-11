@@ -1,6 +1,7 @@
-#include <hako/application.h>
 #include <hako/common/debug.h>
 #include <hako/common/string.h>
+#include <hako/engine/app.h>
+#include <hako/engine/engine.h>
 #include <hako/engine/bindings.h>
 #include <stdio.h>
 
@@ -9,13 +10,12 @@ void test_fixed_task(void* unused, Hako::Engine* engine);
 void test_frame_task(void* unused, Hako::Engine* engine);
 
 
-Hako::Options* Hako::Application::on_startup(Hako::Engine* engine)
+void Hako::App::on_startup(void** userdata, Hako::Engine* engine)
 {
+	HAKO_UNUSED(userdata);
 	HAKO_UNUSED(engine);
 
-	printf("Hako::Application::on_startup\n");
-
-	return nullptr;
+	printf("Hako::App::on_startup\n");
 }
 
 
@@ -29,9 +29,10 @@ Hako::Gfx::IndexBuffer mesh_indices;
 Hako::Gfx::CommandList commandlist;
 
 
-void Hako::Application::on_ready(Hako::Engine* engine)
+void Hako::App::on_ready(void* userdata, Hako::Engine* engine)
 {
-	printf("Hako::Application::on_ready\n");
+	HAKO_UNUSED(userdata);
+	printf("Hako::App::on_ready\n");
 
 	//
 	// Set up command list.

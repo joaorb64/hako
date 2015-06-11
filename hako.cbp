@@ -105,8 +105,7 @@
 		<Compiler>
 			<Add directory="src/" />
 		</Compiler>
-		<Unit filename="src/hako/application.cpp" />
-		<Unit filename="src/hako/application.h" />
+		<Unit filename="src/app.cpp" />
 		<Unit filename="src/hako/common/callback.h" />
 		<Unit filename="src/hako/common/debug.h" />
 		<Unit filename="src/hako/common/ds/vector.h" />
@@ -117,6 +116,7 @@
 		<Unit filename="src/hako/common/string.h" />
 		<Unit filename="src/hako/dummy/input_manager.h" />
 		<Unit filename="src/hako/engine/abstract_bindings.h" />
+		<Unit filename="src/hako/engine/app.h" />
 		<Unit filename="src/hako/engine/bindings.h" />
 		<Unit filename="src/hako/engine/engine.cpp" />
 		<Unit filename="src/hako/engine/engine.h" />
