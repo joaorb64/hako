@@ -1,7 +1,7 @@
 #ifdef HAKO_PLATFORM_LINUX
 
 
-#include <hako/application.h>
+#include <hako/engine/app.h>
 #include <hako/common/debug.h>
 #include <hako/engine/engine.h>
 #include <sys/time.h>
@@ -39,7 +39,7 @@ int main(int argc, char** argv)
 	//
 	// Initialize other modules.
 	//
-	engine.input.init(&engine);
+	//engine.input.init(&engine);
 	engine.gfx.  init(&engine);
 
 	//
@@ -92,12 +92,8 @@ int main(int argc, char** argv)
 		total_microseconds_running += elapsed_microseconds;
 		engine.fixed_milliseconds_since_startup = total_microseconds_running / 1000.0;
 
-		//
-		// Process window events.
-		//
-		window->process_events();
-		if (window->did_user_quit())
-			break;
+		engine.frame_steps_executed += 1;
+		engine.gfx.commandlist_clear();
 
 		//
 		// Process frame-syncronized tasks.
@@ -106,8 +102,12 @@ int main(int argc, char** argv)
 		for (unsigned int i = 0; i < engine.framesync_tasks.tasks.get_length(); i++)
 			engine.framesync_tasks.tasks.get_element(i).get_entry_point().call(&engine);
 
-		engine.frame_steps_executed += 1;
-		engine.gfx.commandlist_clear();
+		//
+		// Process window events.
+		//
+		window->process_events();
+		if (window->did_user_quit())
+			break;
 
 		//
 		// Advance fixed timer, and execute fixed-syncronized tasks.

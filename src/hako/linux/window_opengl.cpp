@@ -55,6 +55,8 @@ void Hako::Linux::WindowOpenGL::init(Hako::Engine* engine)
 	XMapWindow(this->display, this->window);
 
 	this->opengl_enable(this->display, &this->window);
+
+	Hako::OpenGL::linux_load_extensions();
 }
 
 

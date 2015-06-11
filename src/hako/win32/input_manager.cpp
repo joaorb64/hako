@@ -1,3 +1,5 @@
+#ifdef HAKO_PLATFORM_WIN32
+
 #include "input_manager.h"
 #include <hako/common/debug.h>
 
@@ -125,5 +127,4 @@ void Hako::Win32::Input_Manager::SetAxis3(Hako::Input::Request* req, float x, fl
 }
 
 
-
-
+#endif

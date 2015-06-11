@@ -3,6 +3,7 @@
 
 
 #include <hako/engine/input/request.h>
+#include <hako/common/debug.h>
 
 
 namespace Hako
