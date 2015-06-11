@@ -113,7 +113,7 @@ void test_fixed_task(void* unused, Hako::Engine* engine)
 	if (engine->get_fixed_milliseconds_since_startup() - last_ms > 1000)
 	{
 		last_ms = engine->get_fixed_milliseconds_since_startup();
-		printf("Hako::Application::test_fixed_task (%4d frames/s, %4d fixed/s, %10.3f s since start)\n",
+		printf("Hako::App::test_fixed_task (%4d frames/s, %4d fixed/s, %10.3f s since start)\n",
 			engine->get_frame_steps_per_second(),
 			engine->get_fixed_steps_per_second(),
 			engine->get_fixed_milliseconds_since_startup() / 1000.0f);

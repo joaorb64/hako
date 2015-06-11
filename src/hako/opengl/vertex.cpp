@@ -57,6 +57,9 @@ int Hako::OpenGL::get_format_element_num(Hako::Gfx::BufferFormat format)
 
 void Hako::OpenGL::VertexBuffer::set_data(unsigned int start_vertex, unsigned int length, float* data)
 {
+	HAKO_UNUSED(start_vertex);
+	HAKO_ASSERT(start_vertex == 0 && length == this->vertex_number, "unimplemented");
+
 	HAKO_ASSERT(this->init_called, "init() must be called first");
 	HAKO_ASSERT(start_vertex + length <= this->vertex_number, "some vertices are out of the buffer's bounds");
 	glBindBuffer(GL_ARRAY_BUFFER, this->gl_buffer);
@@ -110,6 +113,9 @@ void Hako::OpenGL::IndexBuffer::init(Hako::Engine* engine, unsigned int index_nu
 
 void Hako::OpenGL::IndexBuffer::set_data(unsigned int start_index, unsigned int length, unsigned int* data)
 {
+	HAKO_UNUSED(start_index);
+	HAKO_ASSERT(start_index == 0 && length == this->index_number, "unimplemented");
+
 	HAKO_ASSERT(this->init_called, "init() must be called first");
 	HAKO_ASSERT(start_index + length <= this->index_number, "some indices are out of the buffer's bounds");
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->gl_buffer);
