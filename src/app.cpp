@@ -42,8 +42,8 @@ void Hako::App::on_ready(void* userdata, Hako::Engine* engine)
 	//
 	// Create a material.
 	//
-	const char* vshader_source = "in vec3 position; void main() { gl_Position = vec4(position, 1); }";
-	const char* pshader_source = "out vec4 color; void main() { color = vec4(1, 0, 0, 1); }";
+	const char* vshader_source = "#version 330\n in vec3 position; void main() { gl_Position = vec4(position, 1); }";
+	const char* pshader_source = "#version 330\n out vec4 color; void main() { color = vec4(1, 0, 0, 1); }";
 	void* vshader_data = (void*)const_cast<char*>(vshader_source);
 	void* pshader_data = (void*)const_cast<char*>(pshader_source);
 
