@@ -16,7 +16,8 @@ namespace Hako
 	{
 		class CommandList;
 		class Material;
-		class Mesh;
+		class VertexBuffer;
+		class IndexBuffer;
 
 
 		void execute_commandlist(Hako::OpenGL::CommandList* cl);
@@ -28,14 +29,15 @@ namespace Hako
 
 
 		public:
-			~CommandList         ();
-			void init            (Hako::Engine* engine);
-			void clear           ();
+			~CommandList            ();
+			void init               (Hako::Engine* engine);
+			void clear              ();
 
-            void begin           ();
-            void set_material    (Hako::OpenGL::Material* material);
-            void draw            (Hako::OpenGL::Mesh* mesh);
-            void finish          ();
+            void begin              ();
+            void set_material       (Hako::OpenGL::Material* material);
+            void set_vertex_buffer  (unsigned int index, Hako::OpenGL::VertexBuffer* buffer);
+            void draw_indexed       (Hako::OpenGL::IndexBuffer* buffer);
+            void finish             ();
 
 
 		protected:
@@ -45,14 +47,17 @@ namespace Hako
 				enum class Kind
 				{
 					SetMaterial,
-					Draw
+					SetVertexBuffer,
+					DrawIndexed
 				};
 
 				Kind kind;
+				unsigned int index;
 				union
 				{
-					Hako::OpenGL::Material* material;
-					Hako::OpenGL::Mesh*     mesh;
+					Hako::OpenGL::Material*     material;
+					Hako::OpenGL::VertexBuffer* vertex_buffer;
+					Hako::OpenGL::IndexBuffer*  index_buffer;
 				} command_data;
 			};
 

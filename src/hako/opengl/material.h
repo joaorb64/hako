@@ -49,6 +49,7 @@ namespace Hako
 
 			Hako::Gfx::MaterialZTest ztest;
 
+			Hako::DS::Vector<GLuint> attribute_slots;
 			Hako::DS::Vector<GLuint> uniform_float_slots;
 			Hako::DS::Vector<GLuint> uniform_float2_slots;
 			Hako::DS::Vector<GLuint> uniform_float3_slots;

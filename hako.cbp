@@ -147,10 +147,10 @@
 		<Unit filename="src/hako/opengl/manager.h" />
 		<Unit filename="src/hako/opengl/material.cpp" />
 		<Unit filename="src/hako/opengl/material.h" />
-		<Unit filename="src/hako/opengl/mesh.cpp" />
-		<Unit filename="src/hako/opengl/mesh.h" />
 		<Unit filename="src/hako/opengl/render.cpp" />
 		<Unit filename="src/hako/opengl/render.h" />
+		<Unit filename="src/hako/opengl/vertex.cpp" />
+		<Unit filename="src/hako/opengl/vertex.h" />
 		<Unit filename="src/hako/standard/filesys_manager.cpp" />
 		<Unit filename="src/hako/standard/filesys_manager.h" />
 		<Unit filename="src/hako/win32/abstract_bindings.h" />

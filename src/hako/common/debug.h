@@ -21,7 +21,7 @@
 
 	// Runtime assert.
 	#define HAKO_ASSERT(cond, msg) \
-		do { if (!cond) { printf("ASSERT FAILED: " msg "\nFILE: " __FILE__ "\nLINE: %u\n", __LINE__); abort(); } } while (0)
+		do { if (!(cond)) { printf("ASSERT FAILED: " msg "\nFILE: " __FILE__ "\nLINE: %u\n", __LINE__); abort(); } } while (0)
 
 
 	// Runtime error.

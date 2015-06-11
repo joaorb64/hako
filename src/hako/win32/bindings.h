@@ -13,7 +13,7 @@
 	#include <hako/opengl/commandlist.h>
 	#include <hako/opengl/manager.h>
 	#include <hako/opengl/material.h>
-	#include <hako/opengl/mesh.h>
+	#include <hako/opengl/vertex.h>
 #endif
 
 

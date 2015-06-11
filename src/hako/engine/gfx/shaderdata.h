@@ -26,8 +26,9 @@ namespace Hako
 					Float4
 				};
 
-				Format format;
-				int    position;
+				Format        format;
+				int           position;
+				Hako::String* name;
 			};
 
 			struct Uniform
@@ -50,7 +51,7 @@ namespace Hako
 
 			~ShaderData();
 			void init             (Hako::Engine* engine);
-			void add_attribute    (Attribute::Format format, int position);
+			void add_attribute    (Attribute::Format format, int position, Hako::String* name);
 			void add_uniform      (Uniform::Type type, int position, Hako::String* name);
 			void set_program_data (void* data, unsigned int length);
 			void finish           ();

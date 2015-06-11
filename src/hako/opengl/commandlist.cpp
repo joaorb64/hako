@@ -43,11 +43,22 @@ void Hako::OpenGL::CommandList::set_material(Hako::OpenGL::Material* material)
 
 
 
-void Hako::OpenGL::CommandList::draw(Hako::OpenGL::Mesh* mesh)
+void Hako::OpenGL::CommandList::set_vertex_buffer(unsigned int index, Hako::OpenGL::VertexBuffer* buffer)
 {
 	Command command;
-	command.kind = Command::Kind::Draw;
-	command.command_data.mesh = mesh;
+	command.kind = Command::Kind::SetVertexBuffer;
+	command.index = index;
+	command.command_data.vertex_buffer = buffer;
+	this->commands.add(command);
+}
+
+
+
+void Hako::OpenGL::CommandList::draw_indexed(Hako::OpenGL::IndexBuffer* buffer)
+{
+	Command command;
+	command.kind = Command::Kind::DrawIndexed;
+	command.command_data.index_buffer = buffer;
 	this->commands.add(command);
 }
 

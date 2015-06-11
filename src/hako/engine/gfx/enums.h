@@ -16,7 +16,7 @@ namespace Hako
 		};
 
 
-		enum class MeshAttributeFormat
+		enum class BufferFormat
 		{
 			Float,
 			Float2,

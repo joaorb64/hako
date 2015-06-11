@@ -21,11 +21,12 @@ void Hako::Gfx::ShaderData::init(Hako::Engine* engine)
 
 
 
-void Hako::Gfx::ShaderData::add_attribute(Attribute::Format format, int position)
+void Hako::Gfx::ShaderData::add_attribute(Attribute::Format format, int position, Hako::String* name)
 {
 	Attribute attrib;
 	attrib.format   = format;
 	attrib.position = position;
+	attrib.name     = name;
 	this->attributes.add(attrib);
 }
 

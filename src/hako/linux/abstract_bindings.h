@@ -11,7 +11,8 @@ namespace Hako
 	namespace OpenGL
 	{
 		class Manager;
-		class Mesh;
+		class VertexBuffer;
+		class IndexBuffer;
 		class Material;
 		class CommandList;
 	}
@@ -20,7 +21,8 @@ namespace Hako
 	namespace Gfx
 	{
 		typedef Hako::OpenGL::Manager      Manager;
-		typedef Hako::OpenGL::Mesh         Mesh;
+		typedef Hako::OpenGL::VertexBuffer VertexBuffer;
+		typedef Hako::OpenGL::IndexBuffer  IndexBuffer;
 		typedef Hako::OpenGL::Material     Material;
 		typedef Hako::OpenGL::CommandList  CommandList;
 	}

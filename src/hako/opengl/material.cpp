@@ -37,6 +37,7 @@ void Hako::OpenGL::Material::init(Hako::Engine* engine)
 	this->pixel_shader  = nullptr;
 	this->ztest         = Hako::Gfx::MaterialZTest::AlwaysPass;
 
+	this->attribute_slots       .init(engine->get_mem_callbacks(), 0);
 	this->uniform_float_slots   .init(engine->get_mem_callbacks(), 0);
 	this->uniform_float2_slots  .init(engine->get_mem_callbacks(), 0);
 	this->uniform_float3_slots  .init(engine->get_mem_callbacks(), 0);
@@ -128,6 +129,10 @@ void Hako::OpenGL::Material::finish()
 
 	for (unsigned int i = 0; i < this->pixel_shader->uniforms.get_length(); i++)
 		this->add_slot(&this->pixel_shader->uniforms.get_element(i));
+
+	this->attribute_slots.set_length(this->vertex_shader->attributes.get_length());
+	for (unsigned int i = 0; i < this->vertex_shader->attributes.get_length(); i++)
+		this->attribute_slots.get_element(i) = glGetAttribLocation(this->gl_program, this->vertex_shader->attributes.get_element(i).name->get_c_str());
 
 	HAKO_OPENGL_CHECKERROR();
 }
