@@ -6,7 +6,7 @@ namespace Hako
 {
 	namespace Gfx
 	{
-		enum class MaterialZTest
+		enum class DepthTestFunction
 		{
 			AlwaysPass,
 			PassIfLess,

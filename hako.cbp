@@ -115,6 +115,7 @@
 		</Compiler>
 		<Unit filename="src/app.cpp" />
 		<Unit filename="src/hako/common/callback.h" />
+		<Unit filename="src/hako/common/debug.cpp" />
 		<Unit filename="src/hako/common/debug.h" />
 		<Unit filename="src/hako/common/ds/flatmap.h" />
 		<Unit filename="src/hako/common/ds/vector.h" />

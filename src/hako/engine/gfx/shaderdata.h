@@ -29,6 +29,7 @@ namespace Hako
 			void init             (Hako::Engine* engine);
 			void add_attribute    (Hako::Gfx::DataFormat format, int position, Hako::String name);
 			void add_uniform      (Hako::Gfx::DataFormat format, int position, Hako::String name);
+			void add_output       (Hako::Gfx::DataFormat format, int position, Hako::String name);
 			void set_program_data (void* data, unsigned int length);
 			void finish           ();
 
@@ -36,6 +37,7 @@ namespace Hako
 		public:
 			Hako::DS::Vector<Buffer> attributes;
 			Hako::DS::Vector<Buffer> uniforms;
+			Hako::DS::Vector<Buffer> outputs;
 
 			void*          data;
 			unsigned int   length;

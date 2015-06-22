@@ -52,12 +52,13 @@ void Hako::App::on_ready(void* userdata, Hako::Engine* engine)
 	vshader.finish();
 
 	pshader.init(engine);
+	pshader.add_output(Hako::Gfx::DataFormat::Float4, 0, Hako::String::make_static("color"));
 	pshader.set_program_data(pshader_data, strlen(pshader_source));
 	pshader.finish();
 
 	material.init(engine);
 	material.set_shaders(&vshader, &pshader);
-	material.set_ztest(Hako::Gfx::MaterialZTest::AlwaysPass);
+	material.set_depthtest(Hako::Gfx::DepthTestFunction::AlwaysPass);
 	material.finish();
 
 	//

@@ -33,10 +33,10 @@ int opengl_compile_shader(void* data, GLuint type, GLuint* id)
 
 void Hako::OpenGL::Material::init(Hako::Engine* engine)
 {
-	this->engine = engine;
+	this->engine        = engine;
 	this->vertex_shader = nullptr;
 	this->pixel_shader  = nullptr;
-	this->ztest         = Hako::Gfx::MaterialZTest::AlwaysPass;
+	this->depthtest     = Hako::Gfx::DepthTestFunction::AlwaysPass;
 
 	for (unsigned int i = 0; i < (unsigned int)Hako::Gfx::DataFormat::Last; i++)
 	{
@@ -57,9 +57,9 @@ void Hako::OpenGL::Material::set_shaders(Hako::Gfx::ShaderData* vertex_shader, H
 
 
 
-void Hako::OpenGL::Material::set_ztest(Hako::Gfx::MaterialZTest ztest)
+void Hako::OpenGL::Material::set_depthtest(Hako::Gfx::DepthTestFunction depthtest)
 {
-	this->ztest = ztest;
+	this->depthtest = depthtest;
 }
 
 

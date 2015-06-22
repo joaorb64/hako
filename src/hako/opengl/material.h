@@ -23,10 +23,10 @@ namespace Hako
 
 
 		public:
-			void init        (Hako::Engine* engine);
-			void set_shaders (Hako::Gfx::ShaderData* vertex_shader, Hako::Gfx::ShaderData* pixel_shader);
-			void set_ztest   (Hako::Gfx::MaterialZTest ztest);
-			void finish      ();
+			void init          (Hako::Engine* engine);
+			void set_shaders   (Hako::Gfx::ShaderData* vertex_shader, Hako::Gfx::ShaderData* pixel_shader);
+			void set_depthtest (Hako::Gfx::DepthTestFunction depthtest);
+			void finish        ();
 
 			int get_uniform_slot(Hako::Gfx::DataFormat format, Hako::String name);
 
@@ -34,17 +34,16 @@ namespace Hako
 		protected:
 			Hako::Engine* engine;
 
-			Hako::Gfx::ShaderData* vertex_shader;
-			Hako::Gfx::ShaderData* pixel_shader;
+			Hako::Gfx::ShaderData*       vertex_shader;
+			Hako::Gfx::ShaderData*       pixel_shader;
+			Hako::Gfx::DepthTestFunction depthtest;
 
 			GLuint gl_vertex_shader;
 			GLuint gl_pixel_shader;
 			GLuint gl_program;
 
-			Hako::Gfx::MaterialZTest ztest;
 
 			Hako::DS::Vector<GLint>                       attribute_slots;
-
 			Hako::DS::Vector<GLint>                       data_slots[(unsigned int)Hako::Gfx::DataFormat::Last];
 			Hako::DS::FlatMap<Hako::String, unsigned int> data_maps[(unsigned int)Hako::Gfx::DataFormat::Last];
 

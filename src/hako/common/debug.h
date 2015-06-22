@@ -2,10 +2,6 @@
 #define HAKO_COMMON_DEBUG_H
 
 
-#include <stdlib.h>
-#include <stdio.h>
-
-
 // Suppresses unused parameter warnings.
 #define HAKO_UNUSED(varname) \
 	(void)varname
@@ -19,9 +15,15 @@
 		stat
 
 
+	namespace Hako
+	{
+		void assert_handler(bool condition, const char* msg, const char* filename, int line);
+	}
+
+
 	// Runtime assert.
 	#define HAKO_ASSERT(cond, msg) \
-		do { if (!(cond)) { printf("ASSERT FAILED: " msg "\nFILE: " __FILE__ "\nLINE: %u\n", __LINE__); abort(); } } while (0)
+		do { Hako::assert_handler(cond, msg, __FILE__, __LINE__); } while (0)
 
 
 	// Runtime error.

@@ -14,6 +14,7 @@ void Hako::Gfx::ShaderData::init(Hako::Engine* engine)
 {
 	this->attributes.init(engine->get_mem_callbacks(), 0);
 	this->uniforms  .init(engine->get_mem_callbacks(), 0);
+	this->outputs   .init(engine->get_mem_callbacks(), 0);
 
 	this->data   = nullptr;
 	this->length = 0;
@@ -39,6 +40,17 @@ void Hako::Gfx::ShaderData::add_uniform(Hako::Gfx::DataFormat format, int positi
 	unif.position = position;
 	unif.name     = name;
 	this->uniforms.add(unif);
+}
+
+
+
+void Hako::Gfx::ShaderData::add_output(Hako::Gfx::DataFormat format, int position, Hako::String name)
+{
+	Hako::Gfx::ShaderData::Buffer outp;
+	outp.format   = format;
+	outp.position = position;
+	outp.name     = name;
+	this->outputs.add(outp);
 }
 
 
