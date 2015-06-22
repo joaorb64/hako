@@ -24,7 +24,7 @@ Hako::OpenGL::VertexBuffer::~VertexBuffer()
 
 void Hako::OpenGL::VertexBuffer::init(
 	Hako::Engine* engine,
-	Hako::Gfx::BufferFormat format,
+	Hako::Gfx::DataFormat format,
 	unsigned int vertex_number)
 {
 	HAKO_UNUSED(engine);
@@ -41,16 +41,20 @@ void Hako::OpenGL::VertexBuffer::init(
 
 
 
-int Hako::OpenGL::get_format_element_num(Hako::Gfx::BufferFormat format)
+int Hako::OpenGL::get_format_element_num(Hako::Gfx::DataFormat format)
 {
 	switch (format)
 	{
-		case Hako::Gfx::BufferFormat::Float:  return 1;
-		case Hako::Gfx::BufferFormat::Float2: return 2;
-		case Hako::Gfx::BufferFormat::Float3: return 3;
-		case Hako::Gfx::BufferFormat::Float4: return 4;
+		case Hako::Gfx::DataFormat::Float:   return 1;
+		case Hako::Gfx::DataFormat::Float2:  return 2;
+		case Hako::Gfx::DataFormat::Float3:  return 3;
+		case Hako::Gfx::DataFormat::Float4:  return 4;
+		case Hako::Gfx::DataFormat::Matrix4: break;
+		case Hako::Gfx::DataFormat::Texture: break;
+		case Hako::Gfx::DataFormat::Last:    break;
 	}
-	return 0;
+	HAKO_ERROR("unimplemented");
+	return -1;
 }
 
 

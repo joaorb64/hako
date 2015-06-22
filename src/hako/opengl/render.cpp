@@ -12,7 +12,7 @@
 #include <math.h>
 
 
-void Hako::OpenGL::render(Hako::Engine* engine)
+void Hako::OpenGL::RenderManager::render(Hako::Engine* engine)
 {
 	HAKO_UNUSED(engine);
 
@@ -22,7 +22,7 @@ void Hako::OpenGL::render(Hako::Engine* engine)
     Hako::OpenGL::Manager* gfx = engine->get_gfx();
     for (unsigned int i = 0; i < gfx->commandlists.get_length(); i++)
     {
-		execute_commandlist(gfx->commandlists.get_element(i));
+		RenderManager::execute_commandlist(gfx->commandlists.get_element(i));
     }
 
 	glFinish();
@@ -49,7 +49,7 @@ void Hako::OpenGL::render(Hako::Engine* engine)
 
 
 
-void Hako::OpenGL::execute_commandlist(Hako::OpenGL::CommandList* commandlist)
+void Hako::OpenGL::RenderManager::execute_commandlist(Hako::OpenGL::CommandList* commandlist)
 {
 	Hako::OpenGL::Material* current_material = nullptr;
 

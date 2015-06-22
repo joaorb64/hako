@@ -38,13 +38,13 @@ void Hako::OpenGL::Material::init(Hako::Engine* engine)
 	this->pixel_shader  = nullptr;
 	this->ztest         = Hako::Gfx::MaterialZTest::AlwaysPass;
 
-	this->attribute_slots       .init(engine->get_mem_callbacks(), 0);
-	this->uniform_float_slots   .init(engine->get_mem_callbacks(), 0);
-	this->uniform_float2_slots  .init(engine->get_mem_callbacks(), 0);
-	this->uniform_float3_slots  .init(engine->get_mem_callbacks(), 0);
-	this->uniform_float4_slots  .init(engine->get_mem_callbacks(), 0);
-	this->uniform_matrix4_slots .init(engine->get_mem_callbacks(), 0);
-	this->uniform_texture_slots .init(engine->get_mem_callbacks(), 0);
+	for (unsigned int i = 0; i < (unsigned int)Hako::Gfx::DataFormat::Last; i++)
+	{
+		this->data_slots[i].init(engine->get_mem_callbacks(), 0);
+		this->data_maps [i].init(engine->get_mem_callbacks(), 0);
+	}
+
+	this->attribute_slots.init(engine->get_mem_callbacks(), 0);
 }
 
 
@@ -85,58 +85,35 @@ void Hako::OpenGL::Material::finish()
 	//
 	// Prepare uniform slots.
 	//
-	unsigned int float_slots = 0;
-	unsigned int float2_slots = 0;
-	unsigned int float3_slots = 0;
-	unsigned int float4_slots = 0;
-	unsigned int matrix4_slots = 0;
-	unsigned int texture_slots = 0;
+	unsigned int data_slot_num[(unsigned int)Hako::Gfx::DataFormat::Last] = { 0 };
 
 	for (unsigned int i = 0; i < this->vertex_shader->uniforms.get_length(); i++)
-	{
-		switch (this->vertex_shader->uniforms.get_element(i).type)
-		{
-			case Hako::Gfx::ShaderData::Uniform::Type::Float:   float_slots++;   break;
-			case Hako::Gfx::ShaderData::Uniform::Type::Float2:  float2_slots++;  break;
-			case Hako::Gfx::ShaderData::Uniform::Type::Float3:  float3_slots++;  break;
-			case Hako::Gfx::ShaderData::Uniform::Type::Float4:  float4_slots++;  break;
-			case Hako::Gfx::ShaderData::Uniform::Type::Matrix4: matrix4_slots++; break;
-			case Hako::Gfx::ShaderData::Uniform::Type::Texture: texture_slots++; break;
-		}
-	}
+		data_slot_num[(unsigned int)this->vertex_shader->uniforms[i].format]++;
 
 	for (unsigned int i = 0; i < this->pixel_shader->uniforms.get_length(); i++)
-	{
-		switch (this->pixel_shader->uniforms.get_element(i).type)
-		{
-			case Hako::Gfx::ShaderData::Uniform::Type::Float:   float_slots++;   break;
-			case Hako::Gfx::ShaderData::Uniform::Type::Float2:  float2_slots++;  break;
-			case Hako::Gfx::ShaderData::Uniform::Type::Float3:  float3_slots++;  break;
-			case Hako::Gfx::ShaderData::Uniform::Type::Float4:  float4_slots++;  break;
-			case Hako::Gfx::ShaderData::Uniform::Type::Matrix4: matrix4_slots++; break;
-			case Hako::Gfx::ShaderData::Uniform::Type::Texture: texture_slots++; break;
-		}
-	}
+		data_slot_num[(unsigned int)this->pixel_shader->uniforms[i].format]++;
 
-	this->uniform_float_slots   .ensure_capacity(float_slots);
-	this->uniform_float2_slots  .ensure_capacity(float2_slots);
-	this->uniform_float3_slots  .ensure_capacity(float3_slots);
-	this->uniform_float4_slots  .ensure_capacity(float4_slots);
-	this->uniform_matrix4_slots .ensure_capacity(matrix4_slots);
-	this->uniform_texture_slots .ensure_capacity(texture_slots);
+	for (unsigned int i = 0; i < (unsigned int)Hako::Gfx::DataFormat::Last; i++)
+	{
+		this->data_slots[i].ensure_capacity(data_slot_num[i]);
+		this->data_maps [i].ensure_capacity(data_slot_num[i]);
+	}
 
 	for (unsigned int i = 0; i < this->vertex_shader->uniforms.get_length(); i++)
-		this->add_slot(&this->vertex_shader->uniforms.get_element(i));
+		this->add_slot(&this->vertex_shader->uniforms[i]);
 
 	for (unsigned int i = 0; i < this->pixel_shader->uniforms.get_length(); i++)
-		this->add_slot(&this->pixel_shader->uniforms.get_element(i));
+		this->add_slot(&this->pixel_shader->uniforms[i]);
 
+	//
+	// Prepare attribute slots.
+	//
 	this->attribute_slots.set_length(this->vertex_shader->attributes.get_length());
 	for (unsigned int i = 0; i < this->vertex_shader->attributes.get_length(); i++)
 	{
-		GLint attrb_loc = glGetAttribLocation(this->gl_program, this->vertex_shader->attributes.get_element(i).name->get_c_str());
+		GLint attrb_loc = glGetAttribLocation(this->gl_program, this->vertex_shader->attributes[i].name.get_c_str());
 		HAKO_ASSERT(attrb_loc >= 0, "unable to get OpenGL shader attribute location");
-		this->attribute_slots.get_element(i) = attrb_loc;
+		this->attribute_slots[i] = attrb_loc;
 	}
 
 	HAKO_OPENGL_CHECKERROR();
@@ -144,95 +121,21 @@ void Hako::OpenGL::Material::finish()
 
 
 
-void Hako::OpenGL::Material::add_slot(Hako::Gfx::ShaderData::Uniform* uniform)
+void Hako::OpenGL::Material::add_slot(Hako::Gfx::ShaderData::Buffer* uniform)
 {
-	switch (uniform->type)
-	{
-		case Hako::Gfx::ShaderData::Uniform::Type::Float:
-		{
-			this->uniform_float_slots.add(glGetUniformLocation(this->gl_program, uniform->name->get_c_str()));
-			break;
-		}
-		case Hako::Gfx::ShaderData::Uniform::Type::Float2:
-		{
-			this->uniform_float2_slots.add(glGetUniformLocation(this->gl_program, uniform->name->get_c_str()));
-			break;
-		}
-		case Hako::Gfx::ShaderData::Uniform::Type::Float3:
-		{
-			this->uniform_float3_slots.add(glGetUniformLocation(this->gl_program, uniform->name->get_c_str()));
-			break;
-		}
-		case Hako::Gfx::ShaderData::Uniform::Type::Float4:
-		{
-			this->uniform_float4_slots.add(glGetUniformLocation(this->gl_program, uniform->name->get_c_str()));
-			break;
-		}
-		case Hako::Gfx::ShaderData::Uniform::Type::Matrix4:
-		{
-			this->uniform_matrix4_slots.add(glGetUniformLocation(this->gl_program, uniform->name->get_c_str()));
-			break;
-		}
-		case Hako::Gfx::ShaderData::Uniform::Type::Texture:
-		{
-			this->uniform_texture_slots.add(glGetUniformLocation(this->gl_program, uniform->name->get_c_str()));
-			break;
-		}
-	}
+	GLint unif_loc = glGetUniformLocation(this->gl_program, uniform->name.get_c_str());
+	HAKO_ASSERT(unif_loc >= 0, "unable to get OpenGL shader uniform location");
+
+	unsigned int index = this->data_slots[(unsigned int)uniform->format].add(unif_loc);
+
+	this->data_maps[(unsigned int)uniform->format].add(uniform->name, index);
 }
 
 
 
-int Hako::OpenGL::Material::get_float_slot(Hako::String* name)
+int Hako::OpenGL::Material::get_uniform_slot(Hako::Gfx::DataFormat format, Hako::String name)
 {
-	// To be written.
-	HAKO_UNUSED(name);
-	return 0;
-}
-
-
-
-int Hako::OpenGL::Material::get_float2_slot(Hako::String* name)
-{
-	// To be written.
-	HAKO_UNUSED(name);
-	return 0;
-}
-
-
-
-int Hako::OpenGL::Material::get_float3_slot(Hako::String* name)
-{
-	// To be written.
-	HAKO_UNUSED(name);
-	return 0;
-}
-
-
-
-int Hako::OpenGL::Material::get_float4_slot(Hako::String* name)
-{
-	// To be written.
-	HAKO_UNUSED(name);
-	return 0;
-}
-
-
-
-int Hako::OpenGL::Material::get_matrix4_slot(Hako::String* name)
-{
-	// To be written.
-	HAKO_UNUSED(name);
-	return 0;
-}
-
-
-
-int Hako::OpenGL::Material::get_texture_slot(Hako::String* name)
-{
-	// To be written.
-	HAKO_UNUSED(name);
-	return 0;
+	return this->data_maps[(unsigned int)format].access(name);
 }
 
 

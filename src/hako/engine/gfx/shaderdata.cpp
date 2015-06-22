@@ -21,9 +21,9 @@ void Hako::Gfx::ShaderData::init(Hako::Engine* engine)
 
 
 
-void Hako::Gfx::ShaderData::add_attribute(Attribute::Format format, int position, Hako::String* name)
+void Hako::Gfx::ShaderData::add_attribute(Hako::Gfx::DataFormat format, int position, Hako::String name)
 {
-	Attribute attrib;
+	Hako::Gfx::ShaderData::Buffer attrib;
 	attrib.format   = format;
 	attrib.position = position;
 	attrib.name     = name;
@@ -32,10 +32,10 @@ void Hako::Gfx::ShaderData::add_attribute(Attribute::Format format, int position
 
 
 
-void Hako::Gfx::ShaderData::add_uniform(Uniform::Type type, int position, Hako::String* name)
+void Hako::Gfx::ShaderData::add_uniform(Hako::Gfx::DataFormat format, int position, Hako::String name)
 {
-	Uniform unif;
-	unif.type     = type;
+	Hako::Gfx::ShaderData::Buffer unif;
+	unif.format   = format;
 	unif.position = position;
 	unif.name     = name;
 	this->uniforms.add(unif);

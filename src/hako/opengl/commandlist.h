@@ -14,18 +14,15 @@ namespace Hako
 
 	namespace OpenGL
 	{
-		class CommandList;
 		class Material;
 		class VertexBuffer;
 		class IndexBuffer;
 
 
-		void execute_commandlist(Hako::OpenGL::CommandList* cl);
-
 
 		class CommandList
 		{
-			friend void Hako::OpenGL::execute_commandlist(Hako::OpenGL::CommandList* cl);
+			friend class RenderManager;
 
 
 		public:

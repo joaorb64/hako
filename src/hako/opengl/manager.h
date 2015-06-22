@@ -16,13 +16,9 @@ namespace Hako
 
 	namespace OpenGL
 	{
-		void render(Hako::Engine* engine);
-		void execute_commandlist(Hako::OpenGL::CommandList* cl);
-
-
 		class Manager
 		{
-			friend void Hako::OpenGL::render(Hako::Engine* engine);
+			friend class RenderManager;
 
 
 		public:

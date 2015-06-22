@@ -161,7 +161,7 @@ void Hako::Win32::WindowOpenGL::opengl_disable(HWND hwnd, HDC hdc, HGLRC hrc)
 
 void Hako::Win32::WindowOpenGL::render(Hako::Engine* engine)
 {
-    Hako::OpenGL::render(engine);
+    Hako::OpenGL::RenderManager::render(engine);
     SwapBuffers(this->hdc);
 }
 

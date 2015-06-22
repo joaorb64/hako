@@ -16,12 +16,15 @@ namespace Hako
 		};
 
 
-		enum class BufferFormat
+		enum class DataFormat : unsigned int
 		{
 			Float,
 			Float2,
 			Float3,
-			Float4
+			Float4,
+			Matrix4,
+			Texture,
+			Last
 		};
 	}
 }

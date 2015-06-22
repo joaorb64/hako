@@ -23,7 +23,7 @@ namespace Hako
 
 
 			// Initializes the vector storage.
-			void init(Hako::MemCallbacks mem_callbacks, unsigned int capacity)
+			void init(Hako::MemCallbacks mem_callbacks, const unsigned int capacity)
 			{
 				this->mem_callbacks    = mem_callbacks;
 				this->data             = nullptr;
@@ -51,11 +51,17 @@ namespace Hako
 
 
 			// Retrieves a reference to an element at the given position.
-			T& get_element(unsigned int index)
+			T& get_element(const unsigned int index)
 			{
 				HAKO_ASSERT(this->initialized, "init() must be called before");
 				HAKO_ASSERT(index < this->element_num, "index out of range");
 				return this->data[index];
+			}
+
+
+			T& operator [] (const unsigned int index)
+			{
+				return get_element(index);
 			}
 
 
@@ -73,7 +79,7 @@ namespace Hako
 
 			// Ensures that the vector's capacity is larger than or equal to
 			// the given value, growing the storage space if necessary.
-			void ensure_capacity(unsigned int capacity)
+			void ensure_capacity(const unsigned int capacity)
 			{
 				HAKO_ASSERT(this->initialized, "init() must be called before");
 				if (capacity > this->element_capacity)
@@ -90,7 +96,7 @@ namespace Hako
 
 			// Sets the number of elements to the given value, growing the
 			// storage space if necessary.
-			void set_length(unsigned int length)
+			void set_length(const unsigned int length)
 			{
 				HAKO_ASSERT(this->initialized, "init() must be called before");
 				ensure_capacity(length);

@@ -116,6 +116,7 @@
 		<Unit filename="src/app.cpp" />
 		<Unit filename="src/hako/common/callback.h" />
 		<Unit filename="src/hako/common/debug.h" />
+		<Unit filename="src/hako/common/ds/flatmap.h" />
 		<Unit filename="src/hako/common/ds/vector.h" />
 		<Unit filename="src/hako/common/math_vec.h" />
 		<Unit filename="src/hako/common/mem.h" />

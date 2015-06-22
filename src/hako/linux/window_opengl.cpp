@@ -86,7 +86,7 @@ void Hako::Linux::WindowOpenGL::process_events()
 	}
 
 	//Render frame
-	Hako::OpenGL::render(this->engine);
+	Hako::OpenGL::RenderManager::render(this->engine);
 	glXSwapBuffers(this->display, this->window);
 }
 

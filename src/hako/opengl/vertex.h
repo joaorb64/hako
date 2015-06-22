@@ -21,14 +21,12 @@ namespace Hako
 		class CommandList;
 
 
-		int get_format_element_num(Hako::Gfx::BufferFormat format);
-		void render(Hako::Engine* engine);
-		void execute_commandlist(Hako::OpenGL::CommandList* cl);
+		int get_format_element_num(Hako::Gfx::DataFormat format);
 
 
 		class VertexBuffer
 		{
-			friend void Hako::OpenGL::execute_commandlist(Hako::OpenGL::CommandList* cl);
+			friend class RenderManager;
 
 
 		public:
@@ -37,7 +35,7 @@ namespace Hako
 
 			void init(
 				Hako::Engine* engine,
-				Hako::Gfx::BufferFormat format,
+				Hako::Gfx::DataFormat format,
 				unsigned int vertex_number);
 
 			void set_data (unsigned int start_vertex, unsigned int length, float* data);
@@ -48,8 +46,8 @@ namespace Hako
 			HAKO_ONLYINDEBUG(bool init_called;)
 			HAKO_ONLYINDEBUG(bool finish_called;)
 
-			Hako::Gfx::BufferFormat  buffer_format;
-			unsigned int             vertex_number;
+			Hako::Gfx::DataFormat  buffer_format;
+			unsigned int           vertex_number;
 
 			GLuint gl_buffer;
 		};
@@ -58,7 +56,7 @@ namespace Hako
 
 		class IndexBuffer
 		{
-			friend void Hako::OpenGL::execute_commandlist(Hako::OpenGL::CommandList* cl);
+			friend class RenderManager;
 
 
 		public:

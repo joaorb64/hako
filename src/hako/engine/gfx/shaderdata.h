@@ -3,12 +3,13 @@
 
 
 #include <hako/common/ds/vector.h>
+#include <hako/common/string.h>
+#include "enums.h"
 
 
 namespace Hako
 {
 	class Engine;
-	class String;
 
 
 	namespace Gfx
@@ -16,50 +17,25 @@ namespace Hako
 		class ShaderData
 		{
 		public:
-			struct Attribute
+			struct Buffer
 			{
-				enum class Format
-				{
-					Float,
-					Float2,
-					Float3,
-					Float4
-				};
-
-				Format        format;
+				DataFormat    format;
 				int           position;
-				Hako::String* name;
-			};
-
-			struct Uniform
-			{
-				enum class Type
-				{
-					Float,
-					Float2,
-					Float3,
-					Float4,
-					Matrix4,
-					Texture
-				};
-
-				Type          type;
-				int           position;
-				Hako::String* name;
+				Hako::String  name;
 			};
 
 
 			~ShaderData();
 			void init             (Hako::Engine* engine);
-			void add_attribute    (Attribute::Format format, int position, Hako::String* name);
-			void add_uniform      (Uniform::Type type, int position, Hako::String* name);
+			void add_attribute    (Hako::Gfx::DataFormat format, int position, Hako::String name);
+			void add_uniform      (Hako::Gfx::DataFormat format, int position, Hako::String name);
 			void set_program_data (void* data, unsigned int length);
 			void finish           ();
 
 
 		public:
-			Hako::DS::Vector<Attribute> attributes;
-			Hako::DS::Vector<Uniform>   uniforms;
+			Hako::DS::Vector<Buffer> attributes;
+			Hako::DS::Vector<Buffer> uniforms;
 
 			void*          data;
 			unsigned int   length;

@@ -5,6 +5,8 @@
 #define HAKO_OPENGL_MATERIAL_H
 
 
+#include <hako/common/ds/vector.h>
+#include <hako/common/ds/flatmap.h>
 #include <hako/engine/abstract_bindings.h>
 #include <hako/engine/gfx/shaderdata.h>
 #include <hako/engine/gfx/enums.h>
@@ -15,12 +17,9 @@ namespace Hako
 {
 	namespace OpenGL
 	{
-		void execute_commandlist(Hako::OpenGL::CommandList* cl);
-
-
 		class Material
 		{
-			friend void Hako::OpenGL::execute_commandlist(Hako::OpenGL::CommandList* cl);
+			friend class RenderManager;
 
 
 		public:
@@ -29,12 +28,7 @@ namespace Hako
 			void set_ztest   (Hako::Gfx::MaterialZTest ztest);
 			void finish      ();
 
-			int  get_float_slot   (Hako::String* name);
-			int  get_float2_slot  (Hako::String* name);
-			int  get_float3_slot  (Hako::String* name);
-			int  get_float4_slot  (Hako::String* name);
-			int  get_texture_slot (Hako::String* name);
-			int  get_matrix4_slot (Hako::String* name);
+			int get_uniform_slot(Hako::Gfx::DataFormat format, Hako::String name);
 
 
 		protected:
@@ -49,15 +43,12 @@ namespace Hako
 
 			Hako::Gfx::MaterialZTest ztest;
 
-			Hako::DS::Vector<GLint> attribute_slots;
-			Hako::DS::Vector<GLint> uniform_float_slots;
-			Hako::DS::Vector<GLint> uniform_float2_slots;
-			Hako::DS::Vector<GLint> uniform_float3_slots;
-			Hako::DS::Vector<GLint> uniform_float4_slots;
-			Hako::DS::Vector<GLint> uniform_matrix4_slots;
-			Hako::DS::Vector<GLint> uniform_texture_slots;
+			Hako::DS::Vector<GLint>                       attribute_slots;
 
-			void add_slot(Hako::Gfx::ShaderData::Uniform* uniform);
+			Hako::DS::Vector<GLint>                       data_slots[(unsigned int)Hako::Gfx::DataFormat::Last];
+			Hako::DS::FlatMap<Hako::String, unsigned int> data_maps[(unsigned int)Hako::Gfx::DataFormat::Last];
+
+			void add_slot(Hako::Gfx::ShaderData::Buffer* uniform);
 		};
 	}
 }

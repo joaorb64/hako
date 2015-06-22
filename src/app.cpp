@@ -20,7 +20,6 @@ void Hako::App::on_startup(void** userdata, Hako::Engine* engine)
 
 
 
-Hako::String vshader_attrib_name;
 Hako::Gfx::ShaderData vshader;
 Hako::Gfx::ShaderData pshader;
 Hako::Gfx::Material material;
@@ -47,9 +46,8 @@ void Hako::App::on_ready(void* userdata, Hako::Engine* engine)
 	void* vshader_data = (void*)const_cast<char*>(vshader_source);
 	void* pshader_data = (void*)const_cast<char*>(pshader_source);
 
-	vshader_attrib_name.init_static("position");
 	vshader.init(engine);
-	vshader.add_attribute(Hako::Gfx::ShaderData::Attribute::Format::Float3, 0, &vshader_attrib_name);
+	vshader.add_attribute(Hako::Gfx::DataFormat::Float3, 0, Hako::String::make_static("position"));
 	vshader.set_program_data(vshader_data, strlen(vshader_source));
 	vshader.finish();
 
@@ -70,7 +68,7 @@ void Hako::App::on_ready(void* userdata, Hako::Engine* engine)
 	unsigned int mesh_indices_data[] =
 		{ 0, 1, 2 };
 
-	mesh_positions.init(engine, Hako::Gfx::BufferFormat::Float3, 3);
+	mesh_positions.init(engine, Hako::Gfx::DataFormat::Float3, 3);
 	mesh_positions.set_data(0, 3, mesh_positions_data);
 	mesh_positions.finish();
 

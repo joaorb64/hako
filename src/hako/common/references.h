@@ -8,110 +8,78 @@
 
 namespace Hako
 {
-	namespace Reference
+	/*template <typename T>
+	class RcPtr
 	{
-		template <typename T>
-		class Unique
+	public:
+		~RcPtr()
 		{
-		public:
-			~Unique()
+			if (this->previous != nullptr)
+				this->previous->next = this->next;
+
+			if (this->next != nullptr)
+				this->next->previous = this->previous;
+
+			if (this->previous == nullptr && this->next == nullptr)
 			{
-				HAKO_ASSERT(!this->borrowed, "attempting to destroy a unique reference while borrowed");
-				this->free_callback.call(this->data);
-				this->data     = nullptr;
-				this->borrowed = false;
+				this->data->~T();
+				this->engine->get_mem_callbacks().free_callback(this->data);
+				this->data   = nullptr;
+				this->engine = nullptr;
 			}
+		}
 
 
-
-			void init(T* data, Hako::MemFreeCallback free_callback)
-			{
-				HAKO_ASSERT(data != nullptr, "attempting to create a unique reference to null");
-				this->data          = data;
-				this->borrowed      = false;
-				this->free_callback = free_callback;
-			}
-
-
-
-			T* operator ->()
-			{
-				HAKO_ASSERT(this->data != nullptr, "attempting to access a unique reference to null");
-				return this->data;
-			}
-
-		protected:
-			T*                    data;
-			bool                  borrowed;
-			Hako::MemFreeCallback free_callback;
-		};
-
-
-
-		template <typename T>
-		class Borrowed
+		RcPtr()
 		{
-		public:
-			~Borrowed()
-			{
-				if (this->unique_source != nullptr)
-				{
-					this->unique_source->borrowed = false;
-					this->unique_source           = nullptr;
-				}
-			}
+			this->engine    = nullptr;
+			this->previous  = nullptr;
+			this->next      = nullptr;
+			this->data      = nullptr;
+		}
 
 
-
-			void borrow(Unique<T>* unique_ref)
-			{
-				HAKO_ASSERT(this->unique_ref != nullptr, "unique reference cannot be null");
-				HAKO_ASSERT(!this->unique_ref->borrow, "attempting to double-borrow from a unique reference");
-				this->unique_source           = unique_ref;
-				this->unique_source->borrowed = true;
-				this->data                    = unique_ref->get();
-			}
-
-
-
-			void init_from_raw(T* data)
-			{
-				HAKO_ASSERT(this->unique_ref != nullptr, "borrowed pointer cannot be null");
-				this->data          = data;
-				this->unique_source = nullptr;
-			}
-
-
-
-			T* operator ->()
-			{
-				return this->data;
-			}
-
-		protected:
-			T*         data;
-			Unique<T>* unique_source;
-
-
-			Borrowed(Borrowed& b) = delete;
-		};
-
-
-		template <typename T>
-		class Shared
+		static RcPtr<T> make_from_ptr(Hako::Engine* engine, T* ptr)
 		{
-		protected:
-			T data;
-		};
+			RcPtr<T> result;
+			result.engine    = engine;
+			result.data      = ptr;
+			return result;
+		}
 
 
-		template <typename T>
-		class Weak
+		static RcPtr<T> make_new(Hako::Engine* engine)
 		{
-		protected:
-			T data;
-		};
-	}
+			RcPtr<T> result;
+			result.engine    = engine;
+			result.data      = new ((T*)engine->get_mem_callbacks().alloc_callback(sizeof(T), 32)) T();
+			return result;
+		}
+
+
+		RcPtr<T>& operator = (const RcPtr<T>& other)
+		{
+			if (this != &other)
+			{
+				this->~RcPtr();
+                this->data   = other.data;
+                this->engine = other.engine;
+
+                this->previous = &other;
+                this->next     = other.next;
+                if (other.next != null)
+					other.next = other.next->previous = this;
+				other.next     = this;
+			}
+			return *this;
+		}
+
+
+	protected:
+		Hako::Engine* engine;
+		RcPtr<T>      previous, next;
+		T*            data;
+	};*/
 }
 
 
