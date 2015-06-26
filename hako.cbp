@@ -21,6 +21,7 @@
 					<Add option="-g" />
 					<Add option="-fno-rtti" />
 					<Add option="-fno-exceptions" />
+					<Add option="-fstrict-aliasing" />
 					<Add option="-DHAKO_PLATFORM_WIN32" />
 					<Add option="-DHAKO_MODULE_OPENGL" />
 					<Add option="-DHAKO_BUILD_DEBUG" />
@@ -48,6 +49,7 @@
 					<Add option="-Wall" />
 					<Add option="-fno-rtti" />
 					<Add option="-fno-exceptions" />
+					<Add option="-fstrict-aliasing" />
 					<Add option="-DHAKO_PLATFORM_WIN32" />
 					<Add option="-DHAKO_MODULE_OPENGL" />
 				</Compiler>
@@ -74,6 +76,7 @@
 					<Add option="-g" />
 					<Add option="-fno-rtti" />
 					<Add option="-fno-exceptions" />
+					<Add option="-fstrict-aliasing" />
 					<Add option="-DHAKO_PLATFORM_LINUX" />
 					<Add option="-DHAKO_MODULE_OPENGL" />
 					<Add option="-DHAKO_BUILD_DEBUG" />
@@ -99,6 +102,7 @@
 					<Add option="-Wall" />
 					<Add option="-fno-rtti" />
 					<Add option="-fno-exceptions" />
+					<Add option="-fstrict-aliasing" />
 					<Add option="-DHAKO_PLATFORM_LINUX" />
 					<Add option="-DHAKO_MODULE_OPENGL" />
 					<Add option="-DHAKO_BUILD_GFXOPENGL" />
@@ -117,7 +121,9 @@
 		<Unit filename="src/hako/common/callback.h" />
 		<Unit filename="src/hako/common/debug.cpp" />
 		<Unit filename="src/hako/common/debug.h" />
+		<Unit filename="src/hako/common/ds/depchain.h" />
 		<Unit filename="src/hako/common/ds/flatmap.h" />
+		<Unit filename="src/hako/common/ds/refvector.h" />
 		<Unit filename="src/hako/common/ds/vector.h" />
 		<Unit filename="src/hako/common/math_vec.h" />
 		<Unit filename="src/hako/common/mem.h" />
