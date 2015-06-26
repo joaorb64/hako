@@ -25,6 +25,7 @@ namespace Hako
 			// Initializes the vector storage.
 			void init(Hako::MemCallbacks mem_callbacks, const unsigned int capacity)
 			{
+				HAKO_ASSERT(!this->initialized, "init() was already called");
 				this->mem_callbacks    = mem_callbacks;
 				this->data             = nullptr;
 				this->element_capacity = 0;

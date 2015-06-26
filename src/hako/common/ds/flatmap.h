@@ -33,6 +33,7 @@ namespace Hako
 			// Initializes the flatmap storage.
 			void init(Hako::MemCallbacks mem_callbacks, const unsigned int capacity)
 			{
+				HAKO_ASSERT(!this->initialized, "init() was already called");
 				this->internal_storage.init(mem_callbacks, capacity);
 				HAKO_ONLYINDEBUG( this->initialized = true; )
 			}

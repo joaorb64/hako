@@ -4,6 +4,7 @@
 #include <hako/engine/engine.h>
 #include <hako/engine/bindings.h>
 #include <stdio.h>
+#include <hako/common/ds/refvector.h>
 
 
 void test_fixed_task(void* unused, Hako::Engine* engine);
@@ -16,6 +17,16 @@ void Hako::App::on_startup(void** userdata, Hako::Engine* engine)
 	HAKO_UNUSED(engine);
 
 	printf("Hako::App::on_startup\n");
+
+	Hako::DS::RefVector<int> my_numbers;
+	my_numbers.init(engine->get_mem_callbacks(), 0);
+	Hako::DS::RefVector<int>::Reference ref_1 = my_numbers.add(33);
+	Hako::DS::RefVector<int>::Reference ref_2 = my_numbers.add(66);
+	Hako::DS::RefVector<int>::Reference ref_3 = my_numbers.add(88);
+
+	my_numbers.get_element(&ref_2) = 55;
+	my_numbers.get_element(&ref_1) = 44;
+	my_numbers.get_element(&ref_3) = 33;
 }
 
 
